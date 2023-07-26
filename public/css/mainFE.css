@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&display=swap');
+body{
+    font-family: 'Quicksand', sans-serif !important;
+    width: 100vw;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    P{
+        font-size: calc(35% + 1vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.md{
+        font-size: calc(35% + 1.2vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.lg{
+        font-size: calc(35% + 1.4vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.xl{
+        font-size: calc(35% + 1.6vmin)!important;
+        margin-bottom: 0!important;
+    }
+    i.icon{
+        font-size: calc(50% + .8vmin)!important;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    P{
+        font-size: calc(40% + 1vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.md{
+        font-size: calc(40% + 1.2vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.lg{
+        font-size: calc(40% + 1.4vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.xl{
+        font-size: calc(40% + 1.6vmin)!important;
+        margin-bottom: 0!important;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    P{
+        font-size: calc(50% + 1vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.md{
+        font-size: calc(50% + 1.2vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.lg{
+        font-size: calc(50% + 1.4vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.xl{
+        font-size: calc(50% + 1.6vmin)!important;
+        margin-bottom: 0!important;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    P{
+        font-size: calc(55% + 1vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.md{
+        font-size: calc(55% + 1.2vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.lg{
+        font-size: calc(55% + 1.4vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.xl{
+        font-size: calc(55% + 1.6vmin)!important;
+        margin-bottom: 0!important;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {
+    P{
+        font-size: calc(75% + 1vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.md{
+        font-size: calc(75% + 1.2vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.lg{
+        font-size: calc(75% + 1.4vmin)!important;
+        margin-bottom: 0!important;
+    }
+    P.xl{
+        font-size: calc(75% + 1.6vmin)!important;
+        margin-bottom: 0!important;
+    }
+} */
+.bg-blue{
+    background-color: #0028FF;
+}   
+.bg-blue{
+    background-color: #3C3C3C;
+}
+.text-blue{
+    color: #062D92;
+}
