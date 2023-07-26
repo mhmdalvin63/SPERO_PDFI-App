@@ -1,0 +1,25 @@
+.header img{
+    width: 100vw;
+    height: 15rem;
+    object-fit: cover;
+    filter: brightness(50%);
+}
+.header h1{
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.luContent{
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    border-radius: 10px;
+}
+.lcImage{
+    width: 100%;
+}
+.lcImage img{
+    width: 100%;
+    object-fit: contain;
+}
