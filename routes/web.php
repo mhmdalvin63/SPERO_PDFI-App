@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('pages.beranda');});
 Route::get('update', function () {return view('pages.update');});
+Route::get('detailupdate', function () {return view('pages.detailUpdate');});
 Route::get('agenda', function () {return view('pages.agenda');});
 Route::get('detailagenda', function () {return view('pages.detailAgenda');});
 Route::get('organisasi', function () {return view('pages.organisasi');});

@@ -1,0 +1,45 @@
+.header{
+    position: relative;
+    width: 100vw;
+}
+.headerImage{
+    filter: brightness(80%);
+    position: relative;
+    width: 100vw;
+    height: 30rem;
+    object-fit: cover;
+}
+.interactiveIcon a{
+    text-decoration: none;
+    color: #666262;
+}
+
+
+#artikelTerkait{
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+.hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+.atContent p:nth-child(1){
+    font-size: 12.5px !important;
+}
+.atContent a{
+    text-decoration: none;
+    color: #062D92;
+    font-weight: bold;
+}
+
+.hastag a{
+    text-decoration: none;
+}
+@media only screen and (max-width: 600px) {
+    .textFlex p:nth-child(1){
+        width: 30%;
+    }
+}
