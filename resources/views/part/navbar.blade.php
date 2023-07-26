@@ -21,7 +21,7 @@
             <a class="nav-link active" aria-current="page" href="/agenda">Agenda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Organisasi</a>
+            <a class="nav-link active" aria-current="page" href="/organisasi">Organisasi</a>
           </li>
           <li class="nav-item button d-flex align-items-center gap-2">
             <hr class="d-lg-block d-none">
