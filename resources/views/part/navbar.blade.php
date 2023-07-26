@@ -18,7 +18,7 @@
             <a class="nav-link active" aria-current="page" href="/update">Update</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Agenda</a>
+            <a class="nav-link active" aria-current="page" href="/agenda">Agenda</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Organisasi</a>

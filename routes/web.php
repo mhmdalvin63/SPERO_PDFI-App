@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('pages.beranda');});
 Route::get('update', function () {return view('pages.update');});
+Route::get('agenda', function () {return view('pages.agenda');});
