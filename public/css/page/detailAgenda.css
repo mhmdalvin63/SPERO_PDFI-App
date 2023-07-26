@@ -1,0 +1,49 @@
+.header{
+    position: relative;
+    width: 100vw;
+}
+.headerImage{
+    filter: brightness(80%);
+    position: relative;
+    width: 100vw;
+    height: 30rem;
+    object-fit: cover;
+}
+.textFlex p:nth-child(1){
+    width: 20%;
+}
+@media only screen and (max-width: 600px) {
+    .textFlex p:nth-child(1){
+        width: 30%;
+    }
+}
+.btn-pesan{
+    background-color: #062D92;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+.luContent{
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    border-radius: 10px;
+}
+.lcImage{
+    width: 100%;
+}
+.lcImage img{
+    width: 100%;
+    object-fit: contain;
+}
+
+
+
+ /* Resize Background*/
+ @media only screen and (max-width: 800px) {
+    .headerImage{
+            width: 100vw;
+            height: 15rem;
+            background-size: 100% auto !important;
+    }
+}
