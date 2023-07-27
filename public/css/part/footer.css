@@ -1,0 +1,37 @@
+footer{
+    background-color: #062D92;
+    color: white;
+}
+.footerLogo img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+.hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+
+@media only screen and (max-width: 425px) {
+    .bottomFooter p{
+        font-size: calc(25% + 1vmin) !important;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .footerLogo{
+        text-align: center;
+    }
+    .footerLogo img{
+        width: 25%;
+        height: auto;
+        object-fit: contain;
+    }
+    .footerTitle p{
+        text-align: center;
+    }
+}
