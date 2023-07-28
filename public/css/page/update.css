@@ -23,3 +23,9 @@
     width: 100%;
     object-fit: contain;
 }
+
+@media only screen and (max-width: 600px) {
+    .header img{
+        height: 10rem;
+    }
+}

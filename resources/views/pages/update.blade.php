@@ -4,7 +4,7 @@
 @section('content')
 <link rel="stylesheet" href=" {{ asset('../css/page/update.css')}}">
 
-<div class="updatePage" style="transform: translateY(5rem)">
+<div class="updatePage" style="transform: translateY(5.75rem)">
     <div class="header position-relative">
         <img class="position-relative" src="{{asset('../image/updateBanner.png')}}" alt="">
         <h1>Update</h1>
