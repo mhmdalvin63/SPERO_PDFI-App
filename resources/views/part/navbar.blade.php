@@ -12,16 +12,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto gap-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Beranda</a>
+            <a class="nav-link fw-bold active" aria-current="page" href="/">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/update">Update</a>
+            <a class="nav-link fw-bold active" aria-current="page" href="/update">Update</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/agenda">Agenda</a>
+            <a class="nav-link fw-bold active" aria-current="page" href="/agenda">Agenda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/organisasi">Organisasi</a>
+            <a class="nav-link fw-bold active" aria-current="page" href="/organisasi">Organisasi</a>
           </li>
           <li class="nav-item button d-flex align-items-center gap-2">
             <hr class="d-lg-block d-none">
