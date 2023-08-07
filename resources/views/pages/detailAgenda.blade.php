@@ -7,41 +7,37 @@
 
 <div class="berandaPage" style="transform: translateY(5.75rem)">
     <div class="header">
-        <img class="headerImage" src="{{asset('../image/daAgenda.png')}}" alt="">
+        <img class="headerImage" src="{{asset('img/'.$detailagenda->foto)}}" alt="">
     </div>
 
     <div class="container my-5">
         <div class="daTitle my-5">
-            <h3 class="fw-bold">CPD 313 - Tata Laksana Keracunan Ethylene Glycol</h3>
+            <h3 class="fw-bold">{{$detailagenda->judul_agenda}}</h3>
             <div class="penyelenggara d-flex gap-3 align-items-center mt-2">
                 <i class="fa-regular fa-user"></i>
-                <p class="fw-semibold">Penyelenggara</p>
+                <p class="fw-semibold">{{$detailagenda->anggota->nama_anggota}}</p>
             </div>
         </div>
         <div class="daDesc my-3">
-            <p class="md fw-semibold">Lorem ipsum dolor sit amet consectetur. Odio tincidunt justo a id vitae. At aliquet posuere vitae volutpat iaculis. Ac et sagittis et pellentesque egestas sodales elementum pharetra facilisis. Lorem posuere a cras tortor aenean eu pulvinar posuere consequat. In eget dignissim morbi id volutpat sapien. Nam ante sit purus sed. 
-
-                Tristique lobortis aliquet mattis faucibus. Scelerisque consectetur non leo feugiat ultricies egestas id praesent.
-                Placerat sed aliquet orci platea etiam nulla. Accumsan consectetur mauris nec et odio lectus nulla. Sagittis in ipsum faucibus ut ante in a cum porta. Donec cras odio sed ut. Aliquam accumsan auctor ut vulputate eget sem leo. Morbi fringilla ultrices urna odio cursus. Erat pellentesque ornare eu risus vitae.
+            <p class="md fw-semibold">{{$detailagenda->deskripsi}}
             </p>
         </div>
         <div class="textFlex d-flex my-3">
             <p class="md fw-bold">Event Type</p>
-            <p class="md fw-bold">:&emsp;Offline, Concert</p>
+            <p class="md fw-bold">:&emsp;@foreach($detailagenda->type as $item){{$item->nama_tipe}} @endforeach</p>
         </div>
         <div class="textFlex d-flex my-3">
             <p class="md fw-bold">Location</p>
-            <p class="md fw-bold">:&emsp;Jln.Muara, Jagakarsa, Jakarta Selatan</p>
+            <p class="md fw-bold">:&emsp;{{$detailagenda->location}}</p>
         </div>
         <div class="textFlex d-flex my-3">
             <p class="md fw-bold">Start - End Date</p>
-            <p class="md fw-bold">:&emsp;1-2 March 2023</p>
+            <p class="md fw-bold">:&emsp;{{$detailagenda->start_date}} - {{$detailagenda->end_date}}</p>
         </div>
         <div class="textFlex d-flex my-3">
             <p class="md fw-bold">Tickets</p>
-            <p class="md fw-bold">:&emsp;Rp 100.000 - Rp 250.000</p>
-        </div>
-        {{-- <a class="btn btn-pesan px-5" data-toggle="modal" data-target="#modalLoginForm" href="#" role="button">Pesan</a> --}}
+            <p class="md fw-bold">:&emsp;@foreach($detailagenda->tiket as $item){{$item->nama_tiket}}&emsp; = {{$item->harga_tiket}}<br>&emsp; @endforeach</p>
+        </div>  
         <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Pesan
         </button>

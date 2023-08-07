@@ -16,6 +16,6 @@ class Anggota extends Model
     ];
 
     public function agenda(){
-        return $this->BelongsTo(Agenda::class, 'id_anggota');
+        return $this->hasMany(Agenda::class);
     }
 }

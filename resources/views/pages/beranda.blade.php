@@ -23,7 +23,7 @@
         <div class="container">
             <h3 class="text-blue fw-bolder mb-2 mb-lg-5">List Update</h3>
             <div class="row d-flex justify-content-sm-start justify-content-center">
-            @foreach ($Update as $item)
+            @foreach ($listupdate as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
                         <div class="lcImage">
@@ -60,132 +60,27 @@
                      <div class="row position-relative">
                         <div class="col-12 position-relative">
                             <div class="responsive row d-flex">
+                                @foreach($listagenda as $item)
                                 <div class="slider-item mb-2 position-relative px-2" id="foreach">
-                                    <img class="position-relative" src="{{asset('../image/slider-img.png')}}" alt="">
+                                    <img class="position-relative" style="height: 262px; border-radius: 10px;" src="{{asset('img/'.$item->foto)}}" alt="">
                                     <div class="siText">
                                         <p class="xl topTitle">Webinar</p>
                                         <div class="stBottom">
-                                            <p class="md fw-bold">CME 313 -
-                                                Penatalaksanaan Hipertensi
-                                                Emergensi ( 2 SKP IDI )
+                                            <p class="md fw-bold">{{$item->judul_agenda}}
                                             </p>
                                             <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
-                                                <a class="btn btn-la  d-flex align-items-center gap-2" href="">
+                                                <a class="btn btn-la  d-flex align-items-center gap-2" href="{{ url('/detailagenda', $item->id) }}">
                                                     <p class="text-blue fw-bold">Lihat Agenda</p>
                                                     <div class="arrow-la">
                                                         <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
                                                     </div>
                                                 </a>
-                                                <p>Maret 1, 2023</p>
+                                                <p>{{date('F d, Y', strtotime($item->created_at))}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="slider-item mb-2 position-relative px-2" id="foreach">
-                                    <img class="position-relative" src="{{asset('../image/slider-img.png')}}" alt="">
-                                    <div class="siText">
-                                        <p class="xl topTitle">Webinar</p>
-                                        <div class="stBottom">
-                                            <p class="md fw-bold">CME 313 -
-                                                Penatalaksanaan Hipertensi
-                                                Emergensi ( 2 SKP IDI )
-                                            </p>
-                                            <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
-                                                <a class="btn btn-la  d-flex align-items-center gap-2" href="">
-                                                    <p class="text-blue fw-bold">Lihat Agenda</p>
-                                                    <div class="arrow-la">
-                                                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
-                                                    </div>
-                                                </a>
-                                                <p>Maret 1, 2023</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item mb-2 position-relative px-2" id="foreach">
-                                    <img class="position-relative" src="{{asset('../image/slider-img.png')}}" alt="">
-                                    <div class="siText">
-                                        <p class="xl topTitle">Webinar</p>
-                                        <div class="stBottom">
-                                            <p class="md fw-bold">CME 313 -
-                                                Penatalaksanaan Hipertensi
-                                                Emergensi ( 2 SKP IDI )
-                                            </p>
-                                            <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
-                                                <a class="btn btn-la  d-flex align-items-center gap-2" href="">
-                                                    <p class="text-blue fw-bold">Lihat Agenda</p>
-                                                    <div class="arrow-la">
-                                                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
-                                                    </div>
-                                                </a>
-                                                <p>Maret 1, 2023</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item mb-2 position-relative px-2" id="foreach">
-                                    <img class="position-relative" src="{{asset('../image/slider-img.png')}}" alt="">
-                                    <div class="siText">
-                                        <p class="xl topTitle">Webinar</p>
-                                        <div class="stBottom">
-                                            <p class="md fw-bold">CME 313 -
-                                                Penatalaksanaan Hipertensi
-                                                Emergensi ( 2 SKP IDI )
-                                            </p>
-                                            <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
-                                                <a class="btn btn-la  d-flex align-items-center gap-2" href="">
-                                                    <p class="text-blue fw-bold">Lihat Agenda</p>
-                                                    <div class="arrow-la">
-                                                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
-                                                    </div>
-                                                </a>
-                                                <p>Maret 1, 2023</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item mb-2 position-relative px-2" id="foreach">
-                                    <img class="position-relative" src="{{asset('../image/slider-img.png')}}" alt="">
-                                    <div class="siText">
-                                        <p class="xl topTitle">Webinar</p>
-                                        <div class="stBottom">
-                                            <p class="md fw-bold">CME 313 -
-                                                Penatalaksanaan Hipertensi
-                                                Emergensi ( 2 SKP IDI )
-                                            </p>
-                                            <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
-                                                <a class="btn btn-la  d-flex align-items-center gap-2" href="">
-                                                    <p class="text-blue fw-bold">Lihat Agenda</p>
-                                                    <div class="arrow-la">
-                                                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
-                                                    </div>
-                                                </a>
-                                                <p>Maret 1, 2023</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="slider-item mb-2 position-relative px-2" id="foreach">
-                                    <img class="position-relative" src="{{asset('../image/slider-img.png')}}" alt="">
-                                    <div class="siText">
-                                        <p class="xl topTitle">Webinar</p>
-                                        <div class="stBottom">
-                                            <p class="md fw-bold">CME 313 -
-                                                Penatalaksanaan Hipertensi
-                                                Emergensi ( 2 SKP IDI )
-                                            </p>
-                                            <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
-                                                <a class="btn btn-la  d-flex align-items-center gap-2" href="">
-                                                    <p class="text-blue fw-bold">Lihat Agenda</p>
-                                                    <div class="arrow-la">
-                                                        <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
-                                                    </div>
-                                                </a>
-                                                <p>Maret 1, 2023</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                                </div>
         
                             <div class="arrowSlider d-flex justify-content-between">

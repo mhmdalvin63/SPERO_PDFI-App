@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin PDFI</title>
     
+    <link rel="stylesheet" href="{{asset('../dist/assets/extensions/choices.js/public/assets/styles/choices.css')}}">
     <link rel="stylesheet" href="{{asset('../dist/assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{asset('../dist/assets/css/main/app-dark')}}.css">
     <link rel="shortcut icon" href="{{asset('../dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('../dist/assets/images/logo/favicon.png')}}" type="image/png">
     
 <link rel="stylesheet" href="{{asset('../dist/assets/css/shared/iconly.css')}}">
+
 
 </head>
 <body>
@@ -55,17 +57,24 @@
                 </a>
             </li>
             <li
+                class="sidebar-item {{ (request()->is('admin/anggota')) ? 'active' : '' }}">
+                <a href="/admin/anggota" class='sidebar-link'>
+                <i class="bi bi-people"></i>
+                    <span>Penyelenggara</span>
+                </a>
+            </li>
+            <li
+                class="sidebar-item {{ (request()->is('admin/tipe')) ? 'active' : '' }}">
+                <a href="/admin/tipe" class='sidebar-link'>
+                <i class="bi bi-pin-fill"></i>
+                    <span>Tipe Agenda</span>
+                </a>
+            </li>
+            <li
                 class="sidebar-item {{ (request()->is('admin/agenda')) ? 'active' : '' }}">
                 <a href="/admin/agenda" class='sidebar-link'>
                 <i class="bi bi-calendar-plus"></i>
                     <span>Agenda</span>
-                </a>
-            </li>
-            <li
-                class="sidebar-item {{ (request()->is('admin/anggota')) ? 'active' : '' }}">
-                <a href="/admin/anggota" class='sidebar-link'>
-                <i class="bi bi-people"></i>
-                    <span>Anggota</span>
                 </a>
             </li>
             
@@ -102,6 +111,9 @@
 <!-- Need: Apexcharts -->
 <script src="{{asset('../dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
 <script src="{{asset('../dist/assets/js/pages/dashboard.js')}}"></script>
+<script src="{{asset('../dist/assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
+<script src="{{asset('../dist/assets/js/pages/form-element-select.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
 
