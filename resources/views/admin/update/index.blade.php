@@ -1,6 +1,8 @@
 @extends('admin.template')
 @section('title', 'Update')
 @section('layout')
+
+
 <div class="page-heading">
     <h3>Table Update</h3>
 </div>
@@ -39,11 +41,39 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm-lg text-white"><i class="bi bi-trash-fill"></i></button>
                                 </form>
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$item->id}}" class="btn btn-success btn-sm-lg text-white"><i class="bi bi-eye-fill"></i></i></a>
+
+                                <div class="modal fade" id="staticBackdrop{{ $item->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Update</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row mt-3">
+                                                <div class="col-4">Image Topic: </div>
+                                                <div class="col-8"><img src="{{asset('img/'.$item->foto)}}"  width="100%" alt=""></div>
+                                            </div>
+                                            <hr>
+                                            <div class="row mt-3">
+                                                <div class="col-4">Title: </div>
+                                                <div class="col-8 text-start">{{$item->judul_update}}</div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-4">Topic: </div>
+                                                <div class="col-8 text-start">{{$item->isi_berita}}</div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
                             </div>
                         </td>
                         <td>{{ $item->judul_update}}</td>
                         <td class="col-4">{{ Str::limit($item->isi_berita, 25)}}</td>
-                        <td><img src="{{asset('img/'.$item->foto)}}"  height="60" alt=""></td>
+                        <td><img src="{{asset('img/'.$item->foto)}}"  height="100" alt=""></td>
                     </tr>
                     @endforeach
                     </tbody>

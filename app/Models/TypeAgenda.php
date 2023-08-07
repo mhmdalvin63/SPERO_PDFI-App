@@ -13,6 +13,6 @@ class TypeAgenda extends Model
     protected $fillable = [
         'id_agenda', 'id_type'
     ];
-    
 
+   
 }

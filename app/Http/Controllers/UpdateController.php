@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Update;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;

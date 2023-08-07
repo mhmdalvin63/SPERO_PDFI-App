@@ -16,6 +16,6 @@ class Tiket extends Model
     ];
 
     public function agenda(){
-        return $this->hasMany(Agenda::class, 'id_agenda');
+        return $this->belongsTo(Agenda::class, 'id_agenda');
     }
 }

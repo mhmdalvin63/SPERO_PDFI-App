@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Agenda;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Type extends Model
 {
@@ -15,7 +16,7 @@ class Type extends Model
     ];
 
     
-    public function tipeagenda(){
-        return $this->BelongsToMany(TypeAgenda::class, 'id_type');
+    public function agenda(){
+        return $this->BelongsToMany(Agenda::class, 'type_agendas', 'id_type', 'id_agenda');
     }
 }

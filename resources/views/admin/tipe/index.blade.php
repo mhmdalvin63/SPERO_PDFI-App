@@ -1,20 +1,20 @@
 @extends('admin.template')
-@section('title', 'Organizer')
+@section('title', 'Type')
 @section('layout')
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Organizer</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Type</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="{{ url('admin/anggota') }}" method="post" enctype="multipart/form-data">
+      <form action="{{ url('admin/tipe') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Name Organizer<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Name Organizer..." name="nama_anggota">
+                        <label for="exampleInputUsername1" class="fw-bold">Type Name<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Type Name..." name="nama_tipe">
                     </div>
                     <div class="modal-footer gap-1">
                         <a href="/admin/aggota" class="btn btn-outline-warning btn-icon-text">
@@ -30,7 +30,7 @@
   </div>
 </div>
 <div class="page-heading">
-    <h3>Table Organizer</h3>
+    <h3>Table Event Type</h3>
 </div>
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
@@ -50,11 +50,11 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>Action</th>
-                            <th>Name</th>
+                            <th>Type Name</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($anggota as $item)
+                    @foreach($tipe as $item)
                     <tr class="fw-bold">
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td >
@@ -64,16 +64,16 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="EditLabel">Edit Organizer</h1>
+                                        <h1 class="modal-title fs-5" id="EditLabel">Edit Type</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="{{ url('admin/anggota', $item->id) }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ url('admin/tipe', $item->id) }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         @method('PUT')
                                         <div class="form-group">
-                                            <label for="exampleInputUsername1" class="fw-bold">Name Organizer<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" value="{{$item->nama_anggota}}" id="exampleInputUsername1" placeholder="Input Name Organizer..." name="nama_anggota">
+                                            <label for="exampleInputUsername1" class="fw-bold">Type Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" value="{{$item->nama_tipe}}" id="exampleInputUsername1" placeholder="Input Type Name..." name="nama_tipe">
                                         </div>
                                         <div class="modal-footer gap-1">
                                             <a href="/admin/aggota" class="btn btn-outline-warning btn-icon-text">
@@ -89,7 +89,7 @@
                                 </div>
                                 </div>
 
-                                <form action="{{ url('admin/anggota', $item->id) }}" method="POST">
+                                <form action="{{ url('admin/tipe', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm-lg text-white"><i class="bi bi-trash-fill"></i></button>
@@ -100,13 +100,13 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="DetailLabel">Detail Organizer</h1>
+                                        <h1 class="modal-title fs-5" id="DetailLabel">Detail Type</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-4">Name Organizer: </div>
-                                            <div class="col-8 text-start">{{$item->nama_anggota}}</div>
+                                            <div class="col-4">Name Type: </div>
+                                            <div class="col-8 text-start">{{$item->nama_tipe}}</div>
                                         </div>
                                     </div>
                                     </div>
@@ -115,7 +115,7 @@
 
                             </div>
                         </td>
-                        <td class="text-center">{{ $item->nama_anggota}}</td>
+                        <td class="text-center">{{ $item->nama_tipe}}</td>
                     </tr>
                     @endforeach
                     </tbody>

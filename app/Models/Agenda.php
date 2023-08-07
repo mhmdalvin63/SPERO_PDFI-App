@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Type;
 use App\Models\Tiket;
 use App\Models\Anggota;
 use Illuminate\Database\Eloquent\Model;
@@ -17,14 +18,14 @@ class Agenda extends Model
     ];
 
     public function anggota(){
-        return $this->hasMany(Anggota::class, 'id_anggota');
+        return $this->BelongsTo(Anggota::class, 'id_anggota');
     }
 
     public function tiket(){
-        return $this->BelongsTo(Tiket::class, 'id_agenda');
+        return $this->hasMany(Tiket::class, 'id_agenda');
     }
 
-    public function tipeagenda(){
-        return $this->BelongsToMany(TypeAgenda::class, 'id_agenda');
+    public function type(){
+        return $this->BelongsToMany(Type::class, 'type_agendas', 'id_agenda', 'id_type');
     }
 }
