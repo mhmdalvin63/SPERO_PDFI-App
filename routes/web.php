@@ -48,3 +48,7 @@ Route::get('/agenda', [FrontEndController::class, 'agenda'])->name('agenda');
 // Route::get('agenda', function () {return view('pages.agenda');});
 // Route::get('detailagenda', function () {return view('pages.detailAgenda');});
 Route::get('organisasi', function () {return view('pages.organisasi');});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

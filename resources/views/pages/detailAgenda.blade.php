@@ -36,7 +36,15 @@
         </div>
         <div class="textFlex d-flex my-3">
             <p class="md fw-bold">Tickets</p>
-            <p class="md fw-bold">:&emsp;@foreach($detailagenda->tiket as $item){{$item->nama_tiket}}&emsp; = {{$item->harga_tiket}}<br>&emsp; @endforeach</p>
+            <p class="md fw-bold">:&emsp;
+                @if($detailagenda->status_event == 'Buy')
+                @foreach($detailagenda->tiket as $item)
+                {{$item->nama_tiket}}&emsp; = Rp. {{number_format($item->harga_tiket)}}<br> &emsp;
+                @endforeach
+                @elseif($detailagenda->status_event == 'Free')
+                Free
+                @endif
+            </p>
         </div>  
         <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Pesan
