@@ -14,7 +14,7 @@ class Agenda extends Model
     protected $primaryKey = "id";
     protected $table = "agendas";
     protected $fillable = [
-        'judul_agenda','deskripsi', 'start_date', 'end_date', 'location', 'id_anggota', 'foto'
+        'judul_agenda','deskripsi', 'start_date', 'end_date', 'location', 'id_anggota', 'foto', 'status_eventstatus_event'
     ];
 
     public function anggota(){
