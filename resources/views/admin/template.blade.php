@@ -50,6 +50,13 @@
                 </a>
             </li>
             <li
+                class="sidebar-item {{ (request()->is('admin/tag')) ? 'active' : '' }}">
+                <a href="/admin/tag" class='sidebar-link'>
+                <i class="bi bi-tags"></i>
+                    <span>Tag</span>
+                </a>
+            </li>
+            <li
                 class="sidebar-item {{ (request()->is('admin/update')) ? 'active' : '' }}">
                 <a href="/admin/update" class='sidebar-link'>
                 <i class="bi bi-card-list"></i>

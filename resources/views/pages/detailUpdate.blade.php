@@ -25,50 +25,23 @@
                     <a href=""><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
                 </div>
                 <div class="hastag d-flex flex-wrap gap-2">
-                    <a href=""><p class="xl">#loremipsum</p></a>
-                    <a href=""><p class="xl">#loremipsum</p></a>
-                    <a href=""><p class="xl">#loremipsum</p></a>
-                    <a href=""><p class="xl">#loremipsum</p></a>
-                    <a href=""><p class="xl">#loremipsum</p></a>
-                    <a href=""><p class="xl">#loremipsum</p></a>
-                    <a href=""><p class="xl">#loremipsum</p></a>
-                    <a href=""><p class="xl">#loremipsum</p></a>
+                    @foreach($detailupdate->tag as $item)
+                    <a href=""><p class="xl">#{{$item->tag_name}}</p></a>
+                    @endforeach
                 </div>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-5 col-8 mt-sm-0 mt-4 p-3" id="artikelTerkait">
-                <h3 class="fw-bold">Artikel Terkait</h3>
+                <h3 class="fw-bold">Artikel Lainnya</h3>
+                @foreach($terkait as $artikel)
                 <div class="artikelTerkait">
                     <div class="hr"></div>
                     <div class="atContent">
-                        <p>Update on 17 March 2023</p>
-                        <p class="md fw-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <a href=""><p>Read Article</p></a>
+                        <p>Update on {{date('d F Y', strtotime($artikel->created_at))}}</p>
+                        <p class="md fw-bold">{{$artikel->judul_update}}</p>
+                        <a href="{{ url('/detailupdate', $artikel->id) }}"><p>Read Article</p></a>
                     </div>
                 </div>
-                <div class="artikelTerkait">
-                    <div class="hr"></div>
-                    <div class="atContent">
-                        <p>Update on 17 March 2023</p>
-                        <p class="md fw-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <a href=""><p>Read Article</p></a>
-                    </div>
-                </div>
-                <div class="artikelTerkait">
-                    <div class="hr"></div>
-                    <div class="atContent">
-                        <p>Update on 17 March 2023</p>
-                        <p class="md fw-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <a href=""><p>Read Article</p></a>
-                    </div>
-                </div>
-                <div class="artikelTerkait">
-                    <div class="hr"></div>
-                    <div class="atContent">
-                        <p>Update on 17 March 2023</p>
-                        <p class="md fw-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <a href=""><p>Read Article</p></a>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 

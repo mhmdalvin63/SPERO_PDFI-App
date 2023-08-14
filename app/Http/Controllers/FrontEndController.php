@@ -6,6 +6,7 @@ use App\Models\Agenda;
 use App\Models\Update;
 use App\Models\TypeAgenda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FrontEndController extends Controller
 {
@@ -27,8 +28,9 @@ class FrontEndController extends Controller
 
     public function detailupdate($id){
         $detailupdate = Update::findorfail($id);
-        $allupdate = Update::latest()->get();
-        return view('pages.detailUpdate', compact('detailupdate', 'allupdate'));
+        $terkait = Update::where('id', '!=', $id)->latest()->get();
+       
+        return view('pages.detailUpdate', compact('detailupdate', 'terkait'));
     }
 
     public function detailagenda($id){

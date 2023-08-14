@@ -25,8 +25,12 @@
           </li>
           <li class="nav-item button d-flex align-items-center gap-2">
             <hr class="d-lg-block d-none">
-            <a class="btn bg-black px-3 py-1" href="#" role="button "><p class="md">Register</p></a>
-            <a class="btn bg-blue px-3 py-1" href="#" role="button "><p class="md">Login</p></a>
+            @if(auth()->user()->level == 'user')
+            <p>done</p>
+            @else
+            <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
+            <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+            @endif
           </li>
         </ul>
       </div>

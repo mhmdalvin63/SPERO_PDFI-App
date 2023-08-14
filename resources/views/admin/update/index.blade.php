@@ -25,6 +25,7 @@
                             <th>No</th>
                             <th>Action</th>
                             <th>Title</th>
+                            <th>Tag</th>
                             <th>Topic</th>
                             <th>Image Topic</th>
                         </tr>
@@ -72,7 +73,12 @@
                             </div>
                         </td>
                         <td>{{ $item->judul_update}}</td>
-                        <td class="col-4">{{ Str::limit($item->isi_berita, 25)}}</td>
+                        <td>
+                            @foreach($item->tag as $womp)
+                            <button class="btn btn-sm btn-primary">{{ $womp->tag_name}}</button>
+                            @endforeach
+                        </td>
+                        <td>{{ Str::limit($item->isi_berita, 25)}}</td>
                         <td><img src="{{asset('img/'.$item->foto)}}"  height="100" alt=""></td>
                     </tr>
                     @endforeach

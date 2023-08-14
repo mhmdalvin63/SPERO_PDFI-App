@@ -11,9 +11,7 @@ nav{
 .button a{
     border-radius: 75px;
 }
-.button a p{
-    color: white    !important;
-}
+
 .bg-blue{
     background-color: #0028FF;
 }

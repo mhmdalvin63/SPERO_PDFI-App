@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Update extends Model
 {
@@ -13,4 +14,8 @@ class Update extends Model
     protected $fillable = [
         'judul_update','isi_berita', 'foto'
     ];
+
+    public function tag(){
+        return $this->BelongsToMany(Tag::class, 'update_tags', 'id_update', 'id_tag');
+    }
 }
