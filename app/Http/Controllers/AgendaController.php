@@ -106,10 +106,10 @@ class AgendaController extends Controller
             DB::commit();
             return redirect('/admin/agenda')->with('success','Data Artikel Berhasil Di Tambahkan');
             
-          } catch (Exception $e) {
+          } catch (Throwable $e) {
 
             DB::rollBack();
-            return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e);
+            return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
           
           }
 

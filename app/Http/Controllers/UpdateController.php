@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Update;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -23,7 +24,8 @@ class UpdateController extends Controller
      */
     public function create()
     {
-        return view('admin.update.create');
+        $tag = Tag::all();
+        return view('admin.update.create', compact('tag'));
     }
 
     /**
@@ -56,11 +58,13 @@ class UpdateController extends Controller
             }
     
            $newUpdate->save();
+
+           $newUpdate->tag()->attach($request->id_tag);
             // Artikel::create($request->all());
             return redirect('/admin/update')->with('success','Data Artikel Berhasil Di Tambahkan');
           } catch (Exception $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e);
+              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
           
           }
     }
@@ -116,7 +120,7 @@ class UpdateController extends Controller
             return redirect('/admin/update')->with('success','Data Artikel Berhasil Diupdate');
           
           } catch (Exception $e) {
-          return redirect()->back()->with('error', 'Data Tidak Bisa Disimpan!', $e);
+          return redirect()->back()->with('error', 'Data Tidak Bisa Disimpan!', $e->getMessage());
                     
           }
     }

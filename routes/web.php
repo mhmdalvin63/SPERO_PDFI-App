@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\AnggotaController;
-use App\Http\Controllers\TypeController;
 use App\Http\Controllers\FrontEndController;
 
 /*
@@ -33,6 +34,7 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::resource('/agenda', AgendaController::class);
     Route::resource('/anggota', AnggotaController::class);
     Route::resource('/tipe', TypeController::class);
+    Route::resource('/tag', TagController::class);
 });
 
 Route::get('/update', [FrontEndController::class, 'update'])->name('update');
@@ -48,7 +50,12 @@ Route::get('/agenda', [FrontEndController::class, 'agenda'])->name('agenda');
 // Route::get('agenda', function () {return view('pages.agenda');});
 // Route::get('detailagenda', function () {return view('pages.detailAgenda');});
 Route::get('organisasi', function () {return view('pages.organisasi');});
-
+Route::get('/login', [LoginController::class, 'loginuser'])->name('login.user');
+Route::post('/login', [LoginController::class, 'postloginuser'])->name('postlogin.user');
+Route::get('/register', [LoginController::class, 'register'])->name('register.user');
+Route::post('/register/store', [LoginController::class, 'postregister'])->name('postregister.user');
+Route::get('/verified', [LoginController::class, 'verified'])->name('verified.user');
+Route::get('/verified/{id}', [LoginController::class, 'postverified'])->name('postverified.user');
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

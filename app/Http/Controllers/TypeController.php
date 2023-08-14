@@ -47,7 +47,7 @@ class TypeController extends Controller
             return redirect('/admin/tipe')->with('success','Data Artikel Berhasil Di Tambahkan');
           } catch (Exception $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e);
+              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
           
           }
     }
@@ -86,9 +86,9 @@ class TypeController extends Controller
             ]);
             // Artikel::create($request->all());
             return redirect('/admin/tipe')->with('success','Data Artikel Berhasil Di Tambahkan');
-          } catch (Exception $e) {
+          } catch (Throwable $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e);
+              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
           
           }
     }

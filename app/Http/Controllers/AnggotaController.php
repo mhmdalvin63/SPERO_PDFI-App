@@ -45,9 +45,9 @@ class AnggotaController extends Controller
            $newAnggota->save();
             // Artikel::create($request->all());
             return redirect('/admin/anggota')->with('success','Data Artikel Berhasil Di Tambahkan');
-          } catch (Exception $e) {
+          } catch (Throwable $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e);
+              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
           
           }
     }
@@ -86,9 +86,9 @@ class AnggotaController extends Controller
             ]);
             // Artikel::create($request->all());
             return redirect('/admin/anggota')->with('success','Data Artikel Berhasil Di Tambahkan');
-          } catch (Exception $e) {
+          } catch (Throwable $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e);
+              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
           
           }
     }

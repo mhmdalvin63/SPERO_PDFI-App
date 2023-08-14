@@ -46,9 +46,27 @@
                 @endif
             </p>
         </div>  
-        <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Pesan
-        </button>
+        @if(auth()->user()->level == 'user')
+            @if($detailagenda->status_event == 'Free')
+                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModaljoin">
+                    Join
+                </button>
+            @else
+                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
+                    Pesan
+                </button>
+            @endif
+        @else
+            @if($detailagenda->status_event == 'Free')
+                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModallogin">
+                    Join
+                </button>
+            @else
+                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModallogin">
+                    Pesan
+                </button>
+            @endif
+        @endif
 
         <div class="listUpdate mt-5">
             <div class="container">
@@ -128,83 +146,169 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<!-- Modal join-->
+<div class="modal fade" id="exampleModalpesan" tabindex="-1" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Nobar</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Nama Panjang</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nobar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-                    <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="col">
-                    <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">Laki-Laki</option>
-                        <option value="2">Perempuan</option>
-                    </select>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">No Telepon</label>
-                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Jenis Tiket</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">Laki-Laki</option>
-                        <option value="2">Perempuan</option>
-                    </select>
-            </div>
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Bukti Transfer</label>
-                <input class="form-control" type="file" id="formFile">
-            </div>
-            <div class="row g-3">
-                <div class="col">
-                    <label for="exampleInputEmail1" class="form-label">Provinsi</label>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nama Panjang</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
-                <div class="col">
-                    <label for="exampleInputEmail1" class="form-label">Kabupaten/Kota</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">Laki-Laki</option>
+                            <option value="2">Perempuan</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">No Telepon</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Jenis Tiket</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">Laki-Laki</option>
+                            <option value="2">Perempuan</option>
+                        </select>
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Bukti Transfer</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+                <div class="row g-3">
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Provinsi</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Kabupaten/Kota</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Pekerjaan</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Pekerjaan</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                    Pesan
+                </button>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                Close
-            </button>
-            <button type="button" class="btn btn-primary">
-                Pesan
-            </button>
         </div>
     </div>
 </div>
+
+<!-- Modal Pesan-->
+<div class="modal fade" id="exampleModaljoin" tabindex="-1" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nobar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nama Panjang</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">Laki-Laki</option>
+                            <option value="2">Perempuan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">No Telepon</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="row g-3">
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Provinsi</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Kabupaten/Kota</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Pekerjaan</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                    Pesan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Login -->
+<div class="modal fade" id="exampleModallogin" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 mx-auto" id="exampleModalToggleLabel">Login Or Register</h1>
+      </div>
+      <div class="modal-body mx-auto my-2">
+            <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
+            <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

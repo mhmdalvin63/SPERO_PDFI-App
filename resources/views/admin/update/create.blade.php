@@ -20,6 +20,14 @@
                         <textarea class="form-control" style="height: 200px" placeholder="Input Topic Update..." id="floatingTextarea" name="isi_berita"></textarea>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tags Update<span class="text-danger">*</span></label>
+                        <select multiple="multiple" class="choices form-control multiple-remove" name="id_tag[]" id="selectType">
+                            @foreach ($tag as $item)
+                            <option value="{{ $item->id }}">{{ $item->tag_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*</span></label><br>
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
                         <input class="form-control file fw-bold" type="file" id="formFile" name="foto">

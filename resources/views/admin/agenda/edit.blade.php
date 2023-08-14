@@ -44,9 +44,10 @@
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Organizer Event<span class="text-danger">*</span></label>
                         <select class="form-control" name="id_anggota">
-                            <option value="{{ $agenda->anggota->id }}">{{ $agenda->anggota->nama_anggota }}</option>
                             @foreach ($anggota as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_anggota }}</option>
+                            <option value="{{ $item->id }}"
+                            @if($agenda->id_anggota == $item->id)@selected(true) @endif
+                            >{{ $item->nama_anggota }}</option>
                             @endforeach
                         </select>
                     </div>
