@@ -1,4 +1,4 @@
-@extends('mainFe')
+@extends('mainFE')
 @section('judul_tab','Detail Update PDFI')
 
 @section('content')
