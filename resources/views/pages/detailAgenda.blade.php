@@ -72,74 +72,27 @@
             <div class="container">
                 <h3 class="text-gray fw-bolder mb-2">Kegiatan Lainnya</h3>
                 <div class="row  justify-content-sm-start justify-content-center">
-                    <div class="col-12 col-sm-6 col-md-4  my-3">
-                        <div class="luContent">
-                            <div class="lcImage">
-                                <img src="{{asset('../image/lu-content.png')}}" alt="">
-                            </div>
-                            <div class="lcText p-3">
-                                <div class="ltHeader d-flex justify-content-between mb-2">
-                                    <p class="lg fw-semibold">Webinar</p>
-                                    <p class="lg fw-bold">Free</p>
+                    @foreach($allagenda as $item)
+                        <div class="col-12 col-sm-6 col-md-4  my-3">
+                            <a href="{{ url('/detailagenda', $item->id) }}" style="text-decoration: none; color: black;">
+                                <div class="luContent">
+                                    <div class="lcImage">
+                                        <img src="{{asset('img/'.$item->foto)}}" alt="">
+                                    </div>
+                                    <div class="lcText p-3">
+                                        <div class="ltHeader d-flex justify-content-between mb-2">
+                                            <p class="lg fw-semibold">Webinar</p>
+                                            <p class="lg fw-bold">{{$item->status_event}}</p>
+                                        </div>
+                                        <div class="ltTitle mb-2">
+                                            <p class="xl fw-bold">{{$item->judul_agenda}}</p>
+                                        </div>
+                                            <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->start_date))}}</p>
+                                    </div>
                                 </div>
-                                <div class="ltTitle mb-2">
-                                    <p class="xl fw-bold">CME 313 - Penatalaksanaan Hipertensi Emergensi ( 2 SKP IDI )</p>
-                                </div>
-                                    <p class="lg fw-semibold">Maret 1, 2023</p>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4  my-3">
-                        <div class="luContent">
-                            <div class="lcImage">
-                                <img src="{{asset('../image/lu-content.png')}}" alt="">
-                            </div>
-                            <div class="lcText p-3">
-                                <div class="ltHeader d-flex justify-content-between mb-2">
-                                    <p class="lg fw-semibold">Webinar</p>
-                                    <p class="lg fw-bold">Free</p>
-                                </div>
-                                <div class="ltTitle mb-2">
-                                    <p class="xl fw-bold">CME 313 - Penatalaksanaan Hipertensi Emergensi ( 2 SKP IDI )</p>
-                                </div>
-                                    <p class="lg fw-semibold">Maret 1, 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4  my-3">
-                        <div class="luContent">
-                            <div class="lcImage">
-                                <img src="{{asset('../image/lu-content.png')}}" alt="">
-                            </div>
-                            <div class="lcText p-3">
-                                <div class="ltHeader d-flex justify-content-between mb-2">
-                                    <p class="lg fw-semibold">Webinar</p>
-                                    <p class="lg fw-bold">Free</p>
-                                </div>
-                                <div class="ltTitle mb-2">
-                                    <p class="xl fw-bold">CME 313 - Penatalaksanaan Hipertensi Emergensi ( 2 SKP IDI )</p>
-                                </div>
-                                    <p class="lg fw-semibold">Maret 1, 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4  my-3">
-                        <div class="luContent">
-                            <div class="lcImage">
-                                <img src="{{asset('../image/lu-content.png')}}" alt="">
-                            </div>
-                            <div class="lcText p-3">
-                                <div class="ltHeader d-flex justify-content-between mb-2">
-                                    <p class="lg fw-semibold">Webinar</p>
-                                    <p class="lg fw-bold">Free</p>
-                                </div>
-                                <div class="ltTitle mb-2">
-                                    <p class="xl fw-bold">CME 313 - Penatalaksanaan Hipertensi Emergensi ( 2 SKP IDI )</p>
-                                </div>
-                                    <p class="lg fw-semibold">Maret 1, 2023</p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

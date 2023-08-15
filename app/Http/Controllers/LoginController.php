@@ -141,4 +141,9 @@ class LoginController extends Controller
             return redirect('/login')->with('error', 'Username atau Password Salah!');
         }
     }
+    public function logout()
+    {
+     Auth::logout();
+     return redirect('/');
+    }
 }

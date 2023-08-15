@@ -41,7 +41,6 @@ Route::get('/update', [FrontEndController::class, 'update'])->name('update');
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/home', [FrontEndController::class, 'index'])->name('home');
 Route::get('/detailupdate/{id}', [FrontEndController::class, 'detailupdate'])->name('detailupdate');
-Route::get('/detailagenda/{id}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
 Route::get('/agenda', [FrontEndController::class, 'agenda'])->name('agenda');
 
 // Route::get('/', function () {return view('pages.beranda');});
@@ -49,6 +48,11 @@ Route::get('/agenda', [FrontEndController::class, 'agenda'])->name('agenda');
 // Route::get('detailupdate', function () {return view('pages.detailUpdate');});
 // Route::get('agenda', function () {return view('pages.agenda');});
 // Route::get('detailagenda', function () {return view('pages.detailAgenda');});
+
+Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
+    Route::get('/detailagenda/{id}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
+});
+
 Route::get('organisasi', function () {return view('pages.organisasi');});
 Route::get('/login', [LoginController::class, 'loginuser'])->name('login.user');
 Route::post('/login', [LoginController::class, 'postloginuser'])->name('postlogin.user');
@@ -56,6 +60,7 @@ Route::get('/register', [LoginController::class, 'register'])->name('register.us
 Route::post('/register/store', [LoginController::class, 'postregister'])->name('postregister.user');
 Route::get('/verified', [LoginController::class, 'verified'])->name('verified.user');
 Route::get('/verified/{id}', [LoginController::class, 'postverified'])->name('postverified.user');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

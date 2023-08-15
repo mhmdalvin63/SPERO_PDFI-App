@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Agenda;
 use App\Models\Update;
 use App\Models\TypeAgenda;
@@ -34,8 +35,9 @@ class FrontEndController extends Controller
     }
 
     public function detailagenda($id){
+        $now = Carbon::now();
         $detailagenda = Agenda::findorfail($id);
-        $allagenda = Agenda::all();
-        return view('pages.detailAgenda', compact('detailagenda', 'allagenda'));
+        $allagenda = Agenda::where('id', '!=', $id)->where('end_date', '>=', $now)->get();
+        return view('pages.detailAgenda', compact('detailagenda', 'allagenda', 'now'));
     }
 }
