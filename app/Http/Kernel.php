@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'PreventBack' => \App\Http\Middleware\PreventBack::class,
         'cekLevel' => \App\Http\Middleware\cekLevel::class,
         'isAdmin' => \App\Http\Middleware\isAdmin::class,
+        'isUser' => \App\Http\Middleware\isUser::class,
     ];
 }

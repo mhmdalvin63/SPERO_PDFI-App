@@ -25,11 +25,14 @@
           </li>
           <li class="nav-item button d-flex align-items-center gap-2">
             <hr class="d-lg-block d-none">
-            @if(auth()->user()->level == 'user')
-            <p>done</p>
-            @else
+            @if(Auth::check() == NULL)
+              <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
+              <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+            @elseif(Auth()->user()->level == 'user')
+            <a class="btn btn-danger" href="/logout">Logout</a> 
+            @elseif(Auth()->user()->level == 'admin')
             <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
-            <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+              <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
             @endif
           </li>
         </ul>

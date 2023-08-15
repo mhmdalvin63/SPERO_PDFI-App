@@ -153,18 +153,16 @@ class AgendaController extends Controller
                
             }
 
-            $editAgenda->update([
-                'judul_agenda' => $request->judul_agenda,
-                'deskripsi' => $request->deskripsi,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
-                'location' => $request->location,
-                'id_anggota' => $request->id_anggota,
-                'status_event' => $request->status_event,
-            ]);
-        
-            $editAgenda->type()->sync($request->tipe_id);
-            
+            $editAgenda->judul_agenda = $request->judul_agenda;
+            $editAgenda->deskripsi = $request->deskripsi;
+            $editAgenda->start_date = $request->start_date;
+            $editAgenda->end_date = $request->end_date;
+            $editAgenda->location = $request->location;
+            $editAgenda->id_anggota = $request->id_anggota;
+            $editAgenda->status_event = $request->status_event;
+            $editAgenda->save();
+                
+
             if($request->status_event == 'Buy'){
                 if($request->nama_tiket){
                 foreach($request['nama_tiket'] as $a => $b){
@@ -180,6 +178,9 @@ class AgendaController extends Controller
             }else{
                 $tiket = Tiket::where('id_agenda', $editAgenda->id)->delete();
             }
+        
+            $editAgenda->type()->sync($request->tipe_id);
+            
             
             DB::commit();
             return redirect('/admin/agenda')->with('success','Data Artikel Berhasil Di Edit');
