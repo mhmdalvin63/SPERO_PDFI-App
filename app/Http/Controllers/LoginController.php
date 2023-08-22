@@ -58,11 +58,12 @@ class LoginController extends Controller
         $this->validate($request,[
             'email' => 'required',
             'name' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ],[
             'email' => 'Input Your Email',
             'name' => 'Input Your Username',
             'password' => 'Input Your Password',
+            'password.min' => 'Password Must Be 8 Character',
         ]
     );   
     try{
@@ -141,6 +142,12 @@ class LoginController extends Controller
             return redirect('/login')->with('error', 'Username atau Password Salah!');
         }
     }
+
+    public function resetpassword(){
+        return view('reset-password');
+    }
+
+    
     public function logout()
     {
      Auth::logout();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TagController extends Controller
 {
@@ -44,9 +45,9 @@ class TagController extends Controller
     
            $newTag->save();
             // Artikel::create($request->all());
-            return redirect('/admin/tag')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Created Successfully');
+            return redirect('/admin/tag');
           } catch (Exception $e) {
-          
               return redirect()->back()->with('error', $e->getMessage());
           
           }
@@ -82,13 +83,14 @@ class TagController extends Controller
         ]);
 
         try {
-            $editTag = Tag::findorfail($id);
+            $editTag = Tag::find($id);
             $editTag->update([
                 'tag_name' => $request->tag_name,
                 'deskripsi' => $request->deskripsi,
             ]);
             // Artikel::create($request->all());
-            return redirect('/admin/tag')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Updated Successfully');
+            return redirect('/admin/tag');
           } catch (Throwable $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -101,8 +103,8 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $tag = findorfail($id);
+        $tag = Tag::find($id);
         $tag->delete();
-        return redirect('/admin/tag')->with('don', 'Data Sudah Dihapus');
+        return redirect('/admin/tag');
     }
 }

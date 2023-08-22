@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('../dist/assets/css/main/app.css')}}">
     <link rel="stylesheet" href="{{asset('../dist/assets/css/pages/auth.css')}}">
     <link rel="shortcut icon" href="{{asset('../dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{asset('../dist/assets/images/logo/favicon.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset('../dist/assets/images/logo/favicon.png')}}" type="image/png">
 </head>
 
 <body>
@@ -49,7 +49,7 @@
             <div class="text-center mt-5 text-lg fs-4">
                 <p class="text-gray-600">Don't have an account? <a href="/register" class="font-bold">Sign
                         up</a>.</p>
-                <p><a class="font-bold" href="auth-forgot-password.html">Forgot password?</a>.</p>
+                <p><a class="font-bold" href="/reset-password">Forgot password?</a>.</p>
             </div>
         </div>
     </div>

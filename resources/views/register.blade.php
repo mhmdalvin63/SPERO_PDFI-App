@@ -33,24 +33,37 @@
                     <div class="form-control-icon">
                         <i class="bi bi-envelope"></i>
                     </div>
+                    @error('email')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
                     <input type="text" class="form-control form-control-xl" name="name" placeholder="Username">
                     <div class="form-control-icon">
                         <i class="bi bi-person"></i>
                     </div>
+                    @error('name')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input id="password" type="password" class="form-control form-control-xl" placeholder="Password">
+                    <input id="password" type="password" class="form-control f form-control-xl" placeholder="Password">
                     <div class="form-control-icon">
                         <i class="bi bi-shield-lock"></i>
                     </div>
+                    @error('password')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input id="password2" type="password" name="password" class="form-control form-control-xl" placeholder="Confirm Password">
+                    <input id="password2" onchange="check()" type="password" name="password" class="form-control cf form-control-xl" placeholder="Confirm Password">
                     <div class="form-control-icon">
                         <i class="bi bi-shield-lock"></i>
                     </div>
+                    <div id="result" class="result text-danger"></div>
+                    @error('password')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="form-check form-check-lg d-flex align-items-end">
                     <input onclick="myFunction()" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
@@ -58,7 +71,7 @@
                         Show Password
                     </label>
                 </div>
-                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" type="submit">Sign Up</button>
+                <button id="dis" class="btn btn-primary btn-block btn-lg shadow-lg mt-5" type="submit">Sign Up</button>
             </form>
             <div class="text-center mt-5 text-lg fs-4">
                 <p class='text-gray-600'>Already have an account? <a href="/login" class="font-bold">Log
@@ -83,6 +96,22 @@
 <script src="{{asset('../dist/assets/js/pages/form-element-select.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<script>
+function check() {
+var x = document.getElementById("password");
+var y = document.getElementById("password2");
+var z = document.getElementById("dis");
+var w = document.getElementById("result");
+if (x.value === y.value) {
+  w.innerHTML = "";
+  z.disabled = false;
+} else {
+    w.innerHTML = "Not Match";
+  z.disabled = true;
+}
+}
+</script>
+
 <script type="text/javascript">
 function myFunction() {
 var x = document.getElementById("password");
@@ -96,6 +125,8 @@ if (x.type === "password" && y.type === "password") {
 }
 }
 </script>
+
+
 </body>
 
 </html>

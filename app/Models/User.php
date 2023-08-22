@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    
+    public function pendaftar(){
+        return $this->hasMany(Pendaftar::class, 'id_user');
+    }
 }

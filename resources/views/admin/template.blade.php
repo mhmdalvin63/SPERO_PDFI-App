@@ -84,6 +84,20 @@
                     <span>Agenda</span>
                 </a>
             </li>
+            <li
+                class="sidebar-item {{ (request()->is('admin/user-management')) ? 'active' : '' }}">
+                <a href="/admin/user-management" class='sidebar-link'>
+                <i class="bi bi-person-square"></i>
+                    <span>User Management</span>
+                </a>
+            </li>
+            <li
+                class="sidebar-item ">
+                <a href="/logout" class='sidebar-link text-danger'>
+                <i class="bi bi-box-arrow-left text-danger"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
             
             
             
@@ -99,6 +113,7 @@
             </header>
             
 <div class="main-content">
+@include('sweetalert::alert')
     @yield('layout')
 </div>
 
@@ -121,7 +136,31 @@
 <script src="{{asset('../dist/assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
 <script src="{{asset('../dist/assets/js/pages/form-element-select.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.5/sweetalert2.all.js" integrity="sha512-AINSNy+d2WG9ts1uJvi8LZS42S8DT52ceWey5shLQ9ArCmIFVi84nXNrvWyJ6bJ+qIb1MnXR46+A4ic/AUcizQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<!-- Page Specific JS File -->
+<script type="text/javascript">
+    $('.delete').click(function(){
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Are you sure?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, delete it",
+        closeOnConfirm: false
+      }).then((result) => {
+        if(result.isConfirmed){
+          $(this).closest("form").submit();
+          Swal.fire(
+            'Deleted',
+            'You have successfully deleted',
+            'success',
+          );
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\UpdateController;
@@ -23,10 +24,6 @@ use App\Http\Controllers\FrontEndController;
 Route::get('organisasi', function () {return view('pages.organisasi');});
 Route::get('/login', [LoginController::class, 'loginuser'])->name('login.user');
 Route::post('/login', [LoginController::class, 'postloginuser'])->name('postlogin.user');
-Route::get('/register', [LoginController::class, 'register'])->name('register.user');
-Route::post('/register/store', [LoginController::class, 'postregister'])->name('postregister.user');
-Route::get('/verified', [LoginController::class, 'verified'])->name('verified.user');
-Route::get('/verified/{id}', [LoginController::class, 'postverified'])->name('postverified.user');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/update', [FrontEndController::class, 'update'])->name('update');
@@ -35,8 +32,28 @@ Route::get('/home', [FrontEndController::class, 'index'])->name('home');
 Route::get('/detailupdate/{id}', [FrontEndController::class, 'detailupdate'])->name('detailupdate');
 Route::get('/agenda', [FrontEndController::class, 'agenda'])->name('agenda');
 
+Route::get('/register', [LoginController::class, 'register'])->name('register.user');
+Route::post('/register/store', [LoginController::class, 'postregister'])->name('postregister.user');
+Route::get('/verified', [LoginController::class, 'verified'])->name('verified.user');
+Route::get('/verified/{id}', [LoginController::class, 'postverified'])->name('postverified.user');
+
+Route::get('/reset-password', [LoginController::class, 'resetpassword'])->name('resetpassword.user');
+// Route::post('/reset-password', [LoginController::class, 'postresetpassword'])->name('postresetpassword.user');
+// Route::get('/reset-password/{id}', [LoginController::class, 'mailreset'])->name('mailreset.user');
+// Route::get('/reset', [LoginController::class, 'aftermailreset'])->name('aftermailreset.user');
+// Route::put('/reset/{id}', [LoginController::class, 'updatepassword'])->name('updatepassword.user');
+
+Route::get('provinces', 'FrontEndController@provinces')->name('provinces');
+Route::get('cities', 'FrontEndController@cities')->name('cities');
+Route::get('districts', 'FrontEndController@districts')->name('districts');
+
 Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
     Route::get('/detailagenda/{id}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
+    Route::post('/daftar/{id}', [FrontEndController::class, 'daftaragenda'])->name('daftaragenda');
+
+    Route::post('/getkota', [FrontEndController::class, 'kota'])->name('kota');
+    Route::post('/getkecamatan', [FrontEndController::class, 'kecamatan'])->name('kecamatan');
+
 });
 
 Route::prefix('/admin')->group(function (){
@@ -53,6 +70,8 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::resource('/anggota', AnggotaController::class);
     Route::resource('/tipe', TypeController::class);
     Route::resource('/tag', TagController::class);
+    Route::resource('/user-management', UserController::class);
+    Route::put('/user-management/resetpassword/{id}', [UserController::class, 'resetpassword'])->name('resetpassword');
 });
 
 

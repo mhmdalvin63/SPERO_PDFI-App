@@ -9,30 +9,51 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body p-5">
+            @if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ session('error') }}
+        <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
                 <form action="{{ url('admin/agenda') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Title Event<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Title Event..." name="judul_agenda">
+                        @error('judul_agenda')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Topic Event<span class="text-danger">*</span></label>
                         <textarea class="form-control" style="height: 200px" placeholder="Input Topic Event..." id="floatingTextarea" name="deskripsi"></textarea>
+                        @error('deskripsi')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="exampleInputUsername1" class="fw-bold">Start Event<span class="text-danger">*</span></label>
                             <input type="date" class="form-control" id="exampleInputUsername1" placeholder="Input Start Date Event..." name="start_date">
+                            @error('start_date')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-group col-6">
                             <label for="exampleInputUsername1" class="fw-bold">End Event<span class="text-danger">*</span></label>
                             <input type="date" class="form-control" id="exampleInputUsername1" placeholder="Input End Date Event..." name="end_date">
+                            @error('end_date')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Location Event<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Location Event..." name="location">
+                        @error('location')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Organizer Event<span class="text-danger">*</span></label>
@@ -42,6 +63,9 @@
                             <option value="{{ $item->id }}">{{ $item->nama_anggota }}</option>
                             @endforeach
                         </select>
+                        @error('id_anggota')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Type Event<span class="text-danger">*</span></label>
@@ -50,6 +74,9 @@
                             <option value="{{ $item->id }}">{{ $item->nama_tipe }}</option>
                             @endforeach
                         </select>
+                        @error('tipe_id')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group" id="">
                     <label for="exampleInputUsername1" class="fw-bold">Free or Buy<span class="text-danger">*</span></label>
@@ -57,6 +84,9 @@
                         <option value="Free">Free</option>
                         <option value="Buy">Buy</option>
                     </select>
+                    @error('status_event')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="form-group mt-3" id="tiket">
                         <label for="" class="fw-bold">Event Tickets</label>
@@ -72,6 +102,9 @@
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
                         <input class="form-control file fw-bold" type="file" id="formFile" name="foto">
                         <div class="result text-danger fw-bold"></div>
+                        @error('foto')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                       </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/agenda" class="btn btn-outline-warning btn-icon-text">

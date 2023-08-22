@@ -17,7 +17,12 @@
                     +
                 </a>
             </div>
-            
+            @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show">
+        {{ session('success') }}
+        <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
             <div class="table-responsive text-center">
                 <table class="table table-hover table-striped">
                     <thead>
@@ -40,7 +45,7 @@
                                 <form action="{{ url('admin/update', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm-lg text-white"><i class="bi bi-trash-fill"></i></button>
+                                    <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>
                                 </form>
                                 <a data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$item->id}}" class="btn btn-success btn-sm-lg text-white"><i class="bi bi-eye-fill"></i></i></a>
 

@@ -41,8 +41,9 @@
                                 <form action="{{ url('admin/agenda', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm-lg text-white"><i class="bi bi-trash-fill"></i></button>
+                                    <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>
                                 </form>
+                                <a href="#" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-person-badge"></i></a>
                                
                         </td>
                         <td>{{ $item->judul_agenda}}</td>
