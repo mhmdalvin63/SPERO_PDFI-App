@@ -14,7 +14,7 @@ class Agenda extends Model
     protected $primaryKey = "id";
     protected $table = "agendas";
     protected $fillable = [
-        'judul_agenda','deskripsi', 'start_date', 'end_date', 'location', 'id_anggota', 'foto', 'status_eventstatus_event'
+        'judul_agenda','deskripsi', 'start_date', 'end_date', 'location', 'id_anggota', 'foto', 'status_event'
     ];
 
     public function anggota(){
@@ -23,6 +23,10 @@ class Agenda extends Model
 
     public function tiket(){
         return $this->hasMany(Tiket::class, 'id_agenda');
+    }
+
+    public function pendaftar(){
+        return $this->hasMany(Pendaftar::class, 'id_agenda');
     }
 
     public function type(){

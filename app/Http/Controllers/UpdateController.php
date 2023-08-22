@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\Update;
 use App\Models\Tag;
+use App\Models\Update;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UpdateController extends Controller
 {
@@ -61,7 +62,8 @@ class UpdateController extends Controller
 
            $newUpdate->tag()->attach($request->id_tag);
             // Artikel::create($request->all());
-            return redirect('/admin/update')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Created Successfully');
+            return redirect('/admin/update');
           } catch (Exception $e) {
           
               return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
@@ -117,7 +119,8 @@ class UpdateController extends Controller
                     'isi_berita' => $request->isi_berita,
                 ]);
             }
-            return redirect('/admin/update')->with('success','Data Artikel Berhasil Diupdate');
+            Alert::success('Success', 'Data Updated Successfully');
+            return redirect('/admin/update');
           
           } catch (Exception $e) {
           return redirect()->back()->with('error', 'Data Tidak Bisa Disimpan!', $e->getMessage());

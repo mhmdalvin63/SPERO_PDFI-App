@@ -9,6 +9,12 @@
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body p-5">
+            @if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ session('error') }}
+        <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
                 <form action="{{ url('admin/update', $updateEdit->id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     @method('PUT')

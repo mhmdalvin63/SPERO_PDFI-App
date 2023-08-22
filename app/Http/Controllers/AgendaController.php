@@ -12,6 +12,7 @@ use App\Models\TypeAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AgendaController extends Controller
 {
@@ -55,7 +56,7 @@ class AgendaController extends Controller
             'deskripsi' => 'Insert Topic Update',
             'start_date' => 'Insert Start Date',
             'end_date' => 'Insert End Date',
-            'location' => 'InsertLocation Event',
+            'location' => 'Insert Location Event',
             'id_anggota' => 'Insert Organizer',
             'status_event' => 'Insert Event Status',
         ]);
@@ -104,12 +105,13 @@ class AgendaController extends Controller
            }
            
             DB::commit();
-            return redirect('/admin/agenda')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Created Successfully');
+            return redirect('/admin/agenda')->with('success','Data Has Been Created');
             
           } catch (Throwable $e) {
 
             DB::rollBack();
-            return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
           
           }
 
@@ -130,7 +132,7 @@ class AgendaController extends Controller
     {
         $anggota = Anggota::all();
         $tipe = Type::all();
-        $agenda = Agenda::findorfail($id);
+        $agenda = Agenda::find($id);
         return view('admin.agenda.edit', compact('agenda', 'anggota', 'tipe'));
     }
 
@@ -143,7 +145,7 @@ class AgendaController extends Controller
         // dd($request);
         try{
             DB::beginTransaction();
-            $editAgenda = Agenda::findorfail($id);
+            $editAgenda = Agenda::find($id);
             if($request->hasFile('foto'))
             {
                 $fotoUpdate = 'gambar'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
@@ -183,7 +185,8 @@ class AgendaController extends Controller
             
             
             DB::commit();
-            return redirect('/admin/agenda')->with('success','Data Artikel Berhasil Di Edit');
+            Alert::success('Success', 'Data Updated Successfully');
+            return redirect('/admin/agenda');
         }
         catch(Throwable $e){
             DB::rollBack();
@@ -196,10 +199,10 @@ class AgendaController extends Controller
      */
     public function destroy($id)
     {
-        $agenda = Agenda::findorfail($id);
+        $agenda = Agenda::find($id);
         File::delete('img/'.$agenda->foto);
         $agenda->delete();
 
-        return redirect('/admin/agenda');
+        return redirect('/admin/agenda')->with('success','Data Has Been Deleted');
     }
 }

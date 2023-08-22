@@ -1,0 +1,92 @@
+@extends('admin.template')
+@section('title', 'Input User')
+@section('layout')
+<div class="page-heading">
+    <h3>Insert Data User</h3>
+</div>
+
+<div class="row d-flex" style="justify-content: center;">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body p-5">
+                <form action="{{ url('admin/user-management') }}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Name<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Name User..." name="name">
+                        @error('name')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Email<span class="text-danger">*</span></label>
+                        <input type="Email" class="form-control" id="exampleInputUsername1" placeholder="Input Email User..." name="email">
+                        @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Password<span class="text-danger">*</span></label>
+                        <input id="password" type="password" class="form-control" placeholder="Password">
+                        @error('password')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Confirm Password<span class="text-danger">*</span></label>
+                        <input id="password2" onchange="check()" type="password" name="password" class="form-control" placeholder="Confirm Password">
+                        <div id="result" class="result text-danger"></div>
+                        @error('password')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                    <input onclick="myFunction()" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label text-gray-600" for="flexCheckDefault">
+                        Show Password
+                    </label>
+                    </div>
+
+                    <div class="modal-footer gap-1 mt-5">
+                        <a href="/admin/user-management" class="btn btn-outline-warning btn-icon-text">
+                            Cancel
+                        </a>
+                        <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function check() {
+var x = document.getElementById("password");
+var y = document.getElementById("password2");
+var w = document.getElementById("result");
+if (x.value === y.value) {
+  w.innerHTML = "";
+  document.getElementById("dis").disabled = false;
+} else {
+    w.innerHTML = "Not Match";
+    document.getElementById("dis").disabled = true;
+}
+}
+</script>
+
+<script type="text/javascript">
+function myFunction() {
+var x = document.getElementById("password");
+var y = document.getElementById("password2");
+if (x.type === "password" && y.type === "password") {
+  x.type = "text";
+  y.type = "text";
+} else {
+  x.type = "password";
+  y.type = "password";
+}
+}
+</script>
+@endsection

@@ -39,35 +39,23 @@
             <p class="md fw-bold">:&emsp;
                 @if($detailagenda->status_event == 'Buy')
                 @foreach($detailagenda->tiket as $item)
-                {{$item->nama_tiket}}&emsp; = Rp. {{number_format($item->harga_tiket)}}<br> &emsp;
+                {{$item->nama_tiket}} = Rp. {{number_format($item->harga_tiket)}}<br> &emsp;
                 @endforeach
                 @elseif($detailagenda->status_event == 'Free')
                 Free
                 @endif
             </p>
         </div>  
-        @if(auth()->user()->level == 'user')
+        
             @if($detailagenda->status_event == 'Free')
                 <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModaljoin">
                     Join
                 </button>
-            @else
+            @elseif($detailagenda->status_event == 'Buy')
                 <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
                     Pesan
                 </button>
             @endif
-        @else
-            @if($detailagenda->status_event == 'Free')
-                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModallogin">
-                    Join
-                </button>
-            @else
-                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModallogin">
-                    Pesan
-                </button>
-            @endif
-        @endif
-
         <div class="listUpdate mt-5">
             <div class="container">
                 <h3 class="text-gray fw-bolder mb-2">Kegiatan Lainnya</h3>
@@ -99,7 +87,7 @@
     </div>
 </div>
 
-<!-- Modal join-->
+<!-- Modal Pesan-->
 <div class="modal fade" id="exampleModalpesan" tabindex="-1" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
     <div class="modal-dialog">
@@ -109,77 +97,103 @@ aria-hidden="true">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <form action="{{ route('daftaragenda', $detailagenda->id) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nama Panjang</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Nama Panjang</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Input Your Name">
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" placeholder="Input Your Birthdate" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">Laki-Laki</option>
-                            <option value="2">Perempuan</option>
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Kelamin</label>
+                        <select class="form-select" name="jenis_kelamin" aria-label="Default select example">
+                            <option selected disabled>Pilih Jenis Kelamin</option>
+                            <option value="L">Laki-Laki</option>
+                            <option value="P">Perempuan</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">No Telepon</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">No Telepon</label>
+                    <input type="number" name="no_telp" placeholder="Input Your Phone Number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Email</label>
+                    <input type="email" name="email" placeholder="Input Your Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Jenis Tiket</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">Laki-Laki</option>
-                            <option value="2">Perempuan</option>
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Tiket</label>
+                        <select name="id_tiket" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih Jenis Tiket</option>
+                           @foreach($detailagenda->tiket as $tiket)
+                           <option value="{{$tiket->id}}">{{$tiket->nama_tiket}} - {{number_format($tiket->harga_tiket)}}</option>
+                           @endforeach
                         </select>
                 </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label">Bukti Transfer</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota IDI</label>
+                    <input type="number" name="no_anggota_idi" placeholder="Input Your Number IDI Organization" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota PDFI</label>
+                    <input type="number" name="no_anggota_pdfi" placeholder="Input Your Number PDFI Organization" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label fw-bold">Bukti Transfer</label>
+                    <input class="form-control" name="bukti_transfer" type="file" id="formFile">
                 </div>
                 <div class="row g-3">
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Provinsi</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Provinsi</label>
+                        <select id="province" name="id_provinsi" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih Provinsi</option>
+                            @foreach ($provinsi as $item)
+                                <option value="{{ $item->code }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Kabupaten/Kota</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Kabupaten/Kota</label>
+                        <select id="city" name="id_kota" class="form-select" aria-label="Default select example">
+                        <option selected disabled>Pilih Kabupaten/Kota</option>
+                        </select>
                     </div>
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Kecamatan</label>
+                        <select id="kecamatan" name="id_kecamatan" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih Kecamatan</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Pekerjaan</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Alamat</label>
+                    <input type="text" name="alamat" placeholder="Input Your Address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Asal Cabang</label>
+                    <input type="text" name="cabang" placeholder="Input Your Address Brach Clinic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary store">
                     Pesan
                 </button>
             </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Modal Pesan-->
+<!-- Modal Join-->
 <div class="modal fade" id="exampleModaljoin" tabindex="-1" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
     <div class="modal-dialog">
@@ -190,48 +204,60 @@ aria-hidden="true">
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nama Panjang</label>
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Nama Panjang</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Tanggal Lahir</label>
                         <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Kelamin</label>
                         <select class="form-select" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
+                            <option selected>Pilih Jenis Kelamin</option>
                             <option value="1">Laki-Laki</option>
                             <option value="2">Perempuan</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">No Telepon</label>
+                    <label for="exampleInputEmail1" class="form-label fw-bold">No Telepon</label>
                     <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Email</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota IDI</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota PDFI</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
                 <div class="row g-3">
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Provinsi</label>
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Provinsi</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Kabupaten/Kota</label>
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Kabupaten/Kota</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="col">
-                        <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
+                        <label for="exampleInputEmail1" class="form-label fw-bold">Kecamatan</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Pekerjaan</label>
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Alamat</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Asal Cabang</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
             </div>
@@ -264,4 +290,55 @@ aria-hidden="true">
     </div>
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(function (){
+        $.ajaxSetup({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $(function(){
+            $('#province').on('change', function(){
+                let id_provinsi = $('#province').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('kota')}}",
+                    data: {id_provinsi:id_provinsi},
+                    cache: false,
+
+                    success: function(msg){
+                        $('#city').html(msg);
+                    },
+                    error: function(data){
+                        console.log('error:', data)
+                    },
+                })
+            });
+
+
+            $('#city').on('change', function(){
+                let id_kota = $('#city').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('kecamatan')}}",
+                    data: {id_kota:id_kota},
+                    cache: false,
+
+                    success: function(msg){
+                        $('#kecamatan').html(msg);
+                    },
+                    error: function(data){
+                        console.log('error:', data)
+                    },
+                })
+            });
+
+        });
+
+    });
+</script>
+
 @endsection

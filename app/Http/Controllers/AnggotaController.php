@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Anggota;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AnggotaController extends Controller
 {
@@ -44,10 +45,11 @@ class AnggotaController extends Controller
     
            $newAnggota->save();
             // Artikel::create($request->all());
-            return redirect('/admin/anggota')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Created Successfully');
+            return redirect('/admin/anggota');
           } catch (Throwable $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
+              return redirect()->back()->with('error', $e->getMessage());
           
           }
     }
@@ -80,15 +82,16 @@ class AnggotaController extends Controller
         ]);
 
         try {
-            $newAnggota = Anggota::findorfail($id);
+            $newAnggota = Anggota::find($id);
             $newAnggota->update([
                 'nama_anggota' => $request->nama_anggota
             ]);
             // Artikel::create($request->all());
-            return redirect('/admin/anggota')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Updated Successfully');
+            return redirect('/admin/anggota');
           } catch (Throwable $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
+              return redirect()->back()->with('error', $e->getMessage());
           
           }
     }
@@ -98,8 +101,8 @@ class AnggotaController extends Controller
      */
     public function destroy(Anggota $anggota, $id)
     {
-        $anggota = Anggota::findorfail($id);
+        $anggota = Anggota::find($id);
         $anggota->delete();
-        return redirect('/admin/anggota');
+        return redirect('/admin/anggota')->with('success','Data Has Been Deleted');
     }
 }

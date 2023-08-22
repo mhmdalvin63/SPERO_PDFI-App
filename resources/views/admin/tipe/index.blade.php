@@ -15,6 +15,9 @@
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Type Name<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Type Name..." name="nama_tipe">
+                        @error('nama_tipe')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="modal-footer gap-1">
                         <a href="/admin/aggota" class="btn btn-outline-warning btn-icon-text">
@@ -43,7 +46,12 @@
                     +
                 </a>
             </div>
-            
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <thead>
@@ -92,7 +100,7 @@
                                 <form action="{{ url('admin/tipe', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm-lg text-white"><i class="bi bi-trash-fill"></i></button>
+                                    <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>
                                 </form>
 
                                 <a data-bs-toggle="modal" data-bs-target="#Detail{{$item->id}}" class="btn btn-success btn-sm-lg text-white"><i class="bi bi-eye-fill"></i></i></a>

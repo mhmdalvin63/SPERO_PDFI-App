@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TypeController extends Controller
 {
@@ -44,10 +45,11 @@ class TypeController extends Controller
     
            $newTipe->save();
             // Artikel::create($request->all());
-            return redirect('/admin/tipe')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Created Successfully');
+            return redirect('/admin/tipe');
           } catch (Exception $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
+              return redirect()->back()->with('error', $e->getMessage());
           
           }
     }
@@ -80,15 +82,16 @@ class TypeController extends Controller
         ]);
 
         try {
-            $editTipe = Type::findorfail($id);
+            $editTipe = Type::find($id);
             $editTipe->update([
                 'nama_tipe' => $request->nama_tipe
             ]);
             // Artikel::create($request->all());
-            return redirect('/admin/tipe')->with('success','Data Artikel Berhasil Di Tambahkan');
+            Alert::success('Success', 'Data Updated Successfully');
+            return redirect('/admin/tipe');
           } catch (Throwable $e) {
           
-              return redirect()->back()->with('error','Data Tidak Bisa Disimpan!', $e->getMessage());
+              return redirect()->back()->with('error', $e->getMessage());
           
           }
     }
@@ -98,8 +101,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type, $id)
     {
-        $tipe = Type::findorfail($id);
+        $tipe = Type::find($id);
         $tipe->delete();
-        return redirect('/admin/tipe');
+        return redirect('/admin/tipe')->with('success','Type Has Been Deleted');
     }
 }
