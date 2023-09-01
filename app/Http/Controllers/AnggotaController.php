@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Anggota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AnggotaController extends Controller
@@ -14,7 +15,8 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        $anggota = Anggota::latest()->get();
+        $user = Auth::user()->id;
+        $anggota = Anggota::where('id_user', $user)->get();
         return view('admin.anggota.index', compact('anggota'));
     }
 
@@ -38,15 +40,17 @@ class AnggotaController extends Controller
         ]);
 
         try {
+            $user = Auth::user()->id;
             $newAnggota = new Anggota();
             $newAnggota->nama_anggota = $request->nama_anggota;
+            $newAnggota->id_user = $user;
     
             
     
            $newAnggota->save();
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Created Successfully');
-            return redirect('/admin/anggota');
+            return redirect('/cabang/anggota');
           } catch (Throwable $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -82,13 +86,15 @@ class AnggotaController extends Controller
         ]);
 
         try {
+            $user = Auth::user()->id;
             $newAnggota = Anggota::find($id);
             $newAnggota->update([
-                'nama_anggota' => $request->nama_anggota
+                'nama_anggota' => $request->nama_anggota,
+                'id_user' => $user
             ]);
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Updated Successfully');
-            return redirect('/admin/anggota');
+            return redirect('/cabang/anggota');
           } catch (Throwable $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -103,6 +109,6 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::find($id);
         $anggota->delete();
-        return redirect('/admin/anggota')->with('success','Data Has Been Deleted');
+        return redirect('/cabang/anggota')->with('success','Data Has Been Deleted');
     }
 }

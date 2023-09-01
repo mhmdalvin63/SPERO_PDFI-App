@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TypeController extends Controller
@@ -14,7 +15,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $tipe = Type::latest()->get();
+        $user = Auth::user()->id;
+        $tipe = Type::where('id_user', $user)->get();
         return view('admin.tipe.index', compact('tipe'));   
     }
 
@@ -38,15 +40,17 @@ class TypeController extends Controller
         ]);
 
         try {
+            $user = Auth::user()->id;
             $newTipe = new Type();
             $newTipe->nama_tipe = $request->nama_tipe;
+            $newTipe->id_user = $user;
     
             
     
            $newTipe->save();
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Created Successfully');
-            return redirect('/admin/tipe');
+            return redirect('/cabang/tipe');
           } catch (Exception $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -82,13 +86,15 @@ class TypeController extends Controller
         ]);
 
         try {
+            $user = Auth::user()->id;
             $editTipe = Type::find($id);
             $editTipe->update([
-                'nama_tipe' => $request->nama_tipe
+                'nama_tipe' => $request->nama_tipe,
+                'id_user' => $user,
             ]);
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Updated Successfully');
-            return redirect('/admin/tipe');
+            return redirect('/cabang/tipe');
           } catch (Throwable $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -103,6 +109,6 @@ class TypeController extends Controller
     {
         $tipe = Type::find($id);
         $tipe->delete();
-        return redirect('/admin/tipe')->with('success','Type Has Been Deleted');
+        return redirect('/cabang/tipe')->with('success','Type Has Been Deleted');
     }
 }

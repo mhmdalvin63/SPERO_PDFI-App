@@ -86,7 +86,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal Pesan-->
 <div class="modal fade" id="exampleModalpesan" tabindex="-1" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
@@ -127,15 +126,6 @@ aria-hidden="true">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Tiket</label>
-                        <select name="id_tiket" class="form-select" aria-label="Default select example">
-                            <option selected disabled>Pilih Jenis Tiket</option>
-                           @foreach($detailagenda->tiket as $tiket)
-                           <option value="{{$tiket->id}}">{{$tiket->nama_tiket}} - {{number_format($tiket->harga_tiket)}}</option>
-                           @endforeach
-                        </select>
-                </div>
-                <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota IDI</label>
                     <input type="number" name="no_anggota_idi" placeholder="Input Your Number IDI Organization" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
@@ -144,8 +134,13 @@ aria-hidden="true">
                     <input type="number" name="no_anggota_pdfi" placeholder="Input Your Number PDFI Organization" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="formFile" class="form-label fw-bold">Bukti Transfer</label>
-                    <input class="form-control" name="bukti_transfer" type="file" id="formFile">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Tiket</label>
+                        <select name="id_tiket" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih Jenis Tiket</option>
+                           @foreach($detailagenda->tiket as $tiket)
+                           <option value="{{$tiket->id}}">{{$tiket->nama_tiket}} - {{number_format($tiket->harga_tiket)}}</option>
+                           @endforeach
+                        </select>
                 </div>
                 <div class="row g-3">
                     <div class="col">
@@ -177,6 +172,10 @@ aria-hidden="true">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">Asal Cabang</label>
                     <input type="text" name="cabang" placeholder="Input Your Address Brach Clinic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label fw-bold">Bukti Transfer</label>
+                    <input class="form-control" name="bukti_transfer" type="file" id="formFile">
                 </div>
                 
             </div>

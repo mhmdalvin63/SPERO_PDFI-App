@@ -21,12 +21,20 @@ class Agenda extends Model
         return $this->BelongsTo(Anggota::class, 'id_anggota');
     }
 
+    public function user(){
+        return $this->BelongsTo(User::class, 'id_user');
+    }
+
     public function tiket(){
         return $this->hasMany(Tiket::class, 'id_agenda');
     }
 
     public function pendaftar(){
         return $this->hasMany(Pendaftar::class, 'id_agenda');
+    }
+
+    public function foto(){
+        return $this->hasMany(FotoAgenda::class, 'id_agenda');
     }
 
     public function type(){

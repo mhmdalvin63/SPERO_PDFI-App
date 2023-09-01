@@ -26,7 +26,13 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">No. Telepon<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input Email User..." name="no_telp">
+                        @error('no_telp')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/user-management" class="btn btn-outline-warning btn-icon-text">
                             Cancel

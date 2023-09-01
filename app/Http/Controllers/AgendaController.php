@@ -8,9 +8,11 @@ use App\Models\Type;
 use App\Models\Tiket;
 use App\Models\Agenda;
 use App\Models\Anggota;
+use App\Models\FotoAgenda;
 use App\Models\TypeAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -21,7 +23,8 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        $agenda = Agenda::all();
+        $user = Auth::user()->id;
+        $agenda = Agenda::where('id_user', $user)->get();
         return view('admin.agenda.index', compact('agenda'));
     }
 
@@ -41,7 +44,6 @@ class AgendaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'foto' => 'required|file|mimes:jpeg,jpg,png,webp',
             'judul_agenda' => 'required',
             'deskripsi' => 'required',
             'start_date' => 'required',
@@ -50,8 +52,6 @@ class AgendaController extends Controller
             'id_anggota' => 'required',
             'status_event' => 'required',
         ],[
-            'foto' => 'Insert Image',
-            'foto.mimes' => 'Image Must Be jpeg, jpg, png, webp',
             'judul_agenda' => 'Insert Title Update',
             'deskripsi' => 'Insert Topic Update',
             'start_date' => 'Insert Start Date',
@@ -61,8 +61,9 @@ class AgendaController extends Controller
             'status_event' => 'Insert Event Status',
         ]);
 
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
+            $user = Auth::user()->id;
             $newAgenda = new Agenda();
             $newAgenda->judul_agenda = $request->judul_agenda;
             $newAgenda->deskripsi = $request->deskripsi;
@@ -71,18 +72,14 @@ class AgendaController extends Controller
             $newAgenda->location = $request->location;
             $newAgenda->id_anggota = $request->id_anggota;
             $newAgenda->status_event = $request->status_event;
+            $newAgenda->id_user = $user;
     
-            if($request->hasFile('foto'))
-            {
-                $fotoAgenda = 'gambar'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
-                $request->file('foto')->move(public_path().'/img/', $fotoAgenda);
-                $newAgenda->foto = $fotoAgenda;
-                $newAgenda->save();
-            }
+            
     
            $newAgenda->save();  
            
         //    dd($request->tipe_id);
+        
            
            foreach ($request->tipe_id as $newPivot) {
                $newPivotType = new TypeAgenda();
@@ -103,17 +100,27 @@ class AgendaController extends Controller
                     }
                 }
            }
+           if($request->has('foto')){
+            foreach($request->file('foto') as $image){
+                $image2 = date('YmdHis').rand(99999, 99999).$image->getClientOriginalName();
+                $image->move(public_path().'/img/', $image2);
+                FotoAgenda::create([
+                    'id_agenda' => $newAgenda->id,
+                    'foto' => $image2,
+                    ]);
+                }
+            }
            
             DB::commit();
             Alert::success('Success', 'Data Created Successfully');
-            return redirect('/admin/agenda')->with('success','Data Has Been Created');
+            return redirect('/cabang/agenda')->with('success','Data Has Been Created');
             
-          } catch (Throwable $e) {
+        } catch (Throwable $e) {
 
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
           
-          }
+        }
 
     }
 
@@ -146,6 +153,7 @@ class AgendaController extends Controller
         try{
             DB::beginTransaction();
             $editAgenda = Agenda::find($id);
+            $user = Auth::user()->id;
             if($request->hasFile('foto'))
             {
                 $fotoUpdate = 'gambar'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
@@ -162,6 +170,7 @@ class AgendaController extends Controller
             $editAgenda->location = $request->location;
             $editAgenda->id_anggota = $request->id_anggota;
             $editAgenda->status_event = $request->status_event;
+            $editAgenda->id_user = $user;
             $editAgenda->save();
                 
 
@@ -186,7 +195,7 @@ class AgendaController extends Controller
             
             DB::commit();
             Alert::success('Success', 'Data Updated Successfully');
-            return redirect('/admin/agenda');
+            return redirect('/cabang/agenda');
         }
         catch(Throwable $e){
             DB::rollBack();
@@ -203,6 +212,6 @@ class AgendaController extends Controller
         File::delete('img/'.$agenda->foto);
         $agenda->delete();
 
-        return redirect('/admin/agenda')->with('success','Data Has Been Deleted');
+        return redirect('/cabang/agenda')->with('success','Data Has Been Deleted');
     }
 }

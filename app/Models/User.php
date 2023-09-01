@@ -47,4 +47,16 @@ class User extends Authenticatable
     public function pendaftar(){
         return $this->hasMany(Pendaftar::class, 'id_user');
     }
+
+    public function tipe(){
+        return $this->hasMany(Type::class, 'id_user');
+    }
+
+    public function anggota(){
+        return $this->hasMany(Anggota::class, 'id_user');
+    }
+
+    public function agenda(){
+        return $this->hasMany(Agenda::class, 'id_user');
+    }
 }

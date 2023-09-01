@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'cekLevel' => \App\Http\Middleware\cekLevel::class,
         'isAdmin' => \App\Http\Middleware\isAdmin::class,
         'isUser' => \App\Http\Middleware\isUser::class,
+        'isCabang' => \App\Http\Middleware\isCabang::class,
     ];
 }

@@ -19,4 +19,9 @@ class Type extends Model
     public function agenda(){
         return $this->BelongsToMany(Agenda::class, 'type_agendas', 'id_type', 'id_agenda');
     }
+
+    public function user(){
+        return $this->BelongsTo(User::class, 'id_user');
+    }
+
 }

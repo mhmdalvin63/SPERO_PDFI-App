@@ -12,7 +12,13 @@
     <link rel="shortcut icon" href="{{asset('../dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{{asset('../dist/assets/images/logo/favicon.png')}}" type="image/png">
     
-<link rel="stylesheet" href="{{asset('../dist/assets/css/shared/iconly.css')}}">
+<link rel="stylesheet" href="{{asset('../dist/assets/css/shared/iconly.css')}}')}}">
+<link rel="stylesheet" href="{{asset('../dist/assets/extensions/filepond/filepond.css')}}">
+<link rel="stylesheet" href="{{asset('../dist/assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css')}}">
+<link rel="stylesheet" href="{{asset('../dist/assets/extensions/toastify-js/src/toastify.css')}}">
+<link rel="stylesheet" href="{{asset('../dist/assets/css/pages/filepond.css')}}">
+<link type="text/css" rel="stylesheet" href="{{asset('../image-uploader/dist/image-uploader.min.css')}}">
+
 
 
 </head>
@@ -40,8 +46,10 @@
     </div>
     <div class="sidebar-menu">
         <ul class="menu">
-            <li class="sidebar-title">Menu</li>
+        <li class="sidebar-title">Menu</li>
             
+          
+            @if(Auth::user()->level == 'admin')
             <li
                 class="sidebar-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }} ">
                 <a href="/admin/dashboard" class='sidebar-link'>
@@ -64,19 +72,12 @@
                 </a>
             </li>
             <li
-                class="sidebar-item {{ (request()->is('admin/anggota')) ? 'active' : '' }}">
-                <a href="/admin/anggota" class='sidebar-link'>
-                <i class="bi bi-people"></i>
-                    <span>Penyelenggara</span>
+                class="sidebar-item {{ (request()->is('admin/user-management')) ? 'active' : '' }}">
+                <a href="/admin/user-management" class='sidebar-link'>
+                <i class="bi bi-person-square"></i>
+                    <span>User Management</span>
                 </a>
-            </li>
-            <li
-                class="sidebar-item {{ (request()->is('admin/tipe')) ? 'active' : '' }}">
-                <a href="/admin/tipe" class='sidebar-link'>
-                <i class="bi bi-pin-fill"></i>
-                    <span>Tipe Agenda</span>
-                </a>
-            </li>
+            </li> 
             <li
                 class="sidebar-item {{ (request()->is('admin/agenda')) ? 'active' : '' }}">
                 <a href="/admin/agenda" class='sidebar-link'>
@@ -85,12 +86,42 @@
                 </a>
             </li>
             <li
-                class="sidebar-item {{ (request()->is('admin/user-management')) ? 'active' : '' }}">
-                <a href="/admin/user-management" class='sidebar-link'>
-                <i class="bi bi-person-square"></i>
-                    <span>User Management</span>
+                class="sidebar-item {{ (request()->is('admin/banner')) ? 'active' : '' }}">
+                <a href="/admin/banner" class='sidebar-link'>
+                <i class="bi bi-card-image"></i>
+                    <span>Banner</span>
                 </a>
             </li>
+            @elseif(Auth::user()->level == 'cabang')
+            <li
+                class="sidebar-item {{ (request()->is('cabang/dashboard')) ? 'active' : '' }} ">
+                <a href="/cabang/dashboard" class='sidebar-link'>
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li
+                class="sidebar-item {{ (request()->is('cabang/anggota')) ? 'active' : '' }}">
+                <a href="/cabang/anggota" class='sidebar-link'>
+                <i class="bi bi-people"></i>
+                    <span>Penyelenggara</span>
+                </a>
+            </li>
+            <li
+                class="sidebar-item {{ (request()->is('cabang/tipe')) ? 'active' : '' }}">
+                <a href="/cabang/tipe" class='sidebar-link'>
+                <i class="bi bi-pin-fill"></i>
+                    <span>Tipe Agenda</span>
+                </a>
+            </li>
+            <li
+                class="sidebar-item {{ (request()->is('cabang/agenda')) ? 'active' : '' }}">
+                <a href="/cabang/agenda" class='sidebar-link'>
+                <i class="bi bi-calendar-plus"></i>
+                    <span>Agenda</span>
+                </a>
+            </li>
+            @endif
             <li
                 class="sidebar-item ">
                 <a href="/logout" class='sidebar-link text-danger'>
@@ -131,13 +162,17 @@
     <script src="{{asset('../dist/assets/js/app.js')}}"></script>
     
 <!-- Need: Apexcharts -->
+<script src="{{asset('../dist/assets/extensions/filepond/filepond.js')}}"></script>
+<script src="{{asset('../dist/assets/extensions/toastify-js/src/toastify.js')}}"></script>
+<script src="{{asset('../dist/assets/js/pages/filepond.js')}}"></script>
 <script src="{{asset('../dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
 <script src="{{asset('../dist/assets/js/pages/dashboard.js')}}"></script>
 <script src="{{asset('../dist/assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
 <script src="{{asset('../dist/assets/js/pages/form-element-select.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.5/sweetalert2.all.js" integrity="sha512-AINSNy+d2WG9ts1uJvi8LZS42S8DT52ceWey5shLQ9ArCmIFVi84nXNrvWyJ6bJ+qIb1MnXR46+A4ic/AUcizQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script type="text/javascript" src="{{asset('../image-uploader/dist/image-uploader.min.js')}}"></script>
+@stack('scripts')
 <!-- Page Specific JS File -->
 <script type="text/javascript">
     $('.delete').click(function(){

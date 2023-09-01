@@ -15,7 +15,7 @@
         <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-                <form action="{{ url('admin/agenda') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ url('cabang/agenda') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Title Event<span class="text-danger">*</span></label>
@@ -100,14 +100,14 @@
                     <div class="form-group">
                         <label for="formFile" class="form-label">Insert Image Event<span class="text-danger">*</span></label><br>
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
-                        <input class="form-control file fw-bold" type="file" id="formFile" name="foto">
+                        <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
                         @error('foto')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                       </div>
                     <div class="modal-footer gap-1 mt-5">
-                        <a href="/admin/agenda" class="btn btn-outline-warning btn-icon-text">
+                        <a href="/cabang/agenda" class="btn btn-outline-warning btn-icon-text">
                             Cancel
                         </a>
                         <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
@@ -149,3 +149,12 @@
 
   
 @endsection
+@push('scripts')
+<script>
+    $('.foto').imageUploader({
+        imagesInputName: 'foto',
+        maxSize: 2 * 1024 * 1024,
+        maxFiles: 3
+    });
+</script>
+@endpush

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -133,13 +134,13 @@ class LoginController extends Controller
                 return redirect()->route('home');
             }
             if(auth()->user()->level == 'user' && auth()->user()->verification == 'not verified'){
-                return redirect('/login')->with('verif', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');
+                return redirect('/cabang/login')->with('verif', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');
             }
             else{
-                return redirect('/login')->with('error', 'Username atau Password Salah!');
+                return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
             }
         }else{
-            return redirect('/login')->with('error', 'Username atau Password Salah!');
+            return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
         }
     }
 
@@ -147,6 +148,74 @@ class LoginController extends Controller
         return view('reset-password');
     }
 
+    public function logincabang(){
+        return view('cabang.login');
+    }
+
+    public function postlogincabang(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:8',
+        ],[
+            'email' => 'Email Harus Diisi',
+            'email.email' => 'Format Email Salah',
+            'password' => 'Password Harus Diisi',
+            'password.min' => 'Password Harus Diisi Minimal 8 Karakter',
+       ]);
+
+        $infologin = [ 
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if(Auth::attempt($infologin)){
+            if(auth()->user()->level == 'cabang'){
+                return redirect()->route('cbdashboard');
+            }
+            else{
+                return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
+            }
+        }else{
+            return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
+        }
+    }
+
+    public function registercabang(){
+        return view('cabang.register-cabang');
+    }
+
+    public function postregistercabang(Request $request){
+        $this->validate($request,[
+            'email' => 'required',
+            'name' => 'required',
+            'no_telp' => 'required',
+            'password' => 'required|min:8',
+        ],[
+            'email' => 'Input Your Email',
+            'name' => 'Input Your Username',
+            'no_telp' => 'Input Your Phone Number',
+            'password' => 'Input Your Password',
+            'password.min' => 'Password Must Be 8 Character',
+        ]
+    );
+    try{
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->no_telp = $request->no_telp;
+        $user->password = bcrypt($request->password);
+        $user->level = 'cabang';
+        $user->verification = 'verified';
+        $user->save();
+        $alert = Alert::success('Success', 'Anda Sudah Terdaftar Silahkan Login');
+        return redirect('/cabang/login')->with('success', $alert);
+        
+    }
+        catch(Throwable $e){
+            return redirect()->back()->with('error', $e->getMessage());
+        }   
+
+    }
     
     public function logout()
     {
