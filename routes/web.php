@@ -101,7 +101,6 @@ Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->g
 
 
 
-
 // Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
