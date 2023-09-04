@@ -2,19 +2,39 @@
     position: relative;
     width: 100vw;
 }
-.headerImage{
+/* .headerImage{
     filter: brightness(80%);
-    position: relative;
+    position: relative; 
+    width: 100vw;
+    height: 30rem;
+    object-fit: cover;
+} */
+.headerImage img{
+    filter: brightness(80%);
+    position: relative; 
     width: 100vw;
     height: 30rem;
     object-fit: cover;
 }
+.arrowSliderTop{
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
  /* Resize Background*/
  @media only screen and (max-width: 800px) {
-    .headerImage{
+    .headerImage img{
             width: 100vw;
             height: 15rem;
             background-size: 100% auto !important;
+    }
+}
+@media only screen and (max-width: 576px) {
+    .arrowSliderTop{
+        width: 90%;
     }
 }
 .header .container{ 
@@ -26,6 +46,8 @@
 
 /* FORM CSS */
 .form_search{
+    position: relative;
+    z-index: 99999;
     display: flex;
     align-items: center;
     gap: .25rem;

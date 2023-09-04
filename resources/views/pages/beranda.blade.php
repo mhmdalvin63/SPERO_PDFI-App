@@ -6,8 +6,16 @@
 
 <div class="berandaPage" style="transform: translateY(5rem)">
     <div class="header">
-        <img class="headerImage" src="{{asset('../image/professional-medical-uniforms.png')}}" alt="">
+        <div class="headerImage">
+            <img class="single-item" src="{{asset('../image/professional-medical-uniforms.png')}}" alt="">
+            <img class="single-item" src="{{asset('../image/organisasiBanner.png')}}" alt="">
+            <img class="single-item" src="{{asset('../image/updateBanner.png')}}" alt="">
+        </div>
         <div class="container">
+            <div class="arrowSliderTop d-flex justify-content-between">
+                <div class="prev-top"><i class="fa-solid fa-chevron-left"></i></div>
+                <div class="next-top"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-10">
                     <form class="form_search px-md-4 px-2 py-md-3 py-1 fw-semibold" action="">
@@ -120,6 +128,14 @@ slidesPerRow: 2,
     // instead of a settings object
   ]
 });
-
+</script>
+<script>
+  //Single Item 
+  $('.headerImage').slick({
+		infinite: true,
+		arrows: true,
+        prevArrow: $('.prev-top'),
+        nextArrow: $('.next-top')
+  });
 </script>
 @endsection
