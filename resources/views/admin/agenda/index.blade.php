@@ -45,7 +45,11 @@
                                     <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>
                                 </form>
                                 @endif
-                                <a href="#" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-person-badge"></i></a>
+                                @if(Auth::user()->level == 'cabang')
+                                <a href="{{ url('cabang/agenda/pendaftar/'.$item->id) }}" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-person-badge"></i></a>
+                                @else
+                                <a href="{{ url('admin/agenda/pendaftar/'.$item->id) }}" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-person-badge"></i></a>
+                                @endif
                             </div>
                             
                         </td>
@@ -55,7 +59,9 @@
                         <td>{{ date('j F Y', strtotime($item->end_date)) }}</td>
                         <td>{{ $item->location}}</td>
                         <td>{{ $item->anggota->nama_anggota}}</td>
-                        <!-- <td><img src="{{asset('img/'.$item->foto)}}"  height="100" alt=""></td> -->
+                        @foreach($item->foto as $foto)
+                        <td><img src="{{asset('img/'.$foto->foto)}}" class="ms-2"  height="100" alt=""></td>
+                        @endforeach
                     </tr>
                     @endforeach
                     </tbody>

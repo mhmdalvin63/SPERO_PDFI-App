@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <label for="formFile" class="form-label">Insert Image Event<span class="text-danger">*</span></label><br>
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
-                        <input class="form-control file fw-bold" type="file" id="formFile" name="foto">
+                        <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
                       </div>
                     <div class="modal-footer gap-1 mt-5">
@@ -157,3 +157,12 @@
 
   
 @endsection
+@push('scripts')
+<script>
+    $('.foto').imageUploader({
+        imagesInputName: 'foto',
+        maxSize: 2 * 1024 * 1024,
+        maxFiles: 3
+    });
+</script>
+@endpush

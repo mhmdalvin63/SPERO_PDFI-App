@@ -33,6 +33,9 @@
             @elseif(Auth()->user()->level == 'admin')
             <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
               <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+            @elseif(Auth()->user()->level == 'cabang')
+            <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
+              <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
             @endif
           </li>
         </ul>

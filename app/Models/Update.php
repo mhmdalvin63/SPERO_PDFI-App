@@ -18,4 +18,8 @@ class Update extends Model
     public function tag(){
         return $this->BelongsToMany(Tag::class, 'update_tags', 'id_update', 'id_tag');
     }
+
+    public function foto(){
+        return $this->hasMany(FotoUpdate::class, 'id_update');
+    }
 }
