@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userindex = User::where('level', 'user')->get();
+        $userindex = User::where('level', '!=', 'admin')->get();
         return view('admin.user.index', compact('userindex'));
     }
 
@@ -33,17 +33,20 @@ class UserController extends Controller
         $this->validate($request,[
             'email' => 'required',
             'name' => 'required',
+            'no_telp' => 'required',
             'password' => 'required|min:8',
         ],[
-            'email' => 'Input Your Email',
-            'name' => 'Input Your Username',
-            'password' => 'Input Your Password',
+            'email' => 'Input Email',
+            'name' => 'Input Username',
+            'no_telp' => 'Input Phone Number',
+            'password' => 'Input Password',
             'password.min' => 'Password Must Be 8 Character',
         ]);   
         try{
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->no_telp = $request->no_telp;
             $user->password = bcrypt($request->password);
             $user->level = 'user';
             $user->verification = 'verified';
@@ -81,15 +84,18 @@ class UserController extends Controller
         $this->validate($request,[
             'email' => 'required',
             'name' => 'required',
+            'no_telp' => 'required',
         ],[
-            'email' => 'Input Your Email',
-            'name' => 'Input Your Username',
+            'email' => 'Input Email',
+            'name' => 'Input Username',
+            'no_telp' => 'Input Phone Number',
         ]);   
 
         try{
             $user = User::find($id);
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->no_telp = $request->no_telp;
             $user->save();
             Alert::success('Success', 'Data Updated Successfully');
            

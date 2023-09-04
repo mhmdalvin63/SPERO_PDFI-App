@@ -154,7 +154,7 @@ class FrontEndController extends Controller
                 'email' => 'pdfi@gmail.com', 
                 'dari' => 'PDFI Jaya', 
                 'subject' => 'Terimakasih Telah Mendaftar',
-                'token' => $daftar->token,
+                'token' => base64_encode($daftar->token),
             ]; 
             Mail::send('absen', $mail, function($message) use ($mail){ 
                 $message->to($mail['kepada']) 

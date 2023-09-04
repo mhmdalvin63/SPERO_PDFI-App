@@ -13,14 +13,11 @@
     font-family: 'Quicksand', sans-serif;
     width: 100vw;
 }
-.qr{
-  width: 50vw
-}
 </style>
 <body>
  <p>Tunjukan Qr Code pada petugas untuk absensi kehadiran Anda. Terimakasih sudah mengikuti Event Pdfi.</p>
     <div class="qr">
-        {!! DNS2D::getBarcodeHTML($token, 'QRCODE') !!}
+        {!! '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($token, 'C39+') . '" alt="barcode"   />' !!}
     </div>
 </body>
 </html>

@@ -8,14 +8,14 @@
     <div class="card">
   
         <div class="card-body">
-          
+          @if(Auth::user()->level == 'cabang')
             <div class="card-title d-flex justify-content-end mb-5">
-                <a href="/admin/agenda/create" class="btn btn-primary btn-lg btn-icon-text">
+                <a href="/cabang/agenda/create" class="btn btn-primary btn-lg btn-icon-text">
                     <i class="mdi mdi-upload btn-icon-prepend"></i>
                     +
                 </a>
             </div>
-            
+            @endif
             <div class="text-center">
                 <table class="table table-responsive table-hover table-striped">
                     <thead>
@@ -37,14 +37,17 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td >
                             <div class="d-flex justify-content-center gap-1">
-                                <a href="{{ url('admin/agenda/'.$item->id.'/edit') }}" class="btn btn-warning btn-sm-lg text-white"><i class="bi bi-vector-pen"></i></a>
-                                <form action="{{ url('admin/agenda', $item->id) }}" method="POST">
+                                @if(Auth::user()->level == 'cabang')
+                                <a href="{{ url('cabang/agenda/'.$item->id.'/edit') }}" class="btn btn-warning btn-sm-lg text-white"><i class="bi bi-vector-pen"></i></a>
+                                <form action="{{ url('cabang/agenda', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>
                                 </form>
+                                @endif
                                 <a href="#" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-person-badge"></i></a>
-                               
+                            </div>
+                            
                         </td>
                         <td>{{ $item->judul_agenda}}</td>
                         <td>{{ Str::limit($item->deskripsi, 25)}}</td>
@@ -52,7 +55,7 @@
                         <td>{{ date('j F Y', strtotime($item->end_date)) }}</td>
                         <td>{{ $item->location}}</td>
                         <td>{{ $item->anggota->nama_anggota}}</td>
-                        <td><img src="{{asset('img/'.$item->foto)}}"  height="100" alt=""></td>
+                        <!-- <td><img src="{{asset('img/'.$item->foto)}}"  height="100" alt=""></td> -->
                     </tr>
                     @endforeach
                     </tbody>

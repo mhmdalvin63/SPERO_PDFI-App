@@ -26,6 +26,13 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">No. Telepon<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input Email User..." name="no_telp">
+                        @error('no_telp')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Password<span class="text-danger">*</span></label>
                         <input id="password" type="password" class="form-control" placeholder="Password">
                         @error('password')

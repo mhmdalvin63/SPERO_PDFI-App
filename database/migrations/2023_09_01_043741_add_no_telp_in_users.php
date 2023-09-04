@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('anggotas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_anggota');
+        Schema::table('users', function (Blueprint $table) {
             $table->string('no_telp')->nullable();
-            $table->string('email')->nullable();
-            $table->foreignId('id_user')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anggotas');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

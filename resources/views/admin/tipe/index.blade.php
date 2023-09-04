@@ -10,7 +10,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="{{ url('admin/tipe') }}" method="post" enctype="multipart/form-data">
+      <form action="{{ url('cabang/tipe') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Type Name<span class="text-danger">*</span></label>
@@ -20,7 +20,7 @@
                         @enderror
                     </div>
                     <div class="modal-footer gap-1">
-                        <a href="/admin/aggota" class="btn btn-outline-warning btn-icon-text">
+                        <a href="/cabang/aggota" class="btn btn-outline-warning btn-icon-text">
                             Cancel
                         </a>
                         <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
@@ -76,7 +76,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="{{ url('admin/tipe', $item->id) }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ url('cabang/tipe', $item->id) }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         @method('PUT')
                                         <div class="form-group">
@@ -84,7 +84,7 @@
                                             <input type="text" class="form-control" value="{{$item->nama_tipe}}" id="exampleInputUsername1" placeholder="Input Type Name..." name="nama_tipe">
                                         </div>
                                         <div class="modal-footer gap-1">
-                                            <a href="/admin/tipe" class="btn btn-outline-warning btn-icon-text">
+                                            <a href="/cabang/tipe" class="btn btn-outline-warning btn-icon-text">
                                                 Cancel
                                             </a>
                                             <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
@@ -97,7 +97,7 @@
                                 </div>
                                 </div>
 
-                                <form action="{{ url('admin/tipe', $item->id) }}" method="POST">
+                                <form action="{{ url('cabang/tipe', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>

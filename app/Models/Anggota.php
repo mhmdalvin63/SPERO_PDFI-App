@@ -18,4 +18,9 @@ class Anggota extends Model
     public function agenda(){
         return $this->hasMany(Agenda::class);
     }
+
+    public function user(){
+        return $this->BelongsTo(User::class, 'id_user');
+    }
+
 }

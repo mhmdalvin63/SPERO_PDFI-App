@@ -7,6 +7,7 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\FrontEndController;
@@ -59,21 +60,33 @@ Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
 Route::prefix('/admin')->group(function (){
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'postlogin'])->name('postlogin');
-    Route::get('/logout', [LoginController::class, 'index'])->name('logout');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+});
+
+Route::prefix('/cabang')->group(function (){
+    Route::get('/login', [LoginController::class, 'logincabang'])->name('login.cabang');
+    Route::post('/login', [LoginController::class, 'postlogincabang'])->name('postlogin.cabang');
+    Route::get('/register', [LoginController::class, 'registercabang'])->name('register.cabang');
+    Route::post('/register', [LoginController::class, 'postregistercabang'])->name('postregister.cabang');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->group(function (){
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-
-    Route::resource('/update', UpdateController::class);
-    Route::resource('/agenda', AgendaController::class);
-    Route::resource('/anggota', AnggotaController::class);
-    Route::resource('/tipe', TypeController::class);
     Route::resource('/tag', TagController::class);
+    Route::resource('/agenda', AgendaController::class);
+    Route::resource('/update', UpdateController::class);
+    Route::resource('/banner', BannerController::class);
     Route::resource('/user-management', UserController::class);
     Route::put('/user-management/resetpassword/{id}', [UserController::class, 'resetpassword'])->name('resetpassword');
 });
 
+Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->group(function (){
+    Route::get('/dashboard', [HomeController::class, 'cabang'])->name('cbdashboard');
+    Route::resource('/agenda', AgendaController::class);
+    Route::resource('/anggota', AnggotaController::class);
+    Route::resource('/tipe', TypeController::class);
+});
 
 
 // Route::get('/', function () {return view('pages.beranda');});
