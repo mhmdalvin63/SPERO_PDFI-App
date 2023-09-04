@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('updates', function (Blueprint $table) {
-            $table->id();
-            $table->string('judul_update');
-            $table->text('isi_berita');
-            $table->timestamps();
+        Schema::table('pendaftars', function (Blueprint $table) {
+            $table->enum('status', ['Approved', 'Unproved']);//
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('updates');
+        Schema::table('pendaftars', function (Blueprint $table) {
+            //
+        });
     }
 };

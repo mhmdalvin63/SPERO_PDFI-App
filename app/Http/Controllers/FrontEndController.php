@@ -138,6 +138,7 @@ class FrontEndController extends Controller
             $daftar->code_provinsi = $request->id_provinsi;
             $daftar->code_kota = $request->id_kota;
             $daftar->code_kecamatan = $request->id_kecamatan;
+            $daftar->status = 'Unproved';
             // dd($daftar);
             if($request->hasFile('bukti_transfer'))
             {
@@ -148,20 +149,20 @@ class FrontEndController extends Controller
             }
             $daftar->save();
 
-            $mail = [ 
-                'kepada' => $daftar->email, 
-                'nama' => $daftar->name,
-                'email' => 'pdfi@gmail.com', 
-                'dari' => 'PDFI Jaya', 
-                'subject' => 'Terimakasih Telah Mendaftar',
-                'token' => base64_encode($daftar->token),
-            ]; 
-            Mail::send('absen', $mail, function($message) use ($mail){ 
-                $message->to($mail['kepada']) 
-                ->from($mail['email'], $mail['dari']) 
-                ->subject($mail['subject']); 
-            });
-            Alert::success('Success', 'Anda Telah Terdaftar');
+            // $mail = [ 
+            //     'kepada' => $daftar->email, 
+            //     'nama' => $daftar->name,
+            //     'email' => 'pdfi@gmail.com', 
+            //     'dari' => 'PDFI Jaya', 
+            //     'subject' => 'Terimakasih Telah Mendaftar',
+            //     'token' => base64_encode($daftar->token),
+            // ]; 
+            // Mail::send('absen', $mail, function($message) use ($mail){ 
+            //     $message->to($mail['kepada']) 
+            //     ->from($mail['email'], $mail['dari']) 
+            //     ->subject($mail['subject']); 
+            // });
+            Alert::info('Success', 'Anda Telah Terdaftar Tunggu Approvment Dari Admin Untuk Mendapat Qr Code');
             // Artikel::create($request->all());
             return redirect('/detailagenda/'.$detailagenda->id);
          

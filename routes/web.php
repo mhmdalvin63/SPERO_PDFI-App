@@ -73,8 +73,9 @@ Route::prefix('/cabang')->group(function (){
 
 Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->group(function (){
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/agenda', [AgendaController::class, 'indexagenda'])->name('indexagenda');
+    Route::get('/agenda/pendaftar/{id}', [AgendaController::class, 'pendaftar'])->name('pendaftar');
     Route::resource('/tag', TagController::class);
-    Route::resource('/agenda', AgendaController::class);
     Route::resource('/update', UpdateController::class);
     Route::resource('/banner', BannerController::class);
     Route::resource('/user-management', UserController::class);
@@ -86,6 +87,9 @@ Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->g
     Route::resource('/agenda', AgendaController::class);
     Route::resource('/anggota', AnggotaController::class);
     Route::resource('/tipe', TypeController::class);
+    Route::get('/agenda/pendaftar/{id}', [AgendaController::class, 'pendaftar'])->name('pendaftar');
+    Route::delete('/agenda/pendaftar/{id}', [AgendaController::class, 'pendaftardelete'])->name('pendaftardelete');
+    Route::put('/agenda/pendaftar/approve/{id}', [AgendaController::class, 'approve'])->name('approve');
 });
 
 

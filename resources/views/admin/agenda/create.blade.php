@@ -102,9 +102,7 @@
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
-                        @error('foto')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        
                       </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/cabang/agenda" class="btn btn-outline-warning btn-icon-text">

@@ -11,7 +11,7 @@ class Pendaftar extends Model
     protected $primaryKey = "id";
     protected $table = "pendaftars";
     protected $fillable = [
-        'id_user','name', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'no_telp', 'foto', 'email', 'no_anggota_idi', 'no_anggota_pdfi', 'bukti_transfer', 'cabang', 'id_agenda', 'id_tiket', 'id_provinsi', 'id_kota', 'kecamatan', 'token'
+        'id_user','name', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'no_telp', 'foto', 'email', 'no_anggota_idi', 'no_anggota_pdfi', 'bukti_transfer', 'cabang', 'id_agenda', 'id_tiket', 'id_provinsi', 'id_kota', 'kecamatan', 'token', 'status'
     ];
 
     public function agenda(){

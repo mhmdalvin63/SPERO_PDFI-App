@@ -17,7 +17,7 @@
 <body>
  <p>Tunjukan Qr Code pada petugas untuk absensi kehadiran Anda. Terimakasih sudah mengikuti Event Pdfi.</p>
     <div class="qr">
-        {!! '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($token, 'C39+') . '" alt="barcode"   />' !!}
+        {!! $qr !!}
     </div>
 </body>
 </html>

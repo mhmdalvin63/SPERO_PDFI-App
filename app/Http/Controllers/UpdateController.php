@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Tag;
 use App\Models\Update;
+use App\Models\FotoUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -49,18 +50,20 @@ class UpdateController extends Controller
             $newUpdate = new Update();
             $newUpdate->judul_update = $request->judul_update;
             $newUpdate->isi_berita = $request->isi_berita;
-    
-            if($request->hasFile('foto'))
-            {
-                $fotoUpdate = 'gambar'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
-                $request->file('foto')->move(public_path().'/img/', $fotoUpdate);
-                $newUpdate->foto = $fotoUpdate;
-                $newUpdate->save();
-            }
-    
            $newUpdate->save();
 
            $newUpdate->tag()->attach($request->id_tag);
+
+           if($request->has('foto')){
+            foreach($request->file('foto') as $image){
+                $image2 = 'update'.rand(1,999).$image->getClientOriginalExtension();
+                $image->move(public_path().'/img/', $image2);
+                FotoUpdate::create([
+                    'id_update' => $newUpdate->id,
+                    'foto' => $image2,
+                    ]);
+                }
+            }
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Created Successfully');
             return redirect('/admin/update');

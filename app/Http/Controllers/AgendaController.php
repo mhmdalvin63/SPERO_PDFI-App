@@ -8,9 +8,12 @@ use App\Models\Type;
 use App\Models\Tiket;
 use App\Models\Agenda;
 use App\Models\Anggota;
+use Milon\Barcode\DNS2D;
+use App\Models\Pendaftar;
 use App\Models\FotoAgenda;
 use App\Models\TypeAgenda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -25,6 +28,12 @@ class AgendaController extends Controller
     {
         $user = Auth::user()->id;
         $agenda = Agenda::where('id_user', $user)->get();
+        return view('admin.agenda.index', compact('agenda'));
+    }
+    
+    public function indexagenda()
+    {
+        $agenda = Agenda::latest()->get();
         return view('admin.agenda.index', compact('agenda'));
     }
 
@@ -102,7 +111,7 @@ class AgendaController extends Controller
            }
            if($request->has('foto')){
             foreach($request->file('foto') as $image){
-                $image2 = date('YmdHis').rand(99999, 99999).$image->getClientOriginalName();
+                $image2 = date('YmdHis').rand(99999, 99999).$image->getClientOriginalExtension();
                 $image->move(public_path().'/img/', $image2);
                 FotoAgenda::create([
                     'id_agenda' => $newAgenda->id,
@@ -154,14 +163,7 @@ class AgendaController extends Controller
             DB::beginTransaction();
             $editAgenda = Agenda::find($id);
             $user = Auth::user()->id;
-            if($request->hasFile('foto'))
-            {
-                $fotoUpdate = 'gambar'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
-                $request->file('foto')->move(public_path().'/img', $fotoUpdate);
-                $editUpdate->foto = $fotoUpdate;
-                $editUpdate->save();
-               
-            }
+            
 
             $editAgenda->judul_agenda = $request->judul_agenda;
             $editAgenda->deskripsi = $request->deskripsi;
@@ -191,7 +193,17 @@ class AgendaController extends Controller
             }
         
             $editAgenda->type()->sync($request->tipe_id);
-            
+            if($request->has('foto')){
+                $deleteimage = FotoAgenda::where('id_agenda', $editAgenda->id)->delete();
+                    foreach($request->file('foto') as $image){
+                        $image2 = date('YmdHis').rand(1,9999).$image->getClientOriginalExtension();
+                        $image->move(public_path().'/img/', $image2);
+                        FotoAgenda::create([
+                            'id_agenda' => $newAgenda->id,
+                            'foto' => $image2,
+                            ]);
+                        }
+                    }
             
             DB::commit();
             Alert::success('Success', 'Data Updated Successfully');
@@ -213,5 +225,46 @@ class AgendaController extends Controller
         $agenda->delete();
 
         return redirect('/cabang/agenda')->with('success','Data Has Been Deleted');
+    }
+
+    public function pendaftar($id){
+        $agenda = Agenda::find($id);
+        $pendaftar = Pendaftar::where('id_agenda', $agenda->id)->get();
+
+        return view('cabang.daftar', compact('agenda', 'pendaftar'));
+    }
+
+    public function pendaftardelete($id){
+        $agenda = Agenda::find($id);
+        $pendaftar = Pendaftar::find($id);
+        $pendaftar->delete();
+        
+        return redirect()->back()->with('success','Data Has Been Deleted');
+    }
+    
+    public function approve(Request $request, $id){
+        $agenda = Agenda::find($id);
+        $pendaftar = Pendaftar::find($id);
+        $pendaftar->status = 'Approved';
+        $pendaftar->save();
+
+        $tokenQR = $pendaftar->token;
+        $dns2d = new DNS2D(); 
+        $qrCodeHTML = $dns2d->getBarcodeHTML($tokenQR, 'QRCODE');
+        $mail = [ 
+                'kepada' => $pendaftar->email, 
+                'nama' => $pendaftar->name,
+                'email' => 'pdfi@gmail.com', 
+                'dari' => 'PDFI Jaya', 
+                'subject' => 'Terimakasih Telah Mendaftar',
+                'qr' => $qrCodeHTML,
+            ]; 
+            Mail::send('absen', $mail, function($message) use ($mail){ 
+                $message->to($mail['kepada']) 
+                ->from($mail['email'], $mail['dari']) 
+                ->subject($mail['subject']); 
+            });
+        Alert::success('Success', 'Data Telah Di Approve Sistem Akan Mengirim Qr Ke Email Pendaftar Otomatis');
+        return redirect()->back();
     }
 }
