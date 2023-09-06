@@ -22,6 +22,8 @@ use App\Http\Controllers\FrontEndController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('myevent', function () {return view('pages.myEvent');});
+
 Route::get('organisasi', function () {return view('pages.organisasi');});
 Route::get('/login', [LoginController::class, 'loginuser'])->name('login.user');
 Route::post('/login', [LoginController::class, 'postloginuser'])->name('postlogin.user');
