@@ -22,33 +22,12 @@
                     <div class="row">
                         <div class="column small-11 small-centered">
                             <div class="slider slider-single">
+                            @foreach($detailagenda->foto as $item)
                                 <div>
-                                    <img class="carouselDA" src="{{asset('image/shopeeImg.png')}}" alt="">
+                                    <img class="carouselDA" src="{{asset('img/'.$item->foto)}}" alt="">
                                 </div>
-                                <div>
-                                    <img class="carouselDA" src="{{asset('image/profile.png')}}" alt="">
-                                </div>
-                                <div>
-                                    <img class="carouselDA" src="{{asset('image/tiktokImage.png')}}" alt="">
-                                </div>
-                            </div>
-                            {{-- <div class="slider slider-nav">
-                                <div>
-                                    <span>
-                                        <img class="carouselDA" src="{{asset('image/shopeeImg.png')}}" alt="">
-                                    </span>
-                                </div>
-                                <div>
-                                    <span>
-                                        <img class="carouselDA" src="{{asset('image/profile.png')}}" alt="">
-                                    </span>
-                                </div>
-                                <div>
-                                    <span>
-                                        <img class="carouselDA" src="{{asset('image/tiktokImage.png')}}" alt="">
-                                    </span>
-                                </div>
-                            </div> --}}
+                                @endforeach
+                </div>
                         </div>
                     </div>
                 </div>

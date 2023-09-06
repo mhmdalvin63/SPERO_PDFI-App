@@ -84,7 +84,11 @@
                             @endforeach
                         </td>
                         <td>{{ Str::limit($item->isi_berita, 25)}}</td>
-                        <td><img src="{{asset('img/'.$item->foto)}}"  height="100" alt=""></td>
+                        <td>
+                        @foreach($item->foto as $foto)
+                            <img src="{{asset('img/'.$foto->foto)}}" class="ms-2"  height="100" alt="">
+                            @endforeach
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>

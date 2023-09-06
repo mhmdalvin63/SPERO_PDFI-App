@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Agenda;
+use App\Models\Banner;
 use App\Models\Update;
 use App\Models\Pendaftar;
 use App\Models\TypeAgenda;
@@ -29,9 +30,10 @@ class FrontEndController extends Controller
     }
 
     public function index(){
+        $banner = Banner::latest()->get();
         $listupdate = Update::latest()->get();
         $listagenda = Agenda::latest()->get();
-        return view("pages.beranda", compact('listupdate', 'listagenda'));
+        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner'));
     }
 
     public function detailupdate($id){

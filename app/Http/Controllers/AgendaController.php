@@ -177,6 +177,7 @@ class AgendaController extends Controller
                 
 
             if($request->status_event == 'Buy'){
+                $tiket = Tiket::where('id_agenda', $editAgenda->id)->delete();
                 if($request->nama_tiket){
                 foreach($request['nama_tiket'] as $a => $b){
                     $array2 = array(
@@ -193,13 +194,15 @@ class AgendaController extends Controller
             }
         
             $editAgenda->type()->sync($request->tipe_id);
+            $foto = FotoAgenda::where('id_agenda', $editAgenda->id)->get();
             if($request->has('foto')){
+                File::delete('img/'.$foto->foto);
                 $deleteimage = FotoAgenda::where('id_agenda', $editAgenda->id)->delete();
                     foreach($request->file('foto') as $image){
-                        $image2 = date('YmdHis').rand(1,9999).$image->getClientOriginalExtension();
+                        $image2 = 'agenda'.rand(1,9999).$image->getClientOriginalExtension();
                         $image->move(public_path().'/img/', $image2);
                         FotoAgenda::create([
-                            'id_agenda' => $newAgenda->id,
+                            'id_agenda' => $editAgenda->id,
                             'foto' => $image2,
                             ]);
                         }
@@ -221,10 +224,11 @@ class AgendaController extends Controller
     public function destroy($id)
     {
         $agenda = Agenda::find($id);
-        File::delete('img/'.$agenda->foto);
+        $foto = FotoAgenda::where('id_agenda', $agenda->id)->get();
+        File::delete('img/'.$foto->foto);
         $agenda->delete();
 
-        return redirect('/cabang/agenda')->with('success','Data Has Been Deleted');
+        return redirect()->back()->with('success','Data Has Been Deleted');
     }
 
     public function pendaftar($id){
