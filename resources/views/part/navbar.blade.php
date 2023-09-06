@@ -29,7 +29,16 @@
               <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
               <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
             @elseif(Auth()->user()->level == 'user')
-            <a class="btn btn-danger" href="/logout">Logout</a> 
+            {{-- <a class="btn btn-danger" href="/logout">Logout</a>  --}}
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-user"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="">My Event</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </ul>
+            </div>
             @elseif(Auth()->user()->level == 'admin')
             <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
               <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
