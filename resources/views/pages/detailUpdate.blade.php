@@ -2,7 +2,7 @@
 @section('judul_tab','Detail Update PDFI')
 
 @section('content')
-<link rel="stylesheet" href=" {{ asset('../css/page/detailUpdate.css')}}">
+<link rel="stylesheet" href=" {{ asset('css/page/detailUpdate.css')}}">
 <link rel="stylesheet" type="text/css" href="../slick/slick.css"/>
 // Add the new slick-theme.css if you want the default styling
 <link rel="stylesheet" type="text/css" href="../slick/slick-theme.css"/>

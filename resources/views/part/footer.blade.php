@@ -1,4 +1,4 @@
-<link rel="stylesheet" href=" {{ asset('../css/part/footer.css')}}">
+<link rel="stylesheet" href=" {{ asset('css/part/footer.css')}}">
 
 <footer class="pt-5 pb-4" style="margin-top: 7rem;">
     <div class="container">

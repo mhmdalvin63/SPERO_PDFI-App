@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="{{asset('../dist/assets/css/main/app.css')}}">
-    <link rel="stylesheet" href="{{asset('../dist/assets/css/pages/auth.css')}}">
-    <link rel="shortcut icon" href="{{asset('../dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{asset('../dist/assets/images/logo/favicon.png')}}" type="image/png">
+    <link rel="stylesheet" href="{{asset('dist/assets/css/main/app.css')}}">
+    <link rel="stylesheet" href="{{asset('dist/assets/css/pages/auth.css')}}">
+    <link rel="shortcut icon" href="{{asset('dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{asset('dist/assets/images/logo/favicon.png')}}" type="image/png">
 </head>
 
 <body>
@@ -88,12 +88,12 @@
 
     </div>
     
-<script src="{{asset('../dist/assets/js/bootstrap.js')}}"></script>
-<script src="{{asset('../dist/assets/js/app.js')}}"></script>
-<script src="{{asset('../dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
-<script src="{{asset('../dist/assets/js/pages/dashboard.js')}}"></script>
-<script src="{{asset('../dist/assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
-<script src="{{asset('../dist/assets/js/pages/form-element-select.js')}}"></script>
+<script src="{{asset('dist/assets/js/bootstrap.js')}}"></script>
+<script src="{{asset('dist/assets/js/app.js')}}"></script>
+<script src="{{asset('dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>
+<script src="{{asset('dist/assets/js/pages/dashboard.js')}}"></script>
+<script src="{{asset('dist/assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
+<script src="{{asset('dist/assets/js/pages/form-element-select.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
