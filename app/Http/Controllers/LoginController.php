@@ -136,13 +136,16 @@ class LoginController extends Controller
                 return redirect()->route('home');
             }
             if(auth()->user()->level == 'user' && auth()->user()->verification == 'not verified'){
-                return redirect('/cabang/login')->with('verif', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');
+                Alert::error('Error', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');
+                return redirect('/login')->with('verif', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');
             }
             else{
-                return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
+                Alert::error('Error', 'Username atau Password Salah');
+                return redirect('/login')->with('error', 'Username atau Password Salah!');
             }
         }else{
-            return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
+            Alert::error('Error', 'Username atau Password Salah');
+            return redirect('/login')->with('error', 'Username atau Password Salah!');
         }
     }
 
@@ -237,9 +240,11 @@ class LoginController extends Controller
                 return redirect()->route('cbdashboard');
             }
             else{
+                Alert::error('Error', 'Username atau Password Salah');
                 return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
             }
         }else{
+            Alert::error('Error', 'Username atau Password Salah');
             return redirect('/cabang/login')->with('error', 'Username atau Password Salah!');
         }
     }

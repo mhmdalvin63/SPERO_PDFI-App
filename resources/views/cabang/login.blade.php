@@ -12,6 +12,8 @@
 </head>
 
 <body>
+    
+@include('sweetalert::alert')
     <div id="auth">
         
 <div class="row h-100">
