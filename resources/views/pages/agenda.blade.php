@@ -2,7 +2,7 @@
 @section('judul_tab','Agenda PDFI')
 
 @section('content')
-<link rel="stylesheet" href=" {{ asset('../css/page/agenda.css')}}">
+<link rel="stylesheet" href=" {{ asset('css/page/agenda.css')}}">
 
 <div class="agendaPage" style="transform: translateY(7rem)">
 

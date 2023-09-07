@@ -2,7 +2,7 @@
 @section('judul_tab','Beranda PDFI')
 
 @section('content')
-<link rel="stylesheet" href=" {{ asset('../css/page/beranda.css')}}">
+<link rel="stylesheet" href=" {{ asset('css/page/beranda.css')}}">
 
 <div class="berandaPage" style="transform: translateY(5rem)">
     <div class="header">

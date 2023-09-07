@@ -1,4 +1,4 @@
-<link rel="stylesheet" href=" {{ asset('../css/part/navbar.css')}}">
+<link rel="stylesheet" href=" {{ asset('css/part/navbar.css')}}">
 
 <nav class="navbar navbar-expand-lg bg-light py-2">
     <div class="container">

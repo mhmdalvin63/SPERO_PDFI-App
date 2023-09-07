@@ -2,7 +2,7 @@
 @section('judul_tab','Update PDFI')
 
 @section('content')
-<link rel="stylesheet" href=" {{ asset('../css/page/update.css')}}">
+<link rel="stylesheet" href=" {{ asset('css/page/update.css')}}">
 
 <div class="updatePage" style="transform: translateY(5.75rem)">
     <div class="header position-relative">

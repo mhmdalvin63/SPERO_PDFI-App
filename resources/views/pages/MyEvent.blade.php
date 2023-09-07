@@ -2,7 +2,7 @@
 @section('judul_tab','My Event')
 
 @section('content')
-<link rel="stylesheet" href=" {{ asset('../css/page/update.css')}}">
+<link rel="stylesheet" href=" {{ asset('css/page/update.css')}}">
 
 <div class="myEventPage" style="transform: translateY(5.75rem)">
 
