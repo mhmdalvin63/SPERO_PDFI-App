@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputUsername1" class="fw-bold">Deskripsi<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Deskripsi..." name="deskripsi">                        
+                                            <input type="text" class="form-control" value="{{$item->deskripsi}}" id="exampleInputUsername1" placeholder="Input Deskripsi..." name="deskripsi">                        
                                         </div>
                                         <div class="modal-footer gap-1">
                                         <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>

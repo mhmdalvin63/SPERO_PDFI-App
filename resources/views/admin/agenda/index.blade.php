@@ -59,9 +59,11 @@
                         <td>{{ date('j F Y', strtotime($item->end_date)) }}</td>
                         <td>{{ $item->location}}</td>
                         <td>{{ $item->anggota->nama_anggota}}</td>
-                        @foreach($item->foto as $foto)
-                        <td><img src="{{asset('img/'.$foto->foto)}}" class="ms-2"  height="100" alt=""></td>
-                        @endforeach
+                        <td class="d-flex gap-1">
+                            @foreach($item->foto as $foto)
+                            <img src="{{asset('img/'.$foto->foto)}}" class=""  height="100" alt="">
+                            @endforeach
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>

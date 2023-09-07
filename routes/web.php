@@ -22,7 +22,6 @@ use App\Http\Controllers\FrontEndController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('myevent', function () {return view('pages.myEvent');});
 
 Route::get('organisasi', function () {return view('pages.organisasi');});
 Route::get('/login', [LoginController::class, 'loginuser'])->name('login.user');
@@ -40,10 +39,10 @@ Route::post('/register/store', [LoginController::class, 'postregister'])->name('
 Route::get('/verified', [LoginController::class, 'verified'])->name('verified.user');
 Route::get('/verified/{id}', [LoginController::class, 'postverified'])->name('postverified.user');
 
-Route::get('/reset-password', [LoginController::class, 'resetpassword'])->name('resetpassword.user');
-// Route::post('/reset-password', [LoginController::class, 'postresetpassword'])->name('postresetpassword.user');
-// Route::get('/reset-password/{id}', [LoginController::class, 'mailreset'])->name('mailreset.user');
-// Route::get('/reset', [LoginController::class, 'aftermailreset'])->name('aftermailreset.user');
+Route::get('/forgot-password', [LoginController::class, 'resetpassword'])->name('resetpassword.user');
+Route::post('/forgot-password', [LoginController::class, 'postresetpassword'])->name('postresetpassword.user');
+Route::get('/reset-password/{token}', [LoginController::class, 'mailreset'])->name('mailreset.user');
+Route::post('/reset-password', [LoginController::class, 'aftermailreset'])->name('aftermailreset.user');
 // Route::put('/reset/{id}', [LoginController::class, 'updatepassword'])->name('updatepassword.user');
 
 Route::get('provinces', 'FrontEndController@provinces')->name('provinces');
@@ -53,6 +52,7 @@ Route::get('districts', 'FrontEndController@districts')->name('districts');
 Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
     Route::get('/detailagenda/{id}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
     Route::post('/daftar/{id}', [FrontEndController::class, 'daftaragenda'])->name('daftaragenda');
+    Route::get('/myevent', [FrontEndController::class, 'myevent'])->name('myevent');
 
     Route::post('/getkota', [FrontEndController::class, 'kota'])->name('kota');
     Route::post('/getkecamatan', [FrontEndController::class, 'kecamatan'])->name('kecamatan');

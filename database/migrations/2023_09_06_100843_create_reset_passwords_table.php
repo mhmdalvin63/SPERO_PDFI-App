@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pendaftars', function (Blueprint $table) {
-            $table->string('token')->unique()->nullable();
+        Schema::create('reset_passwords', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->string('token');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pendaftars', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('reset_passwords');
     }
 };

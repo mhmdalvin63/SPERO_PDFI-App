@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Agenda;
+use App\Models\Banner;
 use App\Models\Update;
 use App\Models\Pendaftar;
 use App\Models\TypeAgenda;
@@ -29,9 +30,10 @@ class FrontEndController extends Controller
     }
 
     public function index(){
+        $banner = Banner::latest()->get();
         $listupdate = Update::latest()->get();
         $listagenda = Agenda::latest()->get();
-        return view("pages.beranda", compact('listupdate', 'listagenda'));
+        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner'));
     }
 
     public function detailupdate($id){
@@ -39,6 +41,13 @@ class FrontEndController extends Controller
         $terkait = Update::where('id', '!=', $id)->latest()->get();
        
         return view('pages.detailUpdate', compact('detailupdate', 'terkait'));
+    }
+
+    public function myevent(){
+        $user = Auth::user()->id;
+        $pendaftar = Pendaftar::where('id_user', $user)->where('status', 'Approved')->get();
+
+        return view('pages.MyEvent', compact('pendaftar'));
     }
 
     public function detailagenda($id){
@@ -118,10 +127,9 @@ class FrontEndController extends Controller
         ]);
         
             $detailagenda = Agenda::find($id);
-            $token = hash('sha256', $this->generateNumber());
             // dd($detailagenda);
             $daftar = new Pendaftar();
-            $daftar->token = $token;
+            // $daftar->token = $token;
             $daftar->id_user = Auth::user()->id;
             $daftar->id_agenda = $detailagenda->id;
             $daftar->name = $request->name;

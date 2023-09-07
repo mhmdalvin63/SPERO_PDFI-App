@@ -7,9 +7,9 @@
 <div class="berandaPage" style="transform: translateY(5rem)">
     <div class="header">
         <div class="headerImage">
-            <img class="single-item" src="{{asset('../image/professional-medical-uniforms.png')}}" alt="">
-            <img class="single-item" src="{{asset('../image/organisasiBanner.png')}}" alt="">
-            <img class="single-item" src="{{asset('../image/updateBanner.png')}}" alt="">
+            @foreach($banner as $item)
+            <img class="single-item" src="{{asset('img/'.$item->foto)}}" alt="">
+            @endforeach
         </div>
         <div class="container">
             <div class="arrowSliderTop d-flex justify-content-between">
@@ -35,7 +35,9 @@
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
                         <div class="lcImage">
-                            <img src="{{asset('img/'.$item->foto)}}" alt="">
+                            @foreach($item->foto->take(1) as $foto)
+                            <img src="{{asset('img/'.$foto->foto)}}" alt="">
+                            @endforeach
                         </div>
                         <div class="lcText p-3">
                             <div class="ltHeader d-flex justify-content-between mb-2">
@@ -70,7 +72,9 @@
                             <div class="responsive row d-flex">
                                 @foreach($listagenda as $item)
                                 <div class="slider-item mb-2 position-relative px-2" id="foreach">
-                                    <img class="position-relative" style="height: 262px; border-radius: 10px;" src="{{asset('img/'.$item->foto)}}" alt="">
+                                    @foreach($item->foto->take(1) as $foto)
+                                    <img class="position-relative" style="height: 262px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">
+                                    @endforeach
                                     <div class="siText">
                                         <p class="xl topTitle">Webinar</p>
                                         <div class="stBottom">

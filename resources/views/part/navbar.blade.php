@@ -35,7 +35,7 @@
                 <i class="fa-solid fa-user"></i>
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="">My Event</a></li>
+                <li><a class="dropdown-item" href="/myevent">My Event</a></li>
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
               </ul>
             </div>

@@ -36,11 +36,9 @@ class UpdateController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'foto' => 'required|file|mimes:jpeg,jpg,png,webp',
             'judul_update' => 'required',
             'isi_berita' => 'required',
         ],[
-            'foto' => 'Insert Image',
             'foto.mimes' => 'Image Must Be jpeg, jpg, png, webp',
             'judul_update' => 'Insert Title Update',
             'isi_berita' => 'Insert Topic Update',
@@ -97,6 +95,8 @@ class UpdateController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
+            'judul_update' => '',
+            'isi_berita' => '',
             'foto' => '|file|mimes:jpeg,jpg,png,webp',
         ],[
             'foto.mimes' => 'Image Harus jpeg, jpg, png, webp',
@@ -105,17 +105,23 @@ class UpdateController extends Controller
         
         try {
             $editUpdate = Update::findOrfail($id);
+            $foto = FotoUpdate::where('id_update', $editUpdate->id);
             if($request->hasFile('foto'))
             {
-                $fotoUpdate = 'gambar'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
-                $request->file('foto')->move(public_path().'/img', $fotoUpdate);
-                $editUpdate->foto = $fotoUpdate;
-                $editUpdate->save();
-    
+                File::delete('img/'.$foto->foto);
+                $foto->where('id_update', $editUpdate->id)->delete();
                 $editUpdate->update([
                     'judul_update' => $request->judul_update,
                     'isi_berita' => $request->isi_berita,
                 ]);
+                foreach($request->file('foto') as $image){
+                    $image2 = 'update'.rand(1,999).$image->getClientOriginalExtension();
+                    $image->move(public_path().'/img/', $image2);
+                    FotoUpdate::create([
+                        'id_update' => $newUpdate->id,
+                        'foto' => $image2,
+                        ]);
+                    }
             }else{
                 $editUpdate->update([
                     'judul_update' => $request->judul_update,
@@ -137,9 +143,8 @@ class UpdateController extends Controller
     public function destroy($id)
     {
         $update = Update::findorfail($id);
-        File::delete('img/'.$update->foto);
         $update->delete();
 
-        return redirect('/admin/update');
+        return redirect()->back();
     }
 }

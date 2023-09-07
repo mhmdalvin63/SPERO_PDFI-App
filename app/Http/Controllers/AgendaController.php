@@ -111,7 +111,7 @@ class AgendaController extends Controller
            }
            if($request->has('foto')){
             foreach($request->file('foto') as $image){
-                $image2 = date('YmdHis').rand(99999, 99999).$image->getClientOriginalExtension();
+                $image2 = 'agenda'.rand(1,999).$image->getClientOriginalExtension();
                 $image->move(public_path().'/img/', $image2);
                 FotoAgenda::create([
                     'id_agenda' => $newAgenda->id,
@@ -177,6 +177,7 @@ class AgendaController extends Controller
                 
 
             if($request->status_event == 'Buy'){
+                $tiket = Tiket::where('id_agenda', $editAgenda->id)->delete();
                 if($request->nama_tiket){
                 foreach($request['nama_tiket'] as $a => $b){
                     $array2 = array(
@@ -193,13 +194,15 @@ class AgendaController extends Controller
             }
         
             $editAgenda->type()->sync($request->tipe_id);
+            $foto = FotoAgenda::where('id_agenda', $editAgenda->id)->get();
             if($request->has('foto')){
+                File::delete('img/'.$foto->foto);
                 $deleteimage = FotoAgenda::where('id_agenda', $editAgenda->id)->delete();
                     foreach($request->file('foto') as $image){
-                        $image2 = date('YmdHis').rand(1,9999).$image->getClientOriginalExtension();
+                        $image2 = 'agenda'.rand(1,9999).$image->getClientOriginalExtension();
                         $image->move(public_path().'/img/', $image2);
                         FotoAgenda::create([
-                            'id_agenda' => $newAgenda->id,
+                            'id_agenda' => $editAgenda->id,
                             'foto' => $image2,
                             ]);
                         }
@@ -221,10 +224,9 @@ class AgendaController extends Controller
     public function destroy($id)
     {
         $agenda = Agenda::find($id);
-        File::delete('img/'.$agenda->foto);
         $agenda->delete();
 
-        return redirect('/cabang/agenda')->with('success','Data Has Been Deleted');
+        return redirect()->back()->with('success','Data Has Been Deleted');
     }
 
     public function pendaftar($id){
@@ -241,23 +243,29 @@ class AgendaController extends Controller
         
         return redirect()->back()->with('success','Data Has Been Deleted');
     }
+    public function generateNumber(){
+        do{
+            $token = mt_rand(999999999, 9999999999);
+        }while(Pendaftar::where("token", "=", $token)->first());
+
+        return $token;
+    }
     
     public function approve(Request $request, $id){
-        $agenda = Agenda::find($id);
         $pendaftar = Pendaftar::find($id);
+        $token = hash('sha256', $this->generateNumber());
         $pendaftar->status = 'Approved';
+        $pendaftar->token = $token;
         $pendaftar->save();
 
         $tokenQR = $pendaftar->token;
-        $dns2d = new DNS2D(); 
-        $qrCodeHTML = $dns2d->getBarcodeHTML($tokenQR, 'QRCODE');
         $mail = [ 
                 'kepada' => $pendaftar->email, 
                 'nama' => $pendaftar->name,
                 'email' => 'pdfi@gmail.com', 
                 'dari' => 'PDFI Jaya', 
                 'subject' => 'Terimakasih Telah Mendaftar',
-                'qr' => $qrCodeHTML,
+                'token' => $tokenQR,
             ]; 
             Mail::send('absen', $mail, function($message) use ($mail){ 
                 $message->to($mail['kepada']) 
