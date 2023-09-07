@@ -111,7 +111,7 @@ class AgendaController extends Controller
            }
            if($request->has('foto')){
             foreach($request->file('foto') as $image){
-                $image2 = date('YmdHis').rand(99999, 99999).$image->getClientOriginalExtension();
+                $image2 = 'agenda'.rand(1,999).$image->getClientOriginalExtension();
                 $image->move(public_path().'/img/', $image2);
                 FotoAgenda::create([
                     'id_agenda' => $newAgenda->id,
@@ -224,8 +224,6 @@ class AgendaController extends Controller
     public function destroy($id)
     {
         $agenda = Agenda::find($id);
-        $foto = FotoAgenda::where('id_agenda', $agenda->id)->get();
-        File::delete('img/'.$foto->foto);
         $agenda->delete();
 
         return redirect()->back()->with('success','Data Has Been Deleted');
@@ -245,23 +243,29 @@ class AgendaController extends Controller
         
         return redirect()->back()->with('success','Data Has Been Deleted');
     }
+    public function generateNumber(){
+        do{
+            $token = mt_rand(999999999, 9999999999);
+        }while(Pendaftar::where("token", "=", $token)->first());
+
+        return $token;
+    }
     
     public function approve(Request $request, $id){
-        $agenda = Agenda::find($id);
         $pendaftar = Pendaftar::find($id);
+        $token = hash('sha256', $this->generateNumber());
         $pendaftar->status = 'Approved';
+        $pendaftar->token = $token;
         $pendaftar->save();
 
         $tokenQR = $pendaftar->token;
-        $dns2d = new DNS2D(); 
-        $qrCodeHTML = $dns2d->getBarcodeHTML($tokenQR, 'QRCODE');
         $mail = [ 
                 'kepada' => $pendaftar->email, 
                 'nama' => $pendaftar->name,
                 'email' => 'pdfi@gmail.com', 
                 'dari' => 'PDFI Jaya', 
                 'subject' => 'Terimakasih Telah Mendaftar',
-                'qr' => $qrCodeHTML,
+                'token' => $tokenQR,
             ]; 
             Mail::send('absen', $mail, function($message) use ($mail){ 
                 $message->to($mail['kepada']) 

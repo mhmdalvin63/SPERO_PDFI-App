@@ -15,9 +15,8 @@
 }
 </style>
 <body>
- <p>Tunjukan Qr Code pada petugas untuk absensi kehadiran Anda. Terimakasih sudah mengikuti Event Pdfi.</p>
-    <div class="qr">
-        {!! $qr !!}
-    </div>
+ <p>Terima Kasih Telah mendaftar di event kami, berikut adalah token anda</p>
+ <p>{!! $token !!}</p>
+ <p>Anda bisa melihat qrcode anda pada pilihan my event</p>
 </body>
 </html>

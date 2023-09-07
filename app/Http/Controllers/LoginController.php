@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Exception;
 use Throwable;
 use App\Models\User;
+use App\Models\ResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -146,6 +148,68 @@ class LoginController extends Controller
 
     public function resetpassword(){
         return view('reset-password');
+    }
+
+    public function postresetpassword(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email',
+        ],[
+            'email' => 'Email Harus Diisi!',
+            'email.email' => 'Format Email Salah!',
+        ]);
+        $token = Str::random(64);
+        $verify = route('mailreset.user', $token);
+        $userforgot = User::where('email', $request->email)->where('level', 'user')->count();
+        if($userforgot > 0){
+
+            $resetpassword = new ResetPassword();
+            $resetpassword->email = $request->email;
+            $resetpassword->token = $token;
+            $resetpassword->save();
+            $mail = [ 
+                'kepada' => $request->email,
+                'email' => 'pdfi@gmail.com', 
+                'dari' => 'PDFI Jaya', 
+                'subject' => 'Reset Password',
+                'url' => $verify,
+            ]; 
+        
+            Mail::send('mail-reset-password', $mail, function($message) use ($mail){ 
+                $message->to($mail['kepada']) 
+                ->from($mail['email'], $mail['dari']) 
+                ->subject($mail['subject']); 
+            });
+            
+        Alert::success('Success', 'Link Telah Dikirim Ke Email Anda');
+        return redirect()->back();
+        }else{
+            Alert::error('Error', 'Email Anda Tidak Terdaftar');
+            return redirect()->back();
+        }
+    }
+
+    public function mailreset($token){
+        $email = ResetPassword::where('token', $token)->first();
+        return view('reset', compact('token', 'email'));
+    }
+
+    public function aftermailreset(Request $request){
+        // dd($request);
+        $this->validate($request, [
+            'password' => 'required|min:8',
+        ],[
+            'password' => 'Password Harus Diisi',
+            'password.min' => 'Password Harus Diisi Minimal 8 Karakter',
+        ]);
+
+        $email = ResetPassword::where('token', $request->token);
+        $user = User::where('email', $request->email)->first();
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        Alert::success('Success', 'Password Telah Di Ubah Silahkan Login');
+        return redirect('/login');
     }
 
     public function logincabang(){

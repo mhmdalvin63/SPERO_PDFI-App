@@ -107,7 +107,7 @@
                         <div class="result text-danger fw-bold"></div>
                       </div>
                     <div class="modal-footer gap-1 mt-5">
-                        <a href="/cabang/update" class="btn btn-outline-warning btn-icon-text">
+                        <a href="/cabang/agenda" class="btn btn-outline-warning btn-icon-text">
                             Cancel
                         </a>
                         <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">

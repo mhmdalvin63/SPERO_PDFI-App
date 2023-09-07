@@ -43,6 +43,13 @@ class FrontEndController extends Controller
         return view('pages.detailUpdate', compact('detailupdate', 'terkait'));
     }
 
+    public function myevent(){
+        $user = Auth::user()->id;
+        $pendaftar = Pendaftar::where('id_user', $user)->where('status', 'Approved')->get();
+
+        return view('pages.MyEvent', compact('pendaftar'));
+    }
+
     public function detailagenda($id){
         $now = Carbon::now();
         $user = Auth::user()->id;
@@ -120,10 +127,9 @@ class FrontEndController extends Controller
         ]);
         
             $detailagenda = Agenda::find($id);
-            $token = hash('sha256', $this->generateNumber());
             // dd($detailagenda);
             $daftar = new Pendaftar();
-            $daftar->token = $token;
+            // $daftar->token = $token;
             $daftar->id_user = Auth::user()->id;
             $daftar->id_agenda = $detailagenda->id;
             $daftar->name = $request->name;

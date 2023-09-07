@@ -8,7 +8,7 @@
             </div>
             <div class="col-lg-3 col-md-3 footerTitle">
                 <p class="xl fw-bold my-2">PERSATUAN DOKTER FORENSIK INDONESIA</p>
-                <p class="text-justify my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sapiente alias nam laborum? At tempora dolores architecto eligendi.</p>
+                <p class="text-justify my-2">Perhimpunan Dokter Forensik Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia merupakan salah satu Badan Kelengkapan Ikatan Dokter Indonesia (IDI), bersifat bebas, tidak mencari keuntungan, dijiwai oleh Sumpah Dokter Indonesia, mematuhi Kode Etik Kedokteran Indonesia serta peraturan perundang-undangan yang berlaku.</p>
                 <div class="sosmed d-flex align-items-center justify-content-center justify-content-md-start gap-3 my-3">
                     <a href=""><i class="fa-brands fa-facebook-f" style="color: #ffffff;"></i></a>
                     <a href=""><i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
@@ -20,17 +20,17 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-8 col-7">
                 <p class="xl fw-bold my-2">ALAMAT</p>
-                <p class="text-justify my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci similique earum odit iste quo cum incidunt inventore! Saepe.</p>
+                <p class="text-justify my-2">Unit Forensik Rumah Sakit Universitas Indonesia, Jln. Prof. Dr. Bahder Djohan, Kampus UI - Depok</p>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4 col-5">
                 <p class="xl fw-bold mt-2">KONTAK KAMI</p>
                 <div class="email d-flex align-items-center gap-2 mt-2">
                     <i class="fa-solid fa-envelope" style="color: #ffffff;"></i>
-                    <p>pdfi@gmail.co.id</p>
+                    <p>sekretariatjaya.pdfi@gmail.com</p>
                 </div>
-                <div class="email d-flex align-items-center gap-2">
-                    <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i>
-                    <p>021 - 2569 - 5632</p>
+                <div class="email d-flex align-items-center mt-2">
+                    <i class="fa-brands fa-whatsapp me-2" style="color: #ffffff;"></i>
+                    <p> +62 812 8180 7680</p>
                 </div>
             </div>
         </div>

@@ -25,12 +25,14 @@ class DatabaseSeeder extends Seeder
                 'email' => 'pdfi@gmail.com',
                 'password' => bcrypt('Admin12345678'),
                 'level' => 'admin',
+                'verification' => 'verified',
             ],
             [
                 'name' => 'AdminCabangPdfi',
                 'email' => 'cabangpdfi@gmail.com',
                 'level' => 'cabang',
                 'password' => bcrypt('Cabang!@#$%^&*'),
+                'verification' => 'verified',
             ],
         ];
 

@@ -12,6 +12,8 @@
 </head>
 
 <body>
+    
+@include('sweetalert::alert')
     <div id="auth">
         
 <div class="row h-100">
@@ -49,7 +51,7 @@
             <div class="text-center mt-5 text-lg fs-4">
                 <p class="text-gray-600">Don't have an account? <a href="/register" class="font-bold">Sign
                         up</a>.</p>
-                <p><a class="font-bold" href="/reset-password">Forgot password?</a>.</p>
+                <p><a class="font-bold" href="/forgot-password">Forgot password?</a>.</p>
             </div>
         </div>
     </div>
@@ -61,7 +63,8 @@
 </div>
 
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.5/sweetalert2.all.js" integrity="sha512-AINSNy+d2WG9ts1uJvi8LZS42S8DT52ceWey5shLQ9ArCmIFVi84nXNrvWyJ6bJ+qIb1MnXR46+A4ic/AUcizQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
 function myFunction() {
 var x = document.getElementById("password");

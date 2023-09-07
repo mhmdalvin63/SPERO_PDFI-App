@@ -143,9 +143,8 @@ class UpdateController extends Controller
     public function destroy($id)
     {
         $update = Update::findorfail($id);
-        File::delete('img/'.$update->foto);
         $update->delete();
 
-        return redirect('/admin/update');
+        return redirect()->back();
     }
 }
