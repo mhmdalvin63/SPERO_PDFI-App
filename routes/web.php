@@ -92,6 +92,7 @@ Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->g
     Route::get('/agenda/pendaftar/{id}', [AgendaController::class, 'pendaftar'])->name('pendaftar');
     Route::delete('/agenda/pendaftar/{id}', [AgendaController::class, 'pendaftardelete'])->name('pendaftardelete');
     Route::put('/agenda/pendaftar/approve/{id}', [AgendaController::class, 'approve'])->name('approve');
+    Route::post('/search', [AgendaController::class, 'search'])->name('search');
 });
 
 
