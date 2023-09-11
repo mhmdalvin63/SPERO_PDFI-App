@@ -18,7 +18,7 @@
                     <div class="luContent">
                         <div class="lcImage">
                         @foreach($item->foto->take(1) as $foto)
-                            <img src="{{asset('img/'.$foto->foto)}}" alt="">
+                            <img class="position-relative" style="height: 200px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">
                             @endforeach
                         </div>
                         <div class="lcText p-3">

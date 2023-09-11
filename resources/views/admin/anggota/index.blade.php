@@ -20,9 +20,7 @@
                         @enderror
                     </div>
                     <div class="modal-footer gap-1">
-                        <a href="/cabang/aggota" class="btn btn-outline-warning btn-icon-text">
-                            Cancel
-                        </a>
+                    <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                         <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
                             Submit
                         </button>
@@ -89,9 +87,7 @@
                                             <input type="text" class="form-control" value="{{$item->nama_anggota}}" id="exampleInputUsername1" placeholder="Input Name Organizer..." name="nama_anggota">
                                         </div>
                                         <div class="modal-footer gap-1">
-                                            <a href="/cabang/aggota" class="btn btn-outline-warning btn-icon-text">
-                                                Cancel
-                                            </a>
+                                        <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                             <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
                                                 Submit
                                             </button>

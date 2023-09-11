@@ -229,6 +229,20 @@ class AgendaController extends Controller
         return redirect()->back()->with('success','Data Has Been Deleted');
     }
 
+    public function search(Request $request){
+
+        // dd($request);
+        $pendaftar = Pendaftar::where('token', $request->token)->where('id_agenda', $request->id)->first();
+
+        if(!$pendaftar){
+            Alert::Error('Error', 'Qr Code Tidak Terdaftar Di Event ini');
+            return redirect()->back();
+        }else{
+            Alert::success('Success', 'Qr Terdaftar di Event Ini');
+            return redirect()->back();
+        }
+    }
+
     public function pendaftar($id){
         $agenda = Agenda::find($id);
         $pendaftar = Pendaftar::where('id_agenda', $agenda->id)->get();

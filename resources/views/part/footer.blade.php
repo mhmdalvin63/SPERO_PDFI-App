@@ -18,11 +18,11 @@
                     <a href=""><i class="fa-solid fa-circle-play" style="color: #ffffff;"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-8 col-7">
+            <div class="col-lg-2 col-md-3 col-sm-8 col-5">
                 <p class="xl fw-bold my-2">ALAMAT</p>
                 <p class="text-justify my-2">Unit Forensik Rumah Sakit Universitas Indonesia, Jln. Prof. Dr. Bahder Djohan, Kampus UI - Depok</p>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-4 col-5">
+            <div class="col-lg-3 col-md-2 col-sm-4 col-7">
                 <p class="xl fw-bold mt-2">KONTAK KAMI</p>
                 <div class="email d-flex align-items-center gap-2 mt-2">
                     <i class="fa-solid fa-envelope" style="color: #ffffff;"></i>
