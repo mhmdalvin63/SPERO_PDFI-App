@@ -71,6 +71,10 @@
     .form_search input{
         width: 75%;
     }
+
+    .leftImage img{
+        display: none;
+    }
 }
 .form_search input:focus{
     outline: none;
@@ -173,6 +177,10 @@
     .arrowSlider{
         top: 47.5% !important;
         width: 107.5%;
+    }
+
+    .leftImage img{
+        display: none;
     }
 }
 @media screen and (min-width: 431px) and (max-width: 1200px) {
