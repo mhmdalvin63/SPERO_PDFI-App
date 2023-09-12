@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-3 leftImage">
                     <h3 class="fw-bold text-blue">List Agenda</h3>
-                    <p class="lg">lorem ipsum</p>
+                    <!-- <p class="lg">lorem ipsum</p> -->
                     <img src="{{asset('../image/doctor-pose-new.png')}}" alt="">
                 </div>
                 <div class="col-md-9 col-12">
