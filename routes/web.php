@@ -11,6 +11,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\AdminAgendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,16 +69,21 @@ Route::prefix('/admin')->group(function (){
 Route::prefix('/cabang')->group(function (){
     Route::get('/login', [LoginController::class, 'logincabang'])->name('login.cabang');
     Route::post('/login', [LoginController::class, 'postlogincabang'])->name('postlogin.cabang');
-    Route::get('/register', [LoginController::class, 'registercabang'])->name('register.cabang');
+    Route::get('/12e61st3r', [LoginController::class, 'registercabang'])->name('register.cabang');
     Route::post('/register', [LoginController::class, 'postregistercabang'])->name('postregister.cabang');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->group(function (){
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/agenda', [AgendaController::class, 'indexagenda'])->name('indexagenda');
-    Route::get('/agenda/pendaftar/{id}', [AgendaController::class, 'pendaftar'])->name('pendaftar');
+    // Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/agenda/pendaftar/{id}', [AdminAgendaController::class, 'pendaftar'])->name('pendaftar');
+    Route::delete('/agenda/pendaftar/{id}', [AdminAgendaController::class, 'pendaftardelete'])->name('adminpendaftardelete');
+    Route::put('/agenda/pendaftar/approve/{id}', [AdminAgendaController::class, 'approve'])->name('adminapprove');
+    Route::post('/search', [AdminAgendaController::class, 'search'])->name('adminsearch');
     Route::resource('/tag', TagController::class);
+    Route::resource('/anggota', AnggotaController::class);
+    Route::resource('/tipe', TypeController::class);
+    Route::resource('/agenda', AdminAgendaController::class);
     Route::resource('/update', UpdateController::class);
     Route::resource('/banner', BannerController::class);
     Route::resource('/user-management', UserController::class);

@@ -49,11 +49,47 @@
                     @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="number" class="form-control form-control-xl" name="no_telp" placeholder="Nomor Telepon Klinik">
+                    <input type="text" class="form-control form-control-xl" name="alamat" placeholder="alamat">
                     <div class="form-control-icon">
-                    <i class="bi bi-telephone"></i>
+                    <i class="bi bi-geo-alt"></i>
                     </div>
-                    @error('no_telp')
+                    @error('alamat')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="number" class="form-control form-control-xl" name="no_anggota_idi" placeholder="Nomor Anggota IDI">
+                    <div class="form-control-icon">
+                    <i class="bi bi-file-medical"></i>
+                    </div>
+                    @error('no_anggota_idi')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="number" class="form-control form-control-xl" name="no_anggota_pdfi" placeholder="Nomor Anggota PDFI">
+                    <div class="form-control-icon">
+                    <i class="bi bi-file-medical"></i>
+                    </div>
+                    @error('no_anggota_pdfi')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="text" class="form-control form-control-xl" name="asal_cabang" placeholder="Asal Cabang">
+                    <div class="form-control-icon">
+                    <i class="bi bi-hospital"></i>
+                    </div>
+                    @error('asal_cabang')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="text" class="form-control form-control-xl" name="tempat_praktek" placeholder="Tempat Praktek">
+                    <div class="form-control-icon">
+                    <i class="bi bi-hospital"></i>
+                    </div>
+                    @error('tempat_praktek')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>

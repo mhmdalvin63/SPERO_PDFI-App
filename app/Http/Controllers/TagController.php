@@ -32,10 +32,8 @@ class TagController extends Controller
     {
         $this->validate($request,[
             'tag_name' => 'required',
-            'deskripsi' => 'required',
         ],[
             'tag_name' => 'Insert Tag Name',
-            'deskripsi' => 'Insert Description',
         ]);
 
         try {

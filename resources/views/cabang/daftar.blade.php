@@ -10,6 +10,7 @@
     <div class="card">
   
         <div class="card-body">
+            @if(Auth::user()->level == 'cabang')
         <form action="{{ route('search') }}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{$agenda->id}}">
@@ -26,6 +27,24 @@
         </div>
             </div>
         </form>
+        @elseif(Auth::user()->level == 'admin')
+        <form action="{{ route('adminsearch') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="id" value="{{$agenda->id}}">
+            <div class="row">
+                <div class="col-4">
+            <div id="reader" width="600px"></div>
+        </div>
+                <div class="col-8">
+            <input placeholder="Search..." id="result" class="form-control result" name="token" type="text">
+        
+            <button type="submit" id="dis" class="btn btn-primary">
+            <i class="bi bi-search"></i>
+            </button>
+        </div>
+            </div>
+        </form>
+        @endif
   <div id="result"></div>
             
             @if (session('success'))
@@ -59,11 +78,19 @@
                                     <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>   
                                 </form>
                                 @if($item->status == 'Unproved')
-                                <form action="{{  url('cabang/agenda/pendaftar/approve/'.$item->id) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-check"></i></button>
-                                </form>
+                                    @if(Auth::user()->level == 'cabang')
+                                    <form action="{{  url('cabang/agenda/pendaftar/approve/'.$item->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-check"></i></button>
+                                    </form>
+                                    @elseif(Auth::user()->level == 'admin')
+                                    <form action="{{  url('admin/agenda/pendaftar/approve/'.$item->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-check"></i></button>
+                                    </form>
+                                    @endif
                                 @else
                                     <button disabled class="btn btn-info btn-sm-lg text-white"><i class="bi bi-check-all"></i></button>
                                 @endif

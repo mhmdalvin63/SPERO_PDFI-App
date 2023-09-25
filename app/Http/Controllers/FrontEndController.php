@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Database\Eloquent\Builder;
 
 class FrontEndController extends Controller
 {
@@ -45,9 +46,12 @@ class FrontEndController extends Controller
 
     public function myevent(){
         $user = Auth::user()->id;
-        $pendaftar = Pendaftar::where('id_user', $user)->where('status', 'Approved')->get();
+        $now = Carbon::now();
+        $pendaftar = Pendaftar::whereHas('agenda', function (Builder $query) use ($now) {
+            $query->where('end_date', '>=', $now);
+           })->where('id_user', $user)->where('status', 'Approved')->get();
 
-        return view('pages.MyEvent', compact('pendaftar'));
+        return view('pages.MyEvent', compact('pendaftar', 'now'));
     }
 
     public function detailagenda($id){

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class AgendaController extends Controller
+class AdminAgendaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class AgendaController extends Controller
     {
         $user = Auth::user()->id;
         $agenda = Agenda::where('id_user', $user)->get();
-        return view('cabang.agenda.index', compact('agenda'));
+        return view('admin.agenda.index', compact('agenda'));
     }
 
     /**
@@ -38,7 +38,7 @@ class AgendaController extends Controller
     {
         $anggota = Anggota::all();
         $tipe = Type::all();
-        return view('cabang.agenda.create', compact('anggota', 'tipe'));
+        return view('admin.agenda.create', compact('anggota', 'tipe'));
     }
 
     /**
@@ -116,7 +116,7 @@ class AgendaController extends Controller
            
             DB::commit();
             Alert::success('Success', 'Data Created Successfully');
-            return redirect('/cabang/agenda')->with('success','Data Has Been Created');
+            return redirect('/admin/agenda')->with('success','Data Has Been Created');
             
         } catch (Throwable $e) {
 
@@ -124,13 +124,12 @@ class AgendaController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
           
         }
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Agenda $agenda)
+    public function show($id)
     {
         //
     }
@@ -143,7 +142,7 @@ class AgendaController extends Controller
         $anggota = Anggota::all();
         $tipe = Type::all();
         $agenda = Agenda::find($id);
-        return view('cabang.agenda.edit', compact('agenda', 'anggota', 'tipe'));
+        return view('admin.agenda.edit', compact('agenda', 'anggota', 'tipe'));
     }
 
     /**
@@ -151,8 +150,6 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        // dd($request);
         try{
             DB::beginTransaction();
             $editAgenda = Agenda::find($id);
@@ -188,6 +185,7 @@ class AgendaController extends Controller
             }
         
             $editAgenda->type()->sync($request->tipe_id);
+            
             $foto = FotoAgenda::where('id_agenda', $editAgenda->id)->first();
             if($request->has('foto')){
                 File::delete('img/'.$foto->foto);
@@ -204,7 +202,7 @@ class AgendaController extends Controller
             
             DB::commit();
             Alert::success('Success', 'Data Updated Successfully');
-            return redirect('/cabang/agenda');
+            return redirect('/admin/agenda');
         }
         catch(Throwable $e){
             DB::rollBack();
@@ -237,13 +235,6 @@ class AgendaController extends Controller
             Alert::success('Success', 'Qr Terdaftar di Event Ini');
             return redirect()->back();
         }
-    }
-
-    public function pendaftar($id){
-        $agenda = Agenda::find($id);
-        $pendaftar = Pendaftar::where('id_agenda', $agenda->id)->get();
-
-        return view('cabang.daftar', compact('agenda', 'pendaftar'));
     }
 
     public function pendaftardelete($id){
@@ -284,5 +275,12 @@ class AgendaController extends Controller
             });
         Alert::success('Success', 'Data Telah Di Approve Sistem Akan Mengirim Qr Ke Email Pendaftar Otomatis');
         return redirect()->back();
+    }
+
+    public function pendaftar($id){
+        $agenda = Agenda::find($id);
+        $pendaftar = Pendaftar::where('id_agenda', $agenda->id)->get();
+
+        return view('cabang.daftar', compact('agenda', 'pendaftar'));
     }
 }

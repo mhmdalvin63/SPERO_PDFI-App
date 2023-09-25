@@ -15,7 +15,7 @@
         <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-                <form action="{{ url('cabang/agenda') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ url('admin/agenda') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Title Event<span class="text-danger">*</span></label>
@@ -105,7 +105,7 @@
                         
                       </div>
                     <div class="modal-footer gap-1 mt-5">
-                        <a href="/cabang/agenda" class="btn btn-outline-warning btn-icon-text">
+                        <a href="/admin/agenda" class="btn btn-outline-warning btn-icon-text">
                             Cancel
                         </a>
                         <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">

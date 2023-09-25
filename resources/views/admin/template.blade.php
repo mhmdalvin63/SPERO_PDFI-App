@@ -51,13 +51,6 @@
           
             @if(Auth::user()->level == 'admin')
             <li
-                class="sidebar-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }} ">
-                <a href="/admin/dashboard" class='sidebar-link'>
-                    <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li
                 class="sidebar-item {{ (request()->is('admin/tag')) ? 'active' : '' }}">
                 <a href="/admin/tag" class='sidebar-link'>
                 <i class="bi bi-tags"></i>
@@ -79,6 +72,20 @@
                 </a>
             </li> 
             <li
+                class="sidebar-item {{ (request()->is('admin/anggota')) ? 'active' : '' }}">
+                <a href="/admin/anggota" class='sidebar-link'>
+                <i class="bi bi-people"></i>
+                    <span>Penyelenggara</span>
+                </a>
+            </li>
+            <li
+                class="sidebar-item {{ (request()->is('admin/tipe')) ? 'active' : '' }}">
+                <a href="/admin/tipe" class='sidebar-link'>
+                <i class="bi bi-pin-fill"></i>
+                    <span>Tipe Agenda</span>
+                </a>
+            </li>
+            <li
                 class="sidebar-item {{ (request()->is('admin/agenda')) ? 'active' : '' }}">
                 <a href="/admin/agenda" class='sidebar-link'>
                 <i class="bi bi-calendar-plus"></i>
@@ -93,13 +100,6 @@
                 </a>
             </li>
             @elseif(Auth::user()->level == 'cabang')
-            <li
-                class="sidebar-item {{ (request()->is('cabang/dashboard')) ? 'active' : '' }} ">
-                <a href="/cabang/dashboard" class='sidebar-link'>
-                    <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
             <li
                 class="sidebar-item {{ (request()->is('cabang/anggota')) ? 'active' : '' }}">
                 <a href="/cabang/anggota" class='sidebar-link'>

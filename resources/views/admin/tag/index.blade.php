@@ -20,7 +20,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Tag Description<span class="text-danger">*</span></label>
+                        <label for="exampleInputUsername1" class="fw-bold">Tag Description</label>
                         <textarea class="form-control" style="height: 200px" placeholder="Input Description Tag..." id="floatingTextarea" name="deskripsi"></textarea>
                         @error('deskripsi')
                                 <p class="text-danger">{{ $message }}</p>
@@ -93,7 +93,7 @@
                                             <input type="text" class="form-control" value="{{$item->tag_name}}" id="exampleInputUsername1" placeholder="Input Tag Name..." name="tag_name">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputUsername1" class="fw-bold">Tag Description<span class="text-danger">*</span></label>
+                                            <label for="exampleInputUsername1" class="fw-bold">Tag Description</label>
                                             <textarea class="form-control" style="height: 200px" placeholder="Input Description Tag..." id="floatingTextarea" value="{{$item->deskripsi}}" name="deskripsi">{{$item->deskripsi}}</textarea>
                                         </div>
                                         <div class="modal-footer gap-1">

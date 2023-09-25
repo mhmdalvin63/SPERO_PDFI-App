@@ -94,47 +94,42 @@ class UpdateController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // // dd($request);
         $this->validate($request,[
             'judul_update' => '',
             'isi_berita' => '',
-            'foto' => '|file|mimes:jpeg,jpg,png,webp',
-        ],[
-            'foto.mimes' => 'Image Harus jpeg, jpg, png, webp',
         ]);
 
         
-        try {
-            $editUpdate = Update::findOrfail($id);
-            $foto = FotoUpdate::where('id_update', $editUpdate->id);
+        // try {
+            $editUpdate = Update::find($id);
+            $editUpdate->judul_update =  $request->judul_update;
+            $editUpdate->isi_berita =  $request->isi_berita;
+            $editUpdate->save();
+
+
+            $foto = FotoUpdate::where('id_update', $editUpdate->id)->first();
             if($request->hasFile('foto'))
             {
                 File::delete('img/'.$foto->foto);
-                $foto->where('id_update', $editUpdate->id)->delete();
-                $editUpdate->update([
-                    'judul_update' => $request->judul_update,
-                    'isi_berita' => $request->isi_berita,
-                ]);
+                $fotodelete = FotoUpdate::where('id_update', $editUpdate->id)->delete();
                 foreach($request->file('foto') as $image){
                     $image2 = 'update'.rand(1,999).$image->getClientOriginalExtension();
                     $image->move(public_path().'/img/', $image2);
                     FotoUpdate::create([
-                        'id_update' => $newUpdate->id,
+                        'id_update' => $editUpdate->id,
                         'foto' => $image2,
                         ]);
-                    }
-            }else{
-                $editUpdate->update([
-                    'judul_update' => $request->judul_update,
-                    'isi_berita' => $request->isi_berita,
-                ]);
+                }
             }
             Alert::success('Success', 'Data Updated Successfully');
             return redirect('/admin/update');
           
-          } catch (Exception $e) {
-          return redirect()->back()->with('error', 'Data Tidak Bisa Disimpan!', $e->getMessage());
+        //   } catch (Exception $e) {
+        //     Alert::error('Error', $e->getMessage());
+        //   return redirect()->back()->with('error', $e->getMessage());
                     
-          }
+        //   }
     }
 
     /**
@@ -143,6 +138,8 @@ class UpdateController extends Controller
     public function destroy($id)
     {
         $update = Update::findorfail($id);
+        $foto = FotoUpdate::where('id_update', $update->id)->first();
+        File::delete('img/'.$foto->foto);
         $update->delete();
 
         return redirect()->back();
