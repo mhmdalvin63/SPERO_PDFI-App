@@ -7,14 +7,15 @@
 
 <div class="row d-flex" style="justify-content: center;">
     <div class="col-md-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body p-5">
-            @if (session('error'))
+        
+    @if (session('error'))
     <div class="alert alert-danger alert-dismissible fade show">
         {{ session('error') }}
         <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
+        <div class="card">
+            <div class="card-body p-5">
                 <form action="{{ url('admin/update', $updateEdit->id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     @method('PUT')
@@ -28,7 +29,6 @@
                     </div>
                     <div class="form-group">
                         <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*</span></label><br>
-                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
                       </div>

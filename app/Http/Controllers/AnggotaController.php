@@ -50,7 +50,7 @@ class AnggotaController extends Controller
            $newAnggota->save();
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Created Successfully');
-            return redirect('/cabang/anggota');
+            return redirect()->back();
           } catch (Throwable $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -94,7 +94,7 @@ class AnggotaController extends Controller
             ]);
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Updated Successfully');
-            return redirect('/cabang/anggota');
+            return redirect()->back();
           } catch (Throwable $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -109,6 +109,6 @@ class AnggotaController extends Controller
     {
         $anggota = Anggota::find($id);
         $anggota->delete();
-        return redirect('/cabang/anggota')->with('success','Data Has Been Deleted');
+        return redirect()->back()->with('success','Data Has Been Deleted');
     }
 }

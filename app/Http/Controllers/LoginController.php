@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         if(Auth::attempt($infologin)){
             if(auth()->user()->level == 'admin'){
-                return redirect()->route('dashboard');
+                return redirect('/admin/tag');
             }
             else{
                 return redirect('/admin/login')->with('error', 'Username atau Password Salah!');
@@ -61,10 +61,20 @@ class LoginController extends Controller
         $this->validate($request,[
             'email' => 'required',
             'name' => 'required',
+            'alamat' => 'required',
+            'no_anggota_idi' => 'required',
+            'no_anggota_pdfi' => 'required',
+            'asal_cabang' => 'required',
+            'tempat_praktek' => 'required',
             'password' => 'required|min:8',
         ],[
             'email' => 'Input Your Email',
             'name' => 'Input Your Username',
+            'alamat' => 'Input Your Addres',
+            'no_anggota_idi' => 'Input Your IDI Number',
+            'no_anggota_pdfi' => 'Input Your PDFI Number',
+            'asal_cabang' => 'Input Your Branch Clinic',
+            'tempat_praktek' => 'Input Your Address Branch Clinic',
             'password' => 'Input Your Password',
             'password.min' => 'Password Must Be 8 Character',
         ]
@@ -73,6 +83,11 @@ class LoginController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->alamat = $request->alamat;
+        $user->no_anggota_idi = $request->no_anggota_idi;
+        $user->no_anggota_pdfi = $request->no_anggota_pdfi;
+        $user->asal_cabang = $request->asal_cabang;
+        $user->tempat_praktek = $request->tempat_praktek;
         $user->password = bcrypt($request->password);
         $user->level = 'user';
         $user->verification = 'not verified';
@@ -237,7 +252,7 @@ class LoginController extends Controller
 
         if(Auth::attempt($infologin)){
             if(auth()->user()->level == 'cabang'){
-                return redirect()->route('cbdashboard');
+                return redirect('/cabang/anggota');
             }
             else{
                 Alert::error('Error', 'Username atau Password Salah');
@@ -257,12 +272,20 @@ class LoginController extends Controller
         $this->validate($request,[
             'email' => 'required',
             'name' => 'required',
-            'no_telp' => 'required',
+            'alamat' => 'required',
+            'no_anggota_idi' => 'required',
+            'no_anggota_pdfi' => 'required',
+            'asal_cabang' => 'required',
+            'tempat_praktek' => 'required',
             'password' => 'required|min:8',
         ],[
             'email' => 'Input Your Email',
             'name' => 'Input Your Username',
-            'no_telp' => 'Input Your Phone Number',
+            'alamat' => 'Input Your Addres',
+            'no_anggota_idi' => 'Input Your IDI Number',
+            'no_anggota_pdfi' => 'Input Your PDFI Number',
+            'asal_cabang' => 'Input Your Branch Clinic',
+            'tempat_praktek' => 'Input Your Address Branch Clinic',
             'password' => 'Input Your Password',
             'password.min' => 'Password Must Be 8 Character',
         ]
@@ -271,7 +294,11 @@ class LoginController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->no_telp = $request->no_telp;
+        $user->alamat = $request->alamat;
+        $user->no_anggota_idi = $request->no_anggota_idi;
+        $user->no_anggota_pdfi = $request->no_anggota_pdfi;
+        $user->asal_cabang = $request->asal_cabang;
+        $user->tempat_praktek = $request->tempat_praktek;
         $user->password = bcrypt($request->password);
         $user->level = 'cabang';
         $user->verification = 'verified';

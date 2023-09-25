@@ -10,6 +10,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      @if(Auth::user()->level == 'admin')
+      <form action="{{ url('admin/tipe') }}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Type Name<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Type Name..." name="nama_tipe">
+                        @error('nama_tipe')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="modal-footer gap-1">
+                    <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+      @elseif(Auth::user()->level == 'cabang')
       <form action="{{ url('cabang/tipe') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -26,6 +44,7 @@
                         </button>
                     </div>
                 </form>
+                @endif
       </div>
     </div>
   </div>
@@ -74,6 +93,22 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
+                                    @if(Auth::user()->level == 'admin')
+                                    <form action="{{ url('admin/tipe', $item->id) }}" method="post" enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        @method('PUT')
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1" class="fw-bold">Type Name<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" value="{{$item->nama_tipe}}" id="exampleInputUsername1" placeholder="Input Type Name..." name="nama_tipe">
+                                        </div>
+                                        <div class="modal-footer gap-1">
+                                            <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                            <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                    @elseif(Auth::user()->level == 'cabang')
                                     <form action="{{ url('cabang/tipe', $item->id) }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         @method('PUT')
@@ -88,17 +123,25 @@
                                             </button>
                                         </div>
                                     </form>
+                                    @endif
                                     </div>
                                     </div>
                                 </div>
                                 </div>
 
+                                @if(Auth::user()->level == 'admin')
+                                <form action="{{ url('admin/tipe', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>
+                                </form>
+                                @elseif(Auth::user()->level == 'cabang')
                                 <form action="{{ url('cabang/tipe', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>
                                 </form>
-
+                                @endif
                                 <a data-bs-toggle="modal" data-bs-target="#Detail{{$item->id}}" class="btn btn-success btn-sm-lg text-white"><i class="bi bi-eye-fill"></i></i></a>
                                 <div class="modal fade" id="Detail{{$item->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DetailLabel" aria-hidden="true">
                                 <div class="modal-dialog">

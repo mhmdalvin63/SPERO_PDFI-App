@@ -50,7 +50,7 @@ class TypeController extends Controller
            $newTipe->save();
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Created Successfully');
-            return redirect('/cabang/tipe');
+            return redirect()->back();
           } catch (Exception $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -94,7 +94,7 @@ class TypeController extends Controller
             ]);
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Updated Successfully');
-            return redirect('/cabang/tipe');
+            return redirect()->back();
           } catch (Throwable $e) {
           
               return redirect()->back()->with('error', $e->getMessage());
@@ -109,6 +109,6 @@ class TypeController extends Controller
     {
         $tipe = Type::find($id);
         $tipe->delete();
-        return redirect('/cabang/tipe')->with('success','Type Has Been Deleted');
+        return redirect()->back()->with('success','Type Has Been Deleted');
     }
 }

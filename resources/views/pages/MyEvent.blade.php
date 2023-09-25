@@ -9,8 +9,8 @@
     <div class="myEvent">
         <div class="container">
             <div class="row  justify-content-sm-start justify-content-center">
+                @foreach($pendaftar as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
-                    @foreach($pendaftar as $item)
                     <div class="luContent">
                         <div class="lcImage"">
                             {!! DNS2D::getBarcodeHTML($item->token, 'QRCODE',7,7) !!}
@@ -30,8 +30,8 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
                 </div>
+                @endforeach
             </div>
         </div>
     </div>
