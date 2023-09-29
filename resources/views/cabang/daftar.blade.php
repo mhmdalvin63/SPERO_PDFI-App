@@ -47,12 +47,7 @@
         @endif
   <div id="result"></div>
             
-            @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show">
-        {{ session('success') }}
-        <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
+            
             <div class="table-responsive text-center">
                 <table class="table table-hover table-striped">
                     <thead>
@@ -72,11 +67,19 @@
                         <td class="text-center">{{$loop->iteration}}</td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-1">
-                                <form action="{{ url('cabang/agenda/pendaftar/', $item->id) }}" method="POST">
+                                @if(Auth::user()->level == 'admin')
+                                <form action="{{ url('admin/agenda/pendaftar', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>   
                                 </form>
+                                @elseif(Auth::user()->level == 'cabang')
+                                <form action="{{ url('cabang/agenda/pendaftar', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>   
+                                </form>
+                                @endif
                                 @if($item->status == 'Unproved')
                                     @if(Auth::user()->level == 'cabang')
                                     <form action="{{  url('cabang/agenda/pendaftar/approve/'.$item->id) }}" method="POST">
