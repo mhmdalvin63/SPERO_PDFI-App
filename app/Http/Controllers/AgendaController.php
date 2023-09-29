@@ -36,8 +36,9 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        $anggota = Anggota::all();
-        $tipe = Type::all();
+        $user = Auth::user()->id;
+        $tipe = Type::where('id_user', $user)->get();
+        $anggota = Anggota::where('id_user', $user)->get();
         return view('cabang.agenda.create', compact('anggota', 'tipe'));
     }
 
@@ -140,8 +141,9 @@ class AgendaController extends Controller
      */
     public function edit($id)
     {
-        $anggota = Anggota::all();
-        $tipe = Type::all();
+        $user = Auth::user()->id;
+        $tipe = Type::where('id_user', $user)->get();
+        $anggota = Anggota::where('id_user', $user)->get();
         $agenda = Agenda::find($id);
         return view('cabang.agenda.edit', compact('agenda', 'anggota', 'tipe'));
     }

@@ -26,10 +26,39 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+                    
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">No. Telepon<span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input Email User..." name="no_telp">
-                        @error('no_telp')
+                        <label for="exampleInputUsername1" class="fw-bold">Asal Cabang<span class="text-danger">*</span></label>
+                        <input type="text" value="{{$userEdit->asal_cabang}}" class="form-control" id="exampleInputUsername1" placeholder="Input Branch CLinic Origin..." name="asal_cabang">
+                        @error('asal_cabang')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{$userEdit->tempat_praktek}}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="tempat_praktek">
+                        @error('tempat_praktek')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Alamat<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{$userEdit->alamat}}" id="exampleInputUsername1" placeholder="Input Address..." name="alamat">
+                        @error('alamat')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">No. Anggota IDI<span class="text-danger">*</span></label>
+                        <input type="number" value="{{$userEdit->no_anggota_idi}}" class="form-control" id="exampleInputUsername1" placeholder="Input Number IDI Organization..." name="no_anggota_idi">
+                        @error('no_anggota_idi')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">No. Anggota PDFI<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" value="{{$userEdit->no_anggota_pdfi}}" id="exampleInputUsername1" placeholder="Input Number PDFI Organization..." name="no_anggota_pdfi">
+                        @error('no_anggota_pdfi')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
