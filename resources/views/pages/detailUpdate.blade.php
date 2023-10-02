@@ -41,9 +41,16 @@
                                 <p class="md fw-semibold text-justify">{{$detailupdate->isi_berita}}
                                 </p>
                             </div>
-                            <div class="interactiveIcon d-flex gap-4 my-3">
-                                <a href=""><i class="fa-solid fa-share-nodes fa-xl"></i></a>
-                                <a href=""><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
+                            <div class="interactiveIcon d-flex gap-2 my-3">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" style="color: #666262; padding: 5px 10px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-share-nodes fa-xl"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                   <li class="dropdown-item">{!! $shareComponent !!}</li>
+                                </ul>
+                            </div>
+                                <a class="pt-1" href=""><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
                             </div>
                             <div class="hastag d-flex flex-wrap gap-2">
                                 @foreach($detailupdate->tag as $item)
@@ -66,7 +73,7 @@
                         <div class="atContent">
                             <p>Update on {{date('d F Y', strtotime($artikel->created_at))}}</p>
                             <p class="md fw-bold">{{$artikel->judul_update}}</p>
-                            <a href="{{ url('/detailupdate', $artikel->id) }}"><p>Read Article</p></a>
+                            <a href="{{ url('/detailupdate', $artikel->slug) }}"><p>Read Article</p></a>
                         </div>
                     </div>
                     @endforeach

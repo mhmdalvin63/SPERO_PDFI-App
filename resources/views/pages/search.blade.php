@@ -2,6 +2,7 @@
 @section('judul_tab','Beranda PDFI')
 
 @section('content')
+
 <link rel="stylesheet" href=" {{ asset('css/page/beranda.css')}}">
 
 <div class="berandaPage" style="transform: translateY(5rem)">
@@ -32,7 +33,7 @@
             <h3 class="text-blue fw-bolder mb-2 mb-lg-5">List Update</h3>
             <div class="row d-flex justify-content-sm-start justify-content-center">
             @if(Auth::user() != 'user')
-            @foreach ($listupdateumum->take(3) as $item)
+            @foreach ($searchUpdateUmum as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
                         <div class="lcImage">
@@ -56,7 +57,7 @@
                 </div>
                @endforeach
                @else
-               @foreach ($listupdate->take(3) as $item)
+               @foreach ($searchUpdate as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
                         <div class="lcImage">
@@ -91,7 +92,7 @@
                      <div class="row position-relative">
                         <div class="col-12 position-relative">
                             <div class="responsive row d-flex">
-                                @foreach($listagenda as $item)
+                                @foreach($searchAgenda as $item)
                                 <div class="slider-item mb-2 position-relative px-2" id="foreach">
                                     @foreach($item->foto->take(1) as $foto)
                                     <img class="position-relative" style="height: 262px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">

@@ -38,16 +38,19 @@ class UpdateController extends Controller
         $this->validate($request,[
             'judul_update' => 'required',
             'isi_berita' => 'required',
+            'jenis_berita' => 'required',
         ],[
             'foto.mimes' => 'Image Must Be jpeg, jpg, png, webp',
             'judul_update' => 'Insert Title Update',
             'isi_berita' => 'Insert Topic Update',
+            'jenis_berita' => 'Select Update Type',
         ]);
 
         try {
             $newUpdate = new Update();
             $newUpdate->judul_update = $request->judul_update;
             $newUpdate->isi_berita = $request->isi_berita;
+            $newUpdate->jenis_berita = $request->jenis_berita;
            $newUpdate->save();
 
            $newUpdate->tag()->attach($request->id_tag);
@@ -98,13 +101,14 @@ class UpdateController extends Controller
         $this->validate($request,[
             'judul_update' => '',
             'isi_berita' => '',
+            'jenis_berita' => '',
         ]);
 
         
         // try {
             $editUpdate = Update::find($id);
             $editUpdate->judul_update =  $request->judul_update;
-            $editUpdate->isi_berita =  $request->isi_berita;
+            $editUpdate->jenis_berita =  $request->jenis_berita;
             $editUpdate->save();
 
 

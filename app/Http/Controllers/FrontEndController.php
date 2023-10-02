@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Share;
 use Carbon\Carbon;
 use App\Models\Agenda;
 use App\Models\Banner;
@@ -22,7 +23,8 @@ class FrontEndController extends Controller
 {
     public function update(){
         $Update = Update::latest()->get();
-        return view("pages.update", compact('Update'));
+        $UpdateUmum = Update::where('jenis_berita', 'umum')->latest()->get();
+        return view("pages.update", compact('Update', 'UpdateUmum'));
     }
 
     public function agenda(){
@@ -32,16 +34,22 @@ class FrontEndController extends Controller
 
     public function index(){
         $banner = Banner::latest()->get();
+        $listupdateumum = Update::where('jenis_berita', 'umum')->latest()->get();
         $listupdate = Update::latest()->get();
         $listagenda = Agenda::latest()->get();
-        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner'));
+        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner', 'listupdateumum'));
     }
 
-    public function detailupdate($id){
-        $detailupdate = Update::findorfail($id);
-        $terkait = Update::where('id', '!=', $id)->latest()->get();
+    public function detailupdate($slug){
+        $shareComponent = Share::currentPage()
+        ->facebook()
+        ->twitter()
+        ->telegram()    
+        ->whatsapp();   
+        $detailupdate = Update::where('slug', $slug)->first();
+        $terkait = Update::where('slug', '!=', $slug)->latest()->get();
        
-        return view('pages.detailUpdate', compact('detailupdate', 'terkait'));
+        return view('pages.detailUpdate', compact('detailupdate', 'terkait', 'shareComponent'));
     }
 
     public function myevent(){
@@ -54,14 +62,41 @@ class FrontEndController extends Controller
         return view('pages.MyEvent', compact('pendaftar', 'now'));
     }
 
-    public function detailagenda($id){
+    public function detailagenda($slug){
         $now = Carbon::now();
         $user = Auth::user()->id;
         $provinsi = Province::all();
-        $detailagenda = Agenda::findorfail($id);
-        $allagenda = Agenda::where('id', '!=', $id)->where('end_date', '>=', $now)->get();
+        $detailagenda = Agenda::where('slug', $slug)->first();
+        $allagenda = Agenda::where('slug', '!=', $slug)->where('end_date', '>=', $now)->get();
         $pendaftar = Pendaftar::all();
         return view('pages.detailAgenda', compact('detailagenda', 'allagenda', 'now', 'provinsi', 'pendaftar', 'user'));
+    }
+
+    public function searchagenda(Request $request){
+        // dd($request);
+        if ($request->search || $request->date) {
+            $searchAgenda = Agenda::whereHas('anggota', function (Builder $query) use ($request) {
+                $query->where('nama_anggota','LIKE','%'.$request->search.'%');
+               })->where('start_date', $request->date)->orwhere('end_date', $request->date)->get();
+            return view('pages.agendasearch', compact('searchAgenda'));
+        } else {
+            Alert::error('Error', 'Search is Null');
+           return redirect()->back();
+        }
+    }
+
+    public function search(Request $request){
+        $banner = Banner::latest()->get();
+        // dd($request);
+        if ($request->search) {
+            $searchUpdate = Update::where('judul_update','LIKE','%'.$request->search.'%')->latest()->get();
+            $searchUpdateUmum = Update::where('judul_update','LIKE','%'.$request->search.'%')->where('jenis_berita', 'umum')->latest()->get();
+            $searchAgenda = Agenda::where('judul_agenda','LIKE','%'.$request->search.'%')->orwhere('location','LIKE','%'.$request->search.'%')->latest()->get();
+            return view('pages.search', compact('searchUpdate', 'searchAgenda', 'banner', 'searchUpdateUmum'));
+        } else {
+            Alert::error('Error', 'Search is Null');
+           return redirect()->back();
+        }
     }
 
     public function kota(Request $request){

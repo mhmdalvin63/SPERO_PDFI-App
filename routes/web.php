@@ -32,8 +32,10 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/update', [FrontEndController::class, 'update'])->name('update');
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/home', [FrontEndController::class, 'index'])->name('home');
-Route::get('/detailupdate/{id}', [FrontEndController::class, 'detailupdate'])->name('detailupdate');
+Route::get('/detailupdate/{slug}', [FrontEndController::class, 'detailupdate'])->name('detailupdate');
 Route::get('/agenda', [FrontEndController::class, 'agenda'])->name('agenda');
+Route::get('/search', [FrontEndController::class, 'search'])->name('search');
+Route::get('/search-agenda', [FrontEndController::class, 'searchagenda'])->name('search-agenda');
 
 Route::get('/register', [LoginController::class, 'register'])->name('register.user');
 Route::post('/register/store', [LoginController::class, 'postregister'])->name('postregister.user');
@@ -49,9 +51,9 @@ Route::post('/reset-password', [LoginController::class, 'aftermailreset'])->name
 Route::get('provinces', 'FrontEndController@provinces')->name('provinces');
 Route::get('cities', 'FrontEndController@cities')->name('cities');
 Route::get('districts', 'FrontEndController@districts')->name('districts');
+Route::get('/detailagenda/{slug}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
 
 Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
-    Route::get('/detailagenda/{id}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
     Route::post('/daftar/{id}', [FrontEndController::class, 'daftaragenda'])->name('daftaragenda');
     Route::get('/myevent', [FrontEndController::class, 'myevent'])->name('myevent');
 
