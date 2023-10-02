@@ -1,25 +1,36 @@
-.header img{
-    width: 100vw;
-    height: 15rem;
-    object-fit: cover;
-    filter: brightness(50%);
+#bg-header{
+    background-color: #E7F0FF;
+    height: 100% !important;
+    flex-wrap: wrap-reverse;
 }
-.header h1{
-    color: white;
-    font-weight: bold;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.header img{
+    max-inline-size: 100%;
+    block-size: auto;
 }
 
 .cardVm{
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
 
+.card{
+    border: none;
+}
 
-@media only screen and (max-width: 600px) {
+
+@media only screen and (max-width: 992px) {
+    #bg-header{
+        text-align: center;
+    }
     .header img{
-        height: 10rem;
+        width: 50%;
+        max-inline-size: 100%;
+        block-size: auto;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .header img{
+        width: 75%;
+        max-inline-size: 100%;
+        block-size: auto;
     }
 }

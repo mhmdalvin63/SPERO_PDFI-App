@@ -89,7 +89,7 @@
                         <div class="row  justify-content-sm-start justify-content-center">
                             @foreach($allagenda as $item)
                                 <div class="col-12 col-sm-6 col-md-4  my-3">
-                                    <a href="{{ url('/detailagenda', $item->id) }}" style="text-decoration: none; color: black;">
+                                    <a href="{{ url('/detailagenda', $item->slug) }}" style="text-decoration: none; color: black;">
                                         <div class="luContent">
                                             <div class="lcImage">
                                                 <img src="{{asset('img/'.$item->foto)}}" alt="">

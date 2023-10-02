@@ -30,6 +30,7 @@
                             <th>No</th>
                             <th>Action</th>
                             <th>Title</th>
+                            <th>Update Type</th>
                             <th>Tag</th>
                             <th>Topic</th>
                             <th>Image Topic</th>
@@ -78,6 +79,13 @@
                             </div>
                         </td>
                         <td>{{ $item->judul_update}}</td>
+                        <td>
+                            @if($item->jenis_berita == 'umum')
+                            <button class="btn btn-outline-primary">Public</button>
+                            @else
+                            <button class="btn btn-outline-primary">Private</button>
+                            @endif
+                        </td>
                         <td>
                             @foreach($item->tag as $womp)
                             <button class="btn btn-sm btn-primary">{{ $womp->tag_name}}</button>

@@ -7,6 +7,11 @@ footer{
     height: auto;
     object-fit: contain;
 }
+
+.hover:hover{
+    text-decoration: underline white;
+    color: white;
+}
 .hr {
     display: block;
     height: 1px;

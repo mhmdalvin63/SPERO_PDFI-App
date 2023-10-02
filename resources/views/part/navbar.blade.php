@@ -26,10 +26,10 @@
           <li class="nav-item button d-flex align-items-center gap-2">
             <hr class="d-lg-block d-none">
             @if(Auth::check() == NULL)
-              <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
-              <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+            <li class="nav-item">
+            <a class="nav-link fw-bold active" aria-current="page" href="/login">Login</a>
+          </li>
             @elseif(Auth()->user()->level == 'user')
-            {{-- <a class="btn btn-danger" href="/logout">Logout</a>  --}}
             <div class="dropdown">
               <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-user"></i>
@@ -40,14 +40,18 @@
               </ul>
             </div>
             @elseif(Auth()->user()->level == 'admin')
-            <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
-              <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+              <li class="nav-item">
+            <a class="nav-link fw-bold active" aria-current="page" href="/login">Login</a>
+          </li>
             @elseif(Auth()->user()->level == 'cabang')
-            <a class="btn btn-dark px-3 py-1" href="/register" role="button "><p class="md">Register</p></a>
-              <a class="btn btn-primary px-3 py-1" href="/login" role="button "><p class="md">Login</p></a>
+              <li class="nav-item">
+            <a class="nav-link fw-bold active" aria-current="page" href="/login">Login</a>
+          </li>
             @endif
           </li>
         </ul>
       </div>
     </div>
 </nav>
+
+<!-- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad id nihil, aut dignissimos consequuntur placeat voluptates minus vero totam iusto animi odit in eum temporibus quasi quia similique ab debitis sapiente? Unde, est debitis enim corrupti eius impedit omnis ipsa laudantium soluta praesentium officiis perferendis. Iusto accusamus molestiae, dicta quibusdam beatae aspernatur minima a eius eum provident velit, nam unde reiciendis ipsum ut mollitia dolor tenetur error expedita. Natus maxime ab asperiores quidem aut iste, cum quaerat, reprehenderit commodi eius dolorum voluptatem tenetur at impedit, harum suscipit recusandae! Beatae recusandae totam incidunt fuga blanditiis ratione ducimus atque eius iure deserunt. -->

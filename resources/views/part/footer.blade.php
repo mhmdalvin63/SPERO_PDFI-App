@@ -7,8 +7,8 @@
                     <img src="{{asset('../image/pdfiLogoEllipse.png')}}" alt="">
             </div>
             <div class="col-lg-3 col-md-3 footerTitle">
-                <p class="xl fw-bold my-2">PERSATUAN DOKTER FORENSIK INDONESIA</p>
-                <p class="text-justify my-2">Perhimpunan Dokter Forensik Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia merupakan salah satu Badan Kelengkapan Ikatan Dokter Indonesia (IDI), bersifat bebas, tidak mencari keuntungan, dijiwai oleh Sumpah Dokter Indonesia, mematuhi Kode Etik Kedokteran Indonesia serta peraturan perundang-undangan yang berlaku.</p>
+                <p class="xl fw-bold my-2">PERHIMPUNAN DOKTER FORENSIK INDONESIA</p>
+                <p class="text-justify my-2">Perhimpunan Dokter Forensik Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia.</p>
                 <div class="sosmed d-flex align-items-center justify-content-center justify-content-md-start gap-3 my-3">
                     <a href=""><i class="fa-brands fa-facebook-f" style="color: #ffffff;"></i></a>
                     <a href=""><i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
@@ -26,17 +26,17 @@
                 <p class="xl fw-bold mt-2">KONTAK KAMI</p>
                 <div class="email d-flex align-items-center gap-2 mt-2">
                     <i class="fa-solid fa-envelope" style="color: #ffffff;"></i>
-                    <p>sekretariatjaya.pdfi@gmail.com</p>
+                  <a class="hover" href="mailto:sekretariatjaya.pdfi@gmail.com" style="text-decoration: none; color: white"><p>sekretariatjaya.pdfi@gmail.com</p></a>
                 </div>
                 <div class="email d-flex align-items-center mt-2">
                     <i class="fa-brands fa-whatsapp me-2" style="color: #ffffff;"></i>
-                    <p> +62 812 8180 7680</p>
+                    <a class="hover" href="https://api.whatsapp.com/send?phone=6281281807680" style="text-decoration: none; color: white" target="_blank" rel="noopener noreferrer"><p>+62 812 8180 7680</p></a>
                 </div>
             </div>
         </div>
         <div class="hr"></div>
         <div class="bottomFooter d-flex justify-content-between">
-            <p>©2020 PDFI, All Rights Reserved.</p>
+            <p>©2023 PDFI, All Rights Reserved.</p>
             <p>Terms & Condition - Privacy - Cookies</p>
         </div>
     </div>

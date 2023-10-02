@@ -28,10 +28,17 @@
                         <textarea class="form-control" value="{{ $updateEdit->isi_berita}}" style="height: 200px" placeholder="Input Topic Update..." id="floatingTextarea" name="isi_berita">{{ $updateEdit->isi_berita}}</textarea>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Update Type<span class="text-danger">*</span></label>
+                        <select name="jenis_berita" class="form-control">
+                            <option value="umum" @if($updateEdit->jenis_berita == 'umum')@selected(true)@endif>Public</option>
+                            <option value="private" @if($updateEdit->jenis_berita == 'private')@selected(true)@endif>Private</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*</span></label><br>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
-                      </div>
+                    </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/update" class="btn btn-outline-warning btn-icon-text">
                             Cancel
