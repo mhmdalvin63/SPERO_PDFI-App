@@ -99,6 +99,13 @@
                     <span>Banner</span>
                 </a>
             </li>
+            <li
+                class="sidebar-item {{ (request()->is('admin/jurnal')) ? 'active' : '' }}">
+                <a href="/admin/jurnal" class='sidebar-link'>
+                <i class="bi bi-paperclip"></i>
+                    <span>Jurnal</span>
+                </a>
+            </li>
             @elseif(Auth::user()->level == 'cabang')
             <li
                 class="sidebar-item {{ (request()->is('cabang/anggota')) ? 'active' : '' }}">

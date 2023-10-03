@@ -8,6 +8,7 @@ use App\Models\Agenda;
 use App\Models\Banner;
 use App\Models\Update;
 use App\Models\Pendaftar;
+use App\Models\Jurnal;
 use App\Models\TypeAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,10 @@ class FrontEndController extends Controller
     public function agenda(){
         $agenda = Agenda::latest()->get();
         return view("pages.agenda", compact('agenda'));
+    }
+
+    public function download($file){
+        return response()->download(public_path('file/'.$file));
     }
 
     public function index(){
@@ -64,12 +69,16 @@ class FrontEndController extends Controller
 
     public function detailagenda($slug){
         $now = Carbon::now();
-        $user = Auth::user()->id;
         $provinsi = Province::all();
         $detailagenda = Agenda::where('slug', $slug)->first();
         $allagenda = Agenda::where('slug', '!=', $slug)->where('end_date', '>=', $now)->get();
         $pendaftar = Pendaftar::all();
-        return view('pages.detailAgenda', compact('detailagenda', 'allagenda', 'now', 'provinsi', 'pendaftar', 'user'));
+        return view('pages.detailAgenda', compact('detailagenda', 'allagenda', 'now', 'provinsi', 'pendaftar'));
+    }
+
+    public function jurnal(){
+        $jurnal = Jurnal::latest()->get();
+        return view('pages.jurnal', compact('jurnal'));
     }
 
     public function searchagenda(Request $request){
@@ -77,7 +86,7 @@ class FrontEndController extends Controller
         if ($request->search || $request->date) {
             $searchAgenda = Agenda::whereHas('anggota', function (Builder $query) use ($request) {
                 $query->where('nama_anggota','LIKE','%'.$request->search.'%');
-               })->where('start_date', $request->date)->orwhere('end_date', $request->date)->get();
+               })->orwhere('start_date', $request->date)->orwhere('end_date', $request->date)->get();
             return view('pages.agendasearch', compact('searchAgenda'));
         } else {
             Alert::error('Error', 'Search is Null');
@@ -134,15 +143,13 @@ class FrontEndController extends Controller
         // dd($request);
         $this->validate($request,[
             'bukti_transfer' => 'required|file|mimes:jpeg,jpg,png,webp',
+            'bukti_keanggotaan' => 'required|file|mimes:jpeg,jpg,png,webp',
             'name' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
             'email' => 'required',
-            'no_anggota_idi' => 'required',
-            'no_anggota_pdfi' => 'required',
-            'cabang' => 'required',
             'id_tiket' => 'required',
             'id_kecamatan' => 'required',
             'id_provinsi' => 'required',
@@ -150,20 +157,20 @@ class FrontEndController extends Controller
         ],[
             'bukti_transfer' => 'Insert Image',
             'bukti_transfer.mimes' => 'Image Must Be jpeg, jpg, png, webp',
+            'bukti_keanggotaan' => 'Insert Image',
+            'bukti_keanggotaan.mimes' => 'Image Must Be jpeg, jpg, png, webp',
             'name' => 'Insert Title Update',
             'tanggal_lahir' => 'Insert Topic Update',
             'jenis_kelamin' => 'Insert Start Date',
             'alamat' => 'Insert End Date',
             'no_telp' => 'Insert Location Event',
             'email' => 'Insert Organizer',
-            'no_anggota_idi' => 'Insert Event Status',
-            'no_anggota_pdfi' => 'Insert Event Status',
-            'cabang' => 'Insert Event Status',
             'id_tiket' => 'Insert Event Status',
             'id_kecamatan' => 'Insert Event Status',
             'id_provinsi' => 'Insert Event Status',
             'id_kota' => 'Insert Event Status',
         ]);
+
         
             $detailagenda = Agenda::find($id);
             // dd($detailagenda);
@@ -178,22 +185,27 @@ class FrontEndController extends Controller
             $daftar->jenis_kelamin = $request->jenis_kelamin;
             $daftar->alamat = $request->alamat;
             $daftar->no_telp = $request->no_telp;
-            $daftar->no_anggota_idi = $request->no_anggota_idi;
-            $daftar->no_anggota_pdfi = $request->no_anggota_pdfi;
-            $daftar->cabang = $request->cabang;
+            $daftar->no_anggota_idi = Auth::user()->no_anggota_idi;
+            $daftar->no_anggota_pdfi =  Auth::user()->no_anggota_pdfi;
+            $daftar->cabang =  Auth::user()->asal_cabang;
             $daftar->id_tiket = $request->id_tiket;
             $daftar->code_provinsi = $request->id_provinsi;
             $daftar->code_kota = $request->id_kota;
             $daftar->code_kecamatan = $request->id_kecamatan;
             $daftar->status = 'Unproved';
             // dd($daftar);
-            if($request->hasFile('bukti_transfer'))
+            if($request->hasFile('bukti_transfer') && $request->hasFile('bukti_keanggotaan'))
             {
                 $fotoDaftar = 'bukti_transfer'.rand(1,99999).'.'.$request->bukti_transfer->getClientOriginalExtension();
                 $request->file('bukti_transfer')->move(public_path().'/img/', $fotoDaftar);
                 $daftar->bukti_transfer = $fotoDaftar;
+
+                $fotoAnggota = 'bukti_keanggotaan'.rand(1,99999).'.'.$request->bukti_keanggotaan->getClientOriginalExtension();
+                $request->file('bukti_keanggotaan')->move(public_path().'/img/', $fotoAnggota);
+                $daftar->bukti_keanggotaan = $fotoAnggota;
                 $daftar->save();
             }
+           
             $daftar->save();
 
             // $mail = [ 
@@ -211,7 +223,7 @@ class FrontEndController extends Controller
             // });
             Alert::info('Success', 'Anda Telah Terdaftar Tunggu Approvment Dari Admin Untuk Mendapat Qr Code');
             // Artikel::create($request->all());
-            return redirect('/detailagenda/'.$detailagenda->id);
+            return redirect()->back();
          
     }
 }

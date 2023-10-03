@@ -102,10 +102,12 @@
                     </div>
                     <div class="form-group">
                         <label for="formFile" class="form-label">Insert Image Event<span class="text-danger">*</span></label><br>
-                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
-                        <div class="foto"></div>
-                        <div class="result text-danger fw-bold"></div>
+                        <input type="file" class="multiple-files-filepond" name="foto" multiple>
                       </div>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Link GForm<span class="text-danger">*</span></label>
+                        <input type="url" class="form-control" value="{{ $agenda->link_gform}}" id="exampleInputUsername1" placeholder="Input Link GForm..." name="link_gform">
+                    </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/cabang/agenda" class="btn btn-outline-warning btn-icon-text">
                             Cancel
@@ -157,12 +159,3 @@
 
   
 @endsection
-@push('scripts')
-<script>
-    $('.foto').imageUploader({
-        imagesInputName: 'foto',
-        maxSize: 2 * 1024 * 1024,
-        maxFiles: 3
-    });
-</script>
-@endpush
