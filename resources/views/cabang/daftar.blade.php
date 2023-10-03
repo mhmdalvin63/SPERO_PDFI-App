@@ -57,6 +57,7 @@
                             <th>Name</th>
                             <th>No. Telepon</th>
                             <th>Bukti Transfer</th>
+                            <th>Bukti Keanggotaan</th>
                             <th>Join Date</th>
                             <th>Status</th>
                         </tr>
@@ -101,7 +102,8 @@
                         </td>
                         <td class="text-center">{{$item->name}}</td>
                         <td class="text-center">{{$item->no_telp}}</td>
-                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_transfer)}}"  height="100" alt=""></td>                        
+                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_transfer)}}"  height="100" alt=""></td>  
+                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_keanggotaan)}}"  height="100" alt=""></td>                        
                         <td class="text-center">{{date('d F Y', strtotime($item->created_at))}}</td>
                         <td class="text-center">
                             @if($item->status == 'Unproved')
