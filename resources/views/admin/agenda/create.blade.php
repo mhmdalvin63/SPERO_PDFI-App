@@ -99,11 +99,20 @@
                     </div>
                     <div class="form-group">
                         <label for="formFile" class="form-label">Insert Image Event<span class="text-danger">*</span></label><br>
-                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
-                        
                       </div>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Link GForm<span class="text-danger">*</span></label>
+                        <input type="url" class="form-control" id="exampleInputUsername1" placeholder="Input Link GForm..." name="link_gform">
+                    </div>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">File Panduan<span class="text-danger">*</span></label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" placeholder="Input Panduan..." name="panduan">
+                        @error('panduan')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/agenda" class="btn btn-outline-warning btn-icon-text">
                             Cancel

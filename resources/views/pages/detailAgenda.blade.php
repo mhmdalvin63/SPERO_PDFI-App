@@ -75,11 +75,19 @@
                                 Join
                             </button>
                         @elseif($detailagenda->status_event == 'Buy')
-                            <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
-                                Pesan
-                            </button>
+                            @if(Auth::user()->level != 'user')
+                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                    Daftar
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
+                                    Pesan
+                                </button>
+                            @endif
                         @endif
-                    
+                        @if($detailagenda->panduan != NULL)
+                        <a href="{{ URL( '/dw-panduan/'.$detailagenda->panduan)  }}" class="btn btn-success fw-bold">Download Panduan</a>
+                        @endif
                 </div>
             </div>
             <div class="col-12">
@@ -114,6 +122,23 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Apakah Anda Anggota PDFI?</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body justify-content-center">
+        <a href="{{$detailagenda->link_gform}}" class="btn btn-outline-warning fw-bold" target="_blank" rel="noopener noreferrer">Tidak</a>
+        <a href="/login" class="btn btn-outline-primary fw-bold" rel="noopener noreferrer">Ya</a>
+    </div>
+   
+    </div>
+</div>
 </div>
 <!-- Modal Pesan-->
 <div class="modal fade" id="exampleModalpesan" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -154,14 +179,7 @@ aria-hidden="true">
                     <input type="email" name="email" placeholder="Input Your Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota IDI</label>
-                    <input type="number" name="no_anggota_idi" placeholder="Input Your Number IDI Organization" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota PDFI</label>
-                    <input type="number" name="no_anggota_pdfi" placeholder="Input Your Number PDFI Organization" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
+                
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Tiket</label>
                         <select name="id_tiket" class="form-select" aria-label="Default select example">
@@ -199,12 +217,12 @@ aria-hidden="true">
                     <input type="text" name="alamat" placeholder="Input Your Address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">Asal Cabang</label>
-                    <input type="text" name="cabang" placeholder="Input Your Address Brach Clinic" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
                     <label for="formFile" class="form-label fw-bold">Bukti Transfer</label>
                     <input class="form-control" name="bukti_transfer" type="file" id="formFile">
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label fw-bold">Bukti Keanggotaan</label>
+                    <input class="form-control" name="bukti_keanggotaan" type="file" id="formFile">
                 </div>
                 
             </div>

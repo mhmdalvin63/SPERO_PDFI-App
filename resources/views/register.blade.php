@@ -9,11 +9,18 @@
     <link rel="stylesheet" href="{{asset('dist/assets/css/pages/auth.css')}}">
     <link rel="shortcut icon" href="{{asset('dist/assets/images/logo/favicon.svg')}}" type="image/x-icon">
     <link rel="shortcut icon" href="{asset('dist/assets/images/logo/favicon.png')}}" type="image/png">
+<link rel="stylesheet" href="{{asset('dist/assets/extensions/filepond/filepond.css')}}">
+<link rel="stylesheet" href="{{asset('dist/assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css')}}">
+<link rel="stylesheet" href="{{asset('dist/assets/extensions/toastify-js/src/toastify.css')}}">
+<link rel="stylesheet" href="{{asset('dist/assets/css/pages/filepond.css')}}">
+<link type="text/css" rel="stylesheet" href="{{asset('image-uploader/dist/image-uploader.min.css')}}">
+
 </head>
 
 <body>
     <div id="auth">
         
+@include('sweetalert::alert')
 <div class="row h-100">
     <div class="col-lg-5 col-12">
         <div id="auth-left">
@@ -91,7 +98,7 @@
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="form-group position-relative has-icon-left mb-4">
+               <div class="form-group position-relative has-icon-left mb-4">
                     <input id="password" type="password" class="form-control f form-control-xl" placeholder="Password">
                     <div class="form-control-icon">
                         <i class="bi bi-shield-lock"></i>
@@ -133,6 +140,9 @@
 
     </div>
     
+<script src="{{asset('dist/assets/extensions/filepond/filepond.js')}}"></script>
+<script src="{{asset('dist/assets/extensions/toastify-js/src/toastify.js')}}"></script>
+<script src="{{asset('dist/assets/js/pages/filepond.js')}}"></script>
 <script src="{{asset('dist/assets/js/bootstrap.js')}}"></script>
 <script src="{{asset('dist/assets/js/app.js')}}"></script>
 <script src="{{asset('dist/assets/extensions/apexcharts/apexcharts.min.js')}}"></script>

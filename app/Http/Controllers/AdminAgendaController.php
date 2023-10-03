@@ -55,6 +55,8 @@ class AdminAgendaController extends Controller
             'location' => 'required',
             'id_anggota' => 'required',
             'status_event' => 'required',
+            'link_gform' => 'required',
+            'panduan' => 'required|file|mimes:png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
         ],[
             'judul_agenda' => 'Insert Title Update',
             'deskripsi' => 'Insert Topic Update',
@@ -63,6 +65,8 @@ class AdminAgendaController extends Controller
             'location' => 'Insert Location Event',
             'id_anggota' => 'Insert Organizer',
             'status_event' => 'Insert Event Status',
+            'link_gform' => 'Insert Link GForm',
+            'panduan' => 'Insert Panduan',
         ]);
 
         try {
@@ -76,9 +80,16 @@ class AdminAgendaController extends Controller
             $newAgenda->location = $request->location;
             $newAgenda->id_anggota = $request->id_anggota;
             $newAgenda->status_event = $request->status_event;
+            $newAgenda->link_gform = $request->link_gform;
             $newAgenda->id_user = $user;
     
-            
+            if($request->hasFile('panduan'))
+            {
+                $filePanduan = 'Panduan'.rand(1,99999).'.'.$request->panduan->getClientOriginalExtension();
+                $request->file('panduan')->move(public_path().'/file/', $filePanduan);
+                $newAgenda->panduan = $filePanduan;
+                $newAgenda->save();
+            }
     
            $newAgenda->save();  
            
@@ -165,6 +176,7 @@ class AdminAgendaController extends Controller
             $editAgenda->location = $request->location;
             $editAgenda->id_anggota = $request->id_anggota;
             $editAgenda->status_event = $request->status_event;
+            $editAgenda->link_gform = $request->link_gform;
             $editAgenda->id_user = $user;
             $editAgenda->save();
                 

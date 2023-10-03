@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\FrontEndController;
@@ -52,10 +53,12 @@ Route::get('provinces', 'FrontEndController@provinces')->name('provinces');
 Route::get('cities', 'FrontEndController@cities')->name('cities');
 Route::get('districts', 'FrontEndController@districts')->name('districts');
 Route::get('/detailagenda/{slug}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
+Route::get('/dw-panduan/{file}', [FrontEndController::class, 'download'])->name('download');
 
 Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
     Route::post('/daftar/{id}', [FrontEndController::class, 'daftaragenda'])->name('daftaragenda');
     Route::get('/myevent', [FrontEndController::class, 'myevent'])->name('myevent');
+    Route::get('/jurnal', [FrontEndController::class, 'jurnal'])->name('jurnal');
 
     Route::post('/getkota', [FrontEndController::class, 'kota'])->name('kota');
     Route::post('/getkecamatan', [FrontEndController::class, 'kecamatan'])->name('kecamatan');
@@ -88,8 +91,12 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::resource('/agenda', AdminAgendaController::class);
     Route::resource('/update', UpdateController::class);
     Route::resource('/banner', BannerController::class);
+    Route::resource('/jurnal', JurnalController::class);
     Route::resource('/user-management', UserController::class);
     Route::put('/user-management/resetpassword/{id}', [UserController::class, 'resetpassword'])->name('resetpassword');
+    Route::put('/user-management/verified/{id}', [UserController::class, 'verified'])->name('verified');
+    Route::put('/user-management/activated/{id}', [UserController::class, 'activated'])->name('activated');
+    Route::put('/user-management/nonactivated/{id}', [UserController::class, 'nonactivated'])->name('nonactivated');
 });
 
 Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->group(function (){

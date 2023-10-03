@@ -52,6 +52,19 @@
                                     @method('PUT')
                                     <button type="submit" class="btn btn-info btn-sm-lg text-white"><i class="bi bi-key"></i></button>
                                 </form>
+                                @if($item->status == 'aktif')
+                                <form action="{{  url('admin/user-management/nonactivated/'.$item->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-danger btn-sm-lg text-white">Nonaktifkan Akun</button>
+                                </form>
+                                @else
+                                <form action="{{  url('admin/user-management/activated/'.$item->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-success btn-sm-lg text-white">Aktifkan Akun</button>
+                                </form>
+                                @endif
                             </div>
                         </td>
                         <td class="text-center">{{$item->name}}</td>
@@ -61,7 +74,11 @@
                             @if($item->verification == 'verified')
                             <button class="btn btn-primary">Verified</button>
                             @else
-                            <button class="btn btn-warning">Unverified</button>
+                            <form action="{{  url('admin/user-management/verified/'.$item->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-warning text-white">Unverified</button>
+                                </form>
                             @endif
                         </td>
                     </tr>

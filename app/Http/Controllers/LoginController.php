@@ -91,25 +91,12 @@ class LoginController extends Controller
         $user->password = bcrypt($request->password);
         $user->level = 'user';
         $user->verification = 'not verified';
+        $user->status = 'Aktif';
         $user->save();
         $kepada = $user->email;
-        $verify = route('postverified.user', $user->id);
-        $mail = [ 
-            'kepada' => $user->email, 
-            'nama' => $request->name,
-            'email' => 'pdfi@gmail.com', 
-            'dari' => 'PDFI Jaya', 
-            'subject' => 'Berikut Adalah Link Verifikasi Anda',
-            'url' => $verify,
-        ]; 
-    
-        Mail::send('email', $mail, function($message) use ($mail){ 
-            $message->to($mail['kepada']) 
-            ->from($mail['email'], $mail['dari']) 
-            ->subject($mail['subject']); 
-        });
-
-        return redirect()->route('verified.user')->with('success','Lanjutkan Verifikasi Aku Anda');
+        
+        Alert::success('Success', 'Anda Telah Terdaftar Tunggu Verifikasi Admin');
+        return redirect()->back();
         
         }catch(Throwable $e){
             return redirect()->back()->with('error', $e->getMessage());
@@ -147,10 +134,10 @@ class LoginController extends Controller
         ];
 
         if(Auth::attempt($infologin)){
-            if(auth()->user()->level == 'user' && auth()->user()->verification == 'verified'){
+            if(auth()->user()->level == 'user' && auth()->user()->verification == 'verified' && auth()->user()->status == 'aktif'){
                 return redirect()->route('home');
             }
-            if(auth()->user()->level == 'user' && auth()->user()->verification == 'not verified'){
+            if(auth()->user()->level == 'user' && auth()->user()->verification == 'not verified' && auth()->user()->status == 'nonaktif'){
                 Alert::error('Error', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');
                 return redirect('/login')->with('verif', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');
             }

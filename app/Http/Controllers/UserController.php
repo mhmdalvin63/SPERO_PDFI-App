@@ -148,4 +148,28 @@ class UserController extends Controller
         Alert::success('Success', 'Password Updated Successfully');
         return redirect('/admin/user-management');
     }
+
+    public function verified($id){
+        $user = User::find($id);
+        $user->verification ='verified';
+        $user->save();
+        Alert::success('Success', 'Verified Successfully');
+        return redirect('/admin/user-management');
+    }
+
+    public function activated($id){
+        $user = User::find($id);
+        $user->status ='aktif';
+        $user->save();
+        Alert::success('Success', 'Activated Successfully');
+        return redirect('/admin/user-management');
+    }
+
+    public function nonactivated($id){
+        $user = User::find($id);
+        $user->status ='nonaktif';
+        $user->save();
+        Alert::success('Success', 'Unactivated Successfully');
+        return redirect('/admin/user-management');
+    }
 }
