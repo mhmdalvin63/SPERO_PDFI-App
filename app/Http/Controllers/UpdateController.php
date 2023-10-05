@@ -115,7 +115,6 @@ class UpdateController extends Controller
             $foto = FotoUpdate::where('id_update', $editUpdate->id)->first();
             if($request->hasFile('foto'))
             {
-                File::delete('img/'.$foto->foto);
                 $fotodelete = FotoUpdate::where('id_update', $editUpdate->id)->delete();
                 foreach($request->file('foto') as $image){
                     $image2 = 'update'.rand(1,999).$image->getClientOriginalExtension();
@@ -142,8 +141,6 @@ class UpdateController extends Controller
     public function destroy($id)
     {
         $update = Update::findorfail($id);
-        $foto = FotoUpdate::where('id_update', $update->id)->first();
-        File::delete('img/'.$foto->foto);
         $update->delete();
 
         return redirect()->back();
