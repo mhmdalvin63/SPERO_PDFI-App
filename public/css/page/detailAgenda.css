@@ -62,7 +62,7 @@ text-align: -webkit-center;
 
 
 .textFlex p:nth-child(1){
-    width: 20%;
+    width: 30%;
 }
 @media only screen and (max-width: 600px) {
     .textFlex p:nth-child(1){

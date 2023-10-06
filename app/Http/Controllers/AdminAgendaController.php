@@ -57,6 +57,7 @@ class AdminAgendaController extends Controller
             'status_event' => 'required',
             'link_gform' => 'required',
             'panduan' => 'required|file|mimes:png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
+            'qris' => 'required|file|mimes:png,jpg,jpeg',
         ],[
             'judul_agenda' => 'Insert Title Update',
             'deskripsi' => 'Insert Topic Update',
@@ -67,6 +68,9 @@ class AdminAgendaController extends Controller
             'status_event' => 'Insert Event Status',
             'link_gform' => 'Insert Link GForm',
             'panduan' => 'Insert Panduan',
+            'panduan.mimes' => 'File Must Be png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
+            'qris' => 'Insert Qris',
+            'qris.mimes' => 'File Must Be png,jpg,jpeg',
         ]);
 
         try {
@@ -89,6 +93,17 @@ class AdminAgendaController extends Controller
                 $request->file('panduan')->move(public_path().'/file/', $filePanduan);
                 $newAgenda->panduan = $filePanduan;
                 $newAgenda->save();
+            }
+            if($request->hasFile('qris'))
+            {
+                $fileqris = 'qris'.rand(1,99999).'.'.$request->qris->getClientOriginalExtension();
+                $request->file('qris')->move(public_path().'/img/', $fileqris);
+                $newAgenda->qris = $fileqris;
+                $newAgenda->save();
+            }
+
+            if($request->no_rek){
+                $newAgenda->no_rek = $request->no_rek;
             }
     
            $newAgenda->save();  
@@ -178,8 +193,31 @@ class AdminAgendaController extends Controller
             $editAgenda->status_event = $request->status_event;
             $editAgenda->link_gform = $request->link_gform;
             $editAgenda->id_user = $user;
+
+            if($request->hasFile('panduan'))
+            {
+                    File::delete('file/'.$editAgenda->panduan);
+                $filePanduan = 'Panduan'.rand(1,99999).'.'.$request->panduan->getClientOriginalExtension();
+                $request->file('panduan')->move(public_path().'/file/', $filePanduan);
+                $newAgenda->panduan = $filePanduan;
+                $newAgenda->save();
+            }
+            if($request->hasFile('qris'))
+            {
+                File::delete('img/'.$editAgenda->qris);
+                $fileqris = 'qris'.rand(1,99999).'.'.$request->qris->getClientOriginalExtension();
+                $request->file('qris')->move(public_path().'/img/', $fileqris);
+                $newAgenda->panduan = $fileqris;
+                $newAgenda->save();
+            }
+
+            if($request->no_rek){
+                $newAgenda->no_rek = $request->no_rek;
+            }
+
             $editAgenda->save();
-                
+
+             
 
             if($request->status_event == 'Buy'){
                 $tiket = Tiket::where('id_agenda', $editAgenda->id)->delete();
@@ -202,7 +240,7 @@ class AdminAgendaController extends Controller
             
             $foto = FotoAgenda::where('id_agenda', $editAgenda->id)->first();
             if($request->has('foto')){
-                File::delete('img/'.$foto->foto);
+                    File::delete('img/'.$foto->foto);
                 $deleteimage = FotoAgenda::where('id_agenda', $editAgenda->id)->delete();
                     foreach($request->file('foto') as $image){
                         $image2 = 'agenda'.rand(1,9999).$image->getClientOriginalExtension();
@@ -231,7 +269,7 @@ class AdminAgendaController extends Controller
     {
         $agenda = Agenda::find($id);
         $foto = FotoAgenda::where('id_agenda', $agenda->id)->first();
-        File::delete('img/'.$foto->foto);
+        
         $agenda->delete();
 
         return redirect()->back()->with('success','Data Has Been Deleted');

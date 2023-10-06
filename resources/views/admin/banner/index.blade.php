@@ -13,7 +13,8 @@
       <form action="{{ url('admin/banner') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
-                    <label for="exampleInputUsername1" class="fw-bold">Gamber Banner <span class="text-danger text-sm">*max 2048kb</span></label>
+                    <label for="exampleInputUsername1" class="fw-bold">Gamber Banner <span class="text-danger text-sm">*max 2mb </span></label>
+                    <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
                     <input type="file" class="form-control" name="foto">
                         @error('foto')
                                 <p class="text-danger">{{ $message }}</p>
@@ -86,6 +87,7 @@
                                         @method('PUT')
                                         <div class="form-group">
                                         <label for="exampleInputUsername1" class="fw-bold">Gamber Banner <span class="text-danger text-sm">*max 2048kb</span></label>
+                                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
                                             <input type="file" class="form-control" name="foto">                       
                                         </div>
                                         <div class="form-group">

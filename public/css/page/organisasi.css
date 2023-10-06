@@ -8,6 +8,22 @@
     block-size: auto;
 }
 
+.tab-pane{
+    color: #666262;
+}
+
+.nav-tabs{
+    border-bottom: none;
+}
+
+.nav-link{
+    color: black;
+}
+
+.box-tab{
+    box-shadow: rgba(0, 0.1, 0.1, 0.1) 0px 1px 1px 1px;
+}
+
 .cardVm{
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }

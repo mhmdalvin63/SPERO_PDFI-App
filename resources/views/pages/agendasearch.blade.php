@@ -24,31 +24,35 @@
         <div class="container">
         <div class="row d-flex justify-content-center mb-3">
         <form action="/search-agenda">
-                <div class="row">
-                <div class="col-6">
-                    <label for="">Search Event</label>
-                    <input type="text" name="search" placeholder="Search...">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="form-group">
+                        <label class="fw-bold">Search Event By Organizer</label>
+                        <input class="form-control" type="text" name="search" placeholder="Search...">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="fw-bold">Search By Date</label>
+                        <input class="form-control" type="Date" name="date" placeholder="Search...">
+                    </div> 
+                    <br>
+                    <button class="btn btn-primary btn-sm btn-block" type="submit"><i class="fa fa-search icon"></i> filter</button>
                 </div>
-                <div class="col-6">
-                    <label for="">Search Date</label>
-                    <input type="Date" name="date" placeholder="Search...">
-                </div>
-                <button type="submit">submit</button>
-                </div>
-            </form>
+            </div>
+        </form>
             <h3 class="text-gray fw-bolder mb-2 mb-lg-4"><span class="text-blue">List Agenda</span></h3>
             <div class="row  justify-content-sm-start justify-content-center">
                 @foreach($searchAgenda as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
                         <div class="lcImage">
-                        @foreach($item->foto->take(1) as $foto)
+                        @foreach($item->take(1) as $foto)
                             <img class="position-relative" style="height: 200px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">
                             @endforeach
                         </div>
                         <div class="lcText p-3">
                             <div class="ltHeader d-flex justify-content-between mb-2">
-                                <p class="lg fw-semibold">Update</p>
+                                <p class="lg fw-semibold">Event</p>
                                 <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">

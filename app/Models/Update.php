@@ -31,4 +31,8 @@ class Update extends Model
     public function foto(){
         return $this->hasMany(FotoUpdate::class, 'id_update');
     }
+
+    public function user(){
+        return $this->BelongsToMany(User::class, 'like_updates', 'id_update', 'id_user');
+    }
 }

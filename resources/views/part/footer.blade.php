@@ -9,14 +9,12 @@
             <div class="col-lg-3 col-md-3 footerTitle">
                 <p class="xl fw-bold my-2">PERHIMPUNAN DOKTER FORENSIK INDONESIA</p>
                 <p class="text-justify my-2">Perhimpunan Dokter Forensik Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia.</p>
-                <div class="sosmed d-flex align-items-center justify-content-center justify-content-md-start gap-3 my-3">
-                    <a href=""><i class="fa-brands fa-facebook-f" style="color: #ffffff;"></i></a>
-                    <a href=""><i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
-                    <a href=""><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
-                    <a href=""><i class="fa-brands fa-youtube" style="color: #ffffff;"></i></a>
-                    <a href=""><i class="fa-brands fa-tiktok" style="color: #ffffff;"></i></a>
-                    <a href=""><i class="fa-solid fa-circle-play" style="color: #ffffff;"></i></a>
-                </div>
+                @php
+                    use App\Models\User;
+                    $count = User::where('level', 'user')->count();
+                @endphp
+                <p>Total Pengurus PDFI Saat Ini: {{$count}} Orang</p>
+                
             </div>
             <div class="col-lg-2 col-md-3 col-sm-8 col-5">
                 <p class="xl fw-bold my-2">ALAMAT</p>
@@ -32,6 +30,14 @@
                     <i class="fa-brands fa-whatsapp me-2" style="color: #ffffff;"></i>
                     <a class="hover" href="https://api.whatsapp.com/send?phone=6281281807680" style="text-decoration: none; color: white" target="_blank" rel="noopener noreferrer"><p>+62 812 8180 7680</p></a>
                 </div>
+                <div class="sosmed d-flex align-items-center justify-content-center justify-content-md-start gap-3 my-3">
+                    <a href=""><i class="fa-brands fa-facebook-f" style="color: #ffffff;"></i></a>
+                    <a href=""><i class="fa-brands fa-twitter" style="color: #ffffff;"></i></a>
+                    <a href=""><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a>
+                    <a href=""><i class="fa-brands fa-youtube" style="color: #ffffff;"></i></a>
+                    <a href=""><i class="fa-brands fa-tiktok" style="color: #ffffff;"></i></a>
+                    <a href=""><i class="fa-solid fa-circle-play" style="color: #ffffff;"></i></a>
+                </div>
             </div>
         </div>
         <div class="hr"></div>
@@ -41,3 +47,4 @@
         </div>
     </div>
 </footer>
+

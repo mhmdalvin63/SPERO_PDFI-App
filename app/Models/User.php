@@ -59,4 +59,8 @@ class User extends Authenticatable
     public function agenda(){
         return $this->hasMany(Agenda::class, 'id_user');
     }
+
+    public function upd(){
+        return $this->BelongsToMany(Update::class, 'like_updates', 'id_user',  'id_update');
+    }
 }

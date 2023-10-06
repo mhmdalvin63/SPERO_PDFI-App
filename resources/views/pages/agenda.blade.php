@@ -59,7 +59,7 @@
                                 <p class="xl fw-bold">{{$item->judul_agenda}}</p>
                             </div>
                             <a class="text-decoration-none mt-3 px-3 py-2 mx-auto text-black d-flex justify-content-between align-items-center" href="{{ url('/detailagenda', $item->slug) }}">
-                                <p class="lg fw-semibold">Mulai Course</p>
+                                <p class="lg fw-semibold">Detail Agenda</p>
                                 <div class="arrow">
                                     <i class="fa-solid fa-arrow-right fa-2xs"></i>
                                 </div>

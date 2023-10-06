@@ -50,7 +50,11 @@
                                    <li class="dropdown-item">{!! $shareComponent !!}</li>
                                 </ul>
                             </div>
-                                <a class="pt-1" href=""><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
+                            @if(Auth::check() && Auth::user()->level == 'user')
+                                <button class="trigLike-button btn {{ ($like && $like->id_user == Auth::user()->id) ? 'text-primary' : ''}} " data-update-slug="{{ $detailupdate->slug }}" data-trig="like"><i class="fa-solid fa-thumbs-up fa-xl"></i><span class="fw-bold text-primary ms-2 my-auto" id="like-count-{{$detailupdate->slug}}">{{$countlike}}</span></button>
+                            @else
+                                <a class="pt-1" href="/login"><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
+                            @endif
                             </div>
                             <div class="hastag d-flex flex-wrap gap-2">
                                 @foreach($detailupdate->tag as $item)
@@ -64,19 +68,34 @@
                     
                 </div>
             </div>
-            <div class="col-12">
-                <div class="col-lg-3 col-md-4 col-sm-5 col-8 mt-sm-0 mt-4 p-3" id="artikelTerkait">
-                    <h3 class="fw-bold">Artikel Lainnya</h3>
-                    @foreach($terkait as $artikel)
-                    <div class="artikelTerkait">
-                        <div class="hr"></div>
-                        <div class="atContent">
-                            <p>Update on {{date('d F Y', strtotime($artikel->created_at))}}</p>
-                            <p class="md fw-bold">{{$artikel->judul_update}}</p>
-                            <a href="{{ url('/detailupdate', $artikel->slug) }}"><p>Read Article</p></a>
+           <div class="col-12">
+                <div class="listUpdate mt-5">
+                    <div class="container">
+                        <h3 class="text-gray fw-bolder mb-2">Update Lainnya</h3>
+                        <div class="row  justify-content-sm-start justify-content-center">
+                            @foreach($similarUpdates as $item)
+                                <div class="col-12 col-sm-6 col-md-4  my-3">
+                                    <a href="{{ url('/detailupdate', $item->slug) }}" style="text-decoration: none; color: black;">
+                                        <div class="luContent">
+                                            <div class="lcImage">
+                                              {{--  <img src="{{asset('img/'.$item->foto)}}" alt=""> --}}
+                                            </div>
+                                            <div class="lcText p-3">
+                                                <div class="ltHeader d-flex justify-content-between mb-2">
+                                                    <p class="lg fw-semibold">Update</p>
+                                                </div>
+                                                <div class="ltTitle mb-2">
+                                                    <p class="xl fw-bold">{{$item->judul_update}}</p>
+                                                </div>
+                                                    <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
+                                            </div>
+                                            
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                    @endforeach
                 </div>
             </div>
         </div>
@@ -89,6 +108,50 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="{{ asset('../slick/slick.min.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+        function updateLikeCount(updateSlug) {
+        $.ajax({
+            type: 'GET',
+            url: '/countlike/' + updateSlug,
+            success: function (data) {
+                $('#like-count-' + updateSlug).text(data.countlike);
+            }
+        });
+    }
+
+    $('.trigLike-button').on('click', function () {
+        let trig = $(this).attr('data-trig')
+        let self = $(this)
+        let updateSlug = $(this).data('update-slug');
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            type: (trig == "unlike" ? "DELETE" : "POST"),
+            url: '/'+ (trig == "unlike" ? "unlike" : "like") +'/' + updateSlug,
+            data: {
+                '_token': csrfToken
+            },
+            success: function (data) {
+                // Handle success, update UI as needed (e.g., increment like count)
+                // $('.trigLike-button').html(data);
+                
+                if (trig == "unlike") {
+                    self.attr('data-trig', 'like')
+                   self.removeClass('text-primary');
+                }else{
+                    self.attr('data-trig', 'unlike')
+                   self.addClass('text-primary');
+                }
+            }
+        });
+        updateLikeCount(updateSlug)
+    });
+});
+
+
+</script>
 
 <script>
     $('.slider-single').slick({

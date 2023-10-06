@@ -105,6 +105,9 @@
                       <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Link GForm<span class="text-danger">*</span></label>
                         <input type="url" class="form-control" id="exampleInputUsername1" placeholder="Input Link GForm..." name="link_gform">
+                        @error('link_gform')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                     </div>
                       <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">File Panduan<span class="text-danger">*</span></label>
@@ -113,7 +116,24 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="modal-footer gap-1 mt-5">
+                      <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Upload Qris<span class="text-danger">*</span></label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" name="qris">
+                        @error('qris')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex">
+                            <input type="checkbox" id="checkrek" class="form-check" id="exampleInputUsername1">
+                            <label class="fw-bold">Anda Ingin Input No. Rekening?</label>
+                        </div>  
+                    </div>
+                      <div style="display: none;" id="norek" class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Input No. Rekening</label>
+                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input No. Rekening..." name="no_rek">
+                    </div>
+                    <div  class="modal-footer gap-1 mt-5">
                         <a href="/admin/agenda" class="btn btn-outline-warning btn-icon-text">
                             Cancel
                         </a>
@@ -128,6 +148,23 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+var checkrek = document.getElementById('checkrek');
+var norek = document.getElementById('norek');
+
+// Add an event listener to the checkbox to toggle the content visibility
+
+checkrek.addEventListener('change', function() {
+  if (checkrek.checked) {
+    norek.style.display = 'block'; // Show the content when the checkbox is checked
+  } else {
+    norek.style.display = 'none'; 
+  }
+});
+});
+</script>
 
 <script type="text/javascript">
     $('.add').on('click', function(){
