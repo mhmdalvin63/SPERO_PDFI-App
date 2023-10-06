@@ -199,20 +199,20 @@ class AdminAgendaController extends Controller
                     File::delete('file/'.$editAgenda->panduan);
                 $filePanduan = 'Panduan'.rand(1,99999).'.'.$request->panduan->getClientOriginalExtension();
                 $request->file('panduan')->move(public_path().'/file/', $filePanduan);
-                $newAgenda->panduan = $filePanduan;
-                $newAgenda->save();
+                $editAgenda->panduan = $filePanduan;
+                $editAgenda->save();
             }
             if($request->hasFile('qris'))
             {
                 File::delete('img/'.$editAgenda->qris);
                 $fileqris = 'qris'.rand(1,99999).'.'.$request->qris->getClientOriginalExtension();
                 $request->file('qris')->move(public_path().'/img/', $fileqris);
-                $newAgenda->panduan = $fileqris;
-                $newAgenda->save();
+                $editAgenda->panduan = $fileqris;
+                $editAgenda->save();
             }
 
             if($request->no_rek){
-                $newAgenda->no_rek = $request->no_rek;
+                $editAgenda->no_rek = $request->no_rek;
             }
 
             $editAgenda->save();

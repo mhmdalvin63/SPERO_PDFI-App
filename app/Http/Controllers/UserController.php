@@ -62,6 +62,7 @@ class UserController extends Controller
             $user->password = bcrypt($request->password);
             $user->level = 'user';
             $user->verification = 'verified';
+            $user->status = 'aktif';
             $user->save();
             Alert::success('Success', 'Data Created Successfully');
             return redirect('/admin/user-management');

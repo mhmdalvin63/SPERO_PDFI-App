@@ -92,7 +92,7 @@
                         <label for="" class="fw-bold">Event Tickets</label>
                         <div class="row">
                         <div class="col"><label for="exampleInputUsername1" class="fw-bold">Ticket Name<span class="text-danger">*</span></label><input type="text" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket..."></div>
-                        <div class="col"><label for="exampleInputUsername1" class="fw-bold">Price Ticket<span class="text-danger">*</span></label><input type="text" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..."></div><div class="col-auto"><br>
+                        <div class="col"><label for="exampleInputUsername1" class="fw-bold">Price Ticket<span class="text-danger">*</span></label><input type="number" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..."></div><div class="col-auto"><br>
                         <button type="button" class="d-block mb-2 btn btn-icon btn-primary add"><i class="bi bi-plus"></i></button></div>
                         </div>
                         <div class="jenis_tiket"></div>
@@ -173,7 +173,7 @@ checkrek.addEventListener('change', function() {
 
     function add(){
       var jenis_tiket =
-        '<div><div class="form-row row mb-2"><div class="col"><input type="text" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket..." required></div><div class="col"><input type="text" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..." required onkeyup="formatNumber(this)"></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2 btn btn-danger" style="text-decoration: none;"><i class="bi bi-trash-fill"></i></a></div></div></div>';
+        '<div><div class="form-row row mb-2"><div class="col"><input type="text" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket..." required></div><div class="col"><input type="number" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..." required onkeyup="formatNumber(this)"></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2 btn btn-danger" style="text-decoration: none;"><i class="bi bi-trash-fill"></i></a></div></div></div>';
       $('.jenis_tiket').append(jenis_tiket);
     };
 
