@@ -25,19 +25,22 @@
         <div class="row d-flex justify-content-center mb-3">
             <form action="/search-agenda">
                 <div class="row">
-                    <div class="col-12 text-center">
-                        <div class="form-group">
+                        <div class="col-5 form-group">
                             <label class="fw-bold">Search Event By Organizer</label>
                             <input class="form-control" type="text" name="search" placeholder="Search...">
                         </div>
-                        <br>
-                        <div class="form-group">
-                            <label class="fw-bold">Search By Date</label>
-                            <input class="form-control" type="Date" name="date" placeholder="Search...">
+                        <div class="col-3 form-group">
+                            <label class="fw-bold">Search Start Date</label>
+                            <input class="form-control mb-2" type="Date" name="start_date" placeholder="Search...">
                         </div> 
-                        <br>
-                        <button class="btn btn-primary btn-sm btn-block" type="submit"><i class="fa fa-search icon"></i> filter</button>
-                    </div>
+                        <div class="col-3 form-group">
+                            <label class="fw-bold">Search End Date</label>
+                            <input class="form-control mb-2" type="Date" name="end_date" placeholder="Search...">
+                        </div>
+                        <div class="col-1">
+                            <br>
+                            <button class="btn btn-primary btn-md btn-block" type="submit">Search</button>
+                        </div>
                 </div>
             </form>
             <h3 class="text-gray fw-bolder mb-2 mb-lg-4"><span class="text-blue">List Agenda</span></h3>

@@ -5,6 +5,11 @@
 <div id="result"></div>
 <div class="page-heading">
     <h3>Table Pendaftar {{$agenda->judul_agenda}}</h3>
+    @if($agenda->status_event == 'Buy')
+    <h5>Event Berbayar</h5>
+    @else
+    <h5>Event Gratis</h5>
+    @endif
 </div>
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
@@ -56,9 +61,13 @@
                             <th>Action</th>
                             <th>Name</th>
                             <th>No. Telepon</th>
+                            @if($agenda->status_event == 'Buy')
+                            <th>Pilihan Tiket</th>
                             <th>Bukti Transfer</th>
-                            <th>Bukti Keanggotaan</th>
+                            @endif
                             <th>Join Date</th>
+                            <th>No. Anggota PDFI</th>
+                            <th>Asal Cabang</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -102,9 +111,13 @@
                         </td>
                         <td class="text-center">{{$item->name}}</td>
                         <td class="text-center">{{$item->no_telp}}</td>
-                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_transfer)}}"  height="100" alt=""></td>  
-                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_keanggotaan)}}"  height="100" alt=""></td>                        
+                        @if($item->id_tiket != NULL)
+                        <td class="text-center">{{$item->tiket->nama_tiket}} - {{$item->tiket->harga_tiket}}</td>
+                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_transfer)}}"  height="100" alt=""></td>
+                        @endif                       
                         <td class="text-center">{{date('d F Y', strtotime($item->created_at))}}</td>
+                        <td class="text-center">{{$item->user->no_anggota_pdfi}}</td>
+                        <td class="text-center">{{$item->user->asal_cabang}}</td>
                         <td class="text-center">
                             @if($item->status == 'Unproved')
                             <button class="btn btn-warning">Unproved</button>

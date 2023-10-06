@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('bukti_transfer')->nullable();
             $table->text('cabang');
             $table->foreignId('id_agenda')->references('id')->on('agendas')->onDelete('cascade');
-            $table->foreignId('id_tiket')->references('id')->on('tikets')->onDelete('cascade')->nullable();
+            $table->bigInteger('id_tiket')->nullable();
             $table->timestamps();
         });
     }

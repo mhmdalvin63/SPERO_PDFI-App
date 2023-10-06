@@ -82,17 +82,21 @@ class FrontEndController extends Controller
     public function liked($slug){
         $detailupdate = Update::where('slug', $slug)->first();
         $user = Auth::user()->id;
-        $iflike =LikeUpdate::where('id_user', $user)->where('id_update', $detailupdate->id)->first();
+        $iflike = LikeUpdate::where('id_user', $user)->where('id_update', $detailupdate->id)->first();
 
-
+        if(!$iflike){
         $like = new LikeUpdate();
         $like->id_update = $detailupdate->id;
         $like->id_user = $user;
 
-            $like->save();
-
-
+        $like->save();
         return response()->json(['massage' => 'liked']);
+        } else {
+            $iflike->delete();
+            return response()->json(['massage' => 'unliked']);
+        }
+
+
     }
 
     public function unliked($slug){
@@ -143,28 +147,44 @@ class FrontEndController extends Controller
 
     public function searchagenda(Request $request){
         // dd($request);
-        $date = $request->date;
+        $date = $request->start_date;
+        $end_date = $request->end_date;
         $anggota = $request->search;
         if ($date) {
-            $searchAgenda = Agenda::where('start_date', '<=', $date)->where('end_date', '>=', $date)->get();
-            return view('pages.agendasearch', compact('searchAgenda'));
+            $searchAgenda = Agenda::where('start_date', $date)->get();
         } 
         else if($anggota){
-            $searchAgenda = Agenda::whereHas('anggota', function (Builder $query) use ($anggota){
+            $searchAgenda = Agenda::with('anggota')->whereHas('anggota', function ($query) use ($anggota){
                 $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
             })->get();
-            return view('pages.agendasearch', compact('searchAgenda'));
         }
-        else if($date && $anggota){
-            $searchAgenda = Agenda::where('start_date', '<=', $date)->where('end_date', '>=', $date)->whereHas('anggota', function (Builder $query) use ($anggota){
+        else if($end_date){
+            $searchAgenda = Agenda::where('end_date', $end_date)->get();
+        }
+        else if($end_date == NULL && $anggota && $date){
+            $searchAgenda = Agenda::with('anggota')->whereHas('anggota', function ($query) use ($anggota){
+                $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
+            })->where('start_date', $date)->get();
+        }
+        else if($end_date && $anggota){
+            $searchAgenda = Agenda::with('anggota')->whereHas('anggota', function ($query) use ($anggota){
+                $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
+            })->where('end_date', $end_date)->get();
+        }
+        else if($end_date && $date){
+            $searchAgenda = Agenda::where('end_date', '=', date('Y-m-d', strtotime($end_date)))->where('start_date', '=', date('Y-m-d', strtotime($date)))->get();
+        }
+        else if($end_date && $anggota && $date){
+            $searchAgenda = Agenda::where('start_date', $date)->where('end_date', $end_date)->with('anggota', function ($query) use ($anggota){
                 $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
             })->get();
-            return view('pages.agendasearch', compact('searchAgenda'));
         }
         else {
             Alert::error('Error', 'Search is Null');
            return redirect()->back();
         }
+
+        return view('pages.agendasearch', compact('searchAgenda'));
     }
 
     public function search(Request $request){

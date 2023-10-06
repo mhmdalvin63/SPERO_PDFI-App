@@ -55,6 +55,9 @@ class AgendaController extends Controller
             'location' => 'required',
             'id_anggota' => 'required',
             'status_event' => 'required',
+            'link_gform' => 'required',
+            'panduan' => 'required|file|mimes:png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
+            'qris' => 'required|file|mimes:png,jpg,jpeg',
         ],[
             'judul_agenda' => 'Insert Title Update',
             'deskripsi' => 'Insert Topic Update',
@@ -63,6 +66,11 @@ class AgendaController extends Controller
             'location' => 'Insert Location Event',
             'id_anggota' => 'Insert Organizer',
             'status_event' => 'Insert Event Status',
+            'link_gform' => 'Insert Link GForm',
+            'panduan' => 'Insert Panduan',
+            'panduan.mimes' => 'File Must Be png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
+            'qris' => 'Insert Qris',
+            'qris.mimes' => 'File Must Be png,jpg,jpeg',
         ]);
 
         try {
@@ -76,44 +84,61 @@ class AgendaController extends Controller
             $newAgenda->location = $request->location;
             $newAgenda->id_anggota = $request->id_anggota;
             $newAgenda->status_event = $request->status_event;
+            $newAgenda->link_gform = $request->link_gform;
             $newAgenda->id_user = $user;
     
-            
+            if($request->hasFile('panduan'))
+            {
+                $filePanduan = 'Panduan'.rand(1,99999).'.'.$request->panduan->getClientOriginalExtension();
+                $request->file('panduan')->move(public_path().'/file/', $filePanduan);
+                $newAgenda->panduan = $filePanduan;
+                $newAgenda->save();
+            }
+            if($request->hasFile('qris'))
+            {
+                $fileqris = 'qris'.rand(1,99999).'.'.$request->qris->getClientOriginalExtension();
+                $request->file('qris')->move(public_path().'/img/', $fileqris);
+                $newAgenda->qris = $fileqris;
+                $newAgenda->save();
+            }
+
+            if($request->no_rek){
+                $newAgenda->no_rek = $request->no_rek;
+            }
     
-           $newAgenda->save();  
+           $newAgenda->save(); 
            
         //    dd($request->tipe_id);
         
-           
-           foreach ($request->tipe_id as $newPivot) {
-               $newPivotType = new TypeAgenda();
-               $newPivotType->id_agenda = $newAgenda->id;
-               $newPivotType->id_type  = $newPivot;
-               $newPivotType->save();
-           }
-           if($request->status_event == 'Buy'){
-               if($request->nama_tiket){
-                foreach($request['nama_tiket'] as $a => $b){
-                    $array2 = array(
-                        'id_agenda' => $newAgenda->id,
-                        'nama_tiket' => $request['nama_tiket'][$a],
-                        'harga_tiket' => $request['harga_tiket'][$a],
-                    );
-    
-                    Tiket::create($array2);
-                    }
-                }
-           }
-           if($request->has('foto')){
-            foreach($request->file('foto') as $image){
-                $image2 = 'agenda'.rand(1,999).$image->getClientOriginalExtension();
-                $image->move(public_path().'/img/', $image2);
-                FotoAgenda::create([
-                    'id_agenda' => $newAgenda->id,
-                    'foto' => $image2,
-                    ]);
-                }
-            }
+        foreach ($request->tipe_id as $newPivot) {
+            $newPivotType = new TypeAgenda();
+            $newPivotType->id_agenda = $newAgenda->id;
+            $newPivotType->id_type  = $newPivot;
+            $newPivotType->save();
+        }
+        if($request->status_event == 'Buy'){
+            if($request->nama_tiket){
+             foreach($request['nama_tiket'] as $a => $b){
+                 $array2 = array(
+                     'id_agenda' => $newAgenda->id,
+                     'nama_tiket' => $request['nama_tiket'][$a],
+                     'harga_tiket' => $request['harga_tiket'][$a],
+                 );
+ 
+                 Tiket::create($array2);
+                 }
+             }
+        }
+        if($request->has('foto')){
+         foreach($request->file('foto') as $image){
+             $image2 = 'agenda'.rand(1,999).$image->getClientOriginalExtension();
+             $image->move(public_path().'/img/', $image2);
+             FotoAgenda::create([
+                 'id_agenda' => $newAgenda->id,
+                 'foto' => $image2,
+                 ]);
+             }
+         }
            
             DB::commit();
             Alert::success('Success', 'Data Created Successfully');
@@ -168,9 +193,33 @@ class AgendaController extends Controller
             $editAgenda->location = $request->location;
             $editAgenda->id_anggota = $request->id_anggota;
             $editAgenda->status_event = $request->status_event;
+            $editAgenda->link_gform = $request->link_gform;
             $editAgenda->id_user = $user;
+
+            if($request->hasFile('panduan'))
+            {
+                    File::delete('file/'.$editAgenda->panduan);
+                $filePanduan = 'Panduan'.rand(1,99999).'.'.$request->panduan->getClientOriginalExtension();
+                $request->file('panduan')->move(public_path().'/file/', $filePanduan);
+                $editAgenda->panduan = $filePanduan;
+                $editAgenda->save();
+            }
+            if($request->hasFile('qris'))
+            {
+                File::delete('img/'.$editAgenda->qris);
+                $fileqris = 'qris'.rand(1,99999).'.'.$request->qris->getClientOriginalExtension();
+                $request->file('qris')->move(public_path().'/img/', $fileqris);
+                $editAgenda->panduan = $fileqris;
+                $editAgenda->save();
+            }
+
+            if($request->no_rek){
+                $editAgenda->no_rek = $request->no_rek;
+            }
+
             $editAgenda->save();
-                
+
+             
 
             if($request->status_event == 'Buy'){
                 $tiket = Tiket::where('id_agenda', $editAgenda->id)->delete();
@@ -190,9 +239,10 @@ class AgendaController extends Controller
             }
         
             $editAgenda->type()->sync($request->tipe_id);
+            
             $foto = FotoAgenda::where('id_agenda', $editAgenda->id)->first();
             if($request->has('foto')){
-                File::delete('img/'.$foto->foto);
+                    File::delete('img/'.$foto->foto);
                 $deleteimage = FotoAgenda::where('id_agenda', $editAgenda->id)->delete();
                     foreach($request->file('foto') as $image){
                         $image2 = 'agenda'.rand(1,9999).$image->getClientOriginalExtension();

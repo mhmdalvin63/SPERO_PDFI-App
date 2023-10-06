@@ -108,6 +108,7 @@ class UpdateController extends Controller
         // try {
             $editUpdate = Update::find($id);
             $editUpdate->judul_update =  $request->judul_update;
+            $editUpdate->isi_berita =  $request->isi_berita;
             $editUpdate->jenis_berita =  $request->jenis_berita;
             $editUpdate->save();
 

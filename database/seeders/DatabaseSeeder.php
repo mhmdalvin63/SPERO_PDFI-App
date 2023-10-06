@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
                 'no_anggota_pdfi' => '-',
                 'asal_cabang' => '-',
                 'tempat_praktek' => '-',
+                'status' => 'aktif',
             ],
             [
                 'name' => 'AdminCabangPdfi',
@@ -43,6 +44,7 @@ class DatabaseSeeder extends Seeder
                 'level' => 'cabang',
                 'password' => bcrypt('Cabang!@#$%^&*'),
                 'verification' => 'verified',
+                'status' => 'aktif',
             ],
         ];
 

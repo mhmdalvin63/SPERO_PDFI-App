@@ -4,7 +4,7 @@
     <div class="container">
       <a class="navbar-brand d-flex align-items-center justify-content-between justify-content-lg-start gap-3" href="#">
         <img src="{{asset('../image/pdfi-logo.png')}}" alt="">
-        <p class="cust-nav-p fw-bold">PERSATUAN DOKTER <br class="d-block d-sm-none"> FORENSIK INDONESIA</p>
+        <a href="/" class="to-home fw-bold"><p>PERSATUAN DOKTER <br class="d-block d-sm-none"> FORENSIK INDONESIA</p></a>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

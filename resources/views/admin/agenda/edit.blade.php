@@ -90,7 +90,7 @@
                                 <input type="text" value="{{$item->nama_tiket}}" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket...">
                             </div>
                             <div class="col">
-                                <input type="text" value="{{$item->harga_tiket}}" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket...">
+                                <input type="number" value="{{$item->harga_tiket}}" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket...">
                             </div>
                             <div class="col-auto my-1">
                                 <a href="javascript:void(0)" class="delete2 btn btn-danger" style="text-decoration: none;"><i class="bi bi-trash-fill"></i></a>
@@ -113,6 +113,30 @@
                         <label for="exampleInputUsername1" class="fw-bold">File Panduan<span class="text-danger">*</span></label>
                         <input type="file" class="form-control" value="{{ $agenda->panduan}}" id="exampleInputUsername1" placeholder="Input Panduan..." name="panduan">
                     </div>
+                      <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Upload Qris<span class="text-danger">*</span></label>
+                        <input type="file" class="form-control" id="exampleInputUsername1" name="qris">
+                        @error('qris')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    @if($agenda->no_rek != NULL)
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Input No. Rekening</label>
+                        <input type="number" class="form-control" value="{{ $agenda->no_rek}}" id="exampleInputUsername1" placeholder="Input No. Rekening..." name="no_rek">
+                    </div>
+                    @else
+                    <div class="form-group">
+                        <div class="d-flex">
+                            <input type="checkbox" id="checkrek" class="form-check" id="exampleInputUsername1">
+                            <label class="fw-bold">Anda Ingin Input No. Rekening?</label>
+                        </div>  
+                    </div>
+                      <div style="display: none;" id="norek" class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Input No. Rekening</label>
+                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input No. Rekening..." name="no_rek">
+                    </div>
+                    @endif
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/agenda" class="btn btn-outline-warning btn-icon-text">
                             Cancel
@@ -129,6 +153,22 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+var checkrek = document.getElementById('checkrek');
+var norek = document.getElementById('norek');
+
+// Add an event listener to the checkbox to toggle the content visibility
+
+checkrek.addEventListener('change', function() {
+  if (checkrek.checked) {
+    norek.style.display = 'block'; // Show the content when the checkbox is checked
+  } else {
+    norek.style.display = 'none'; 
+  }
+});
+});
+</script>
 <script type="text/javascript">
 
     
@@ -138,7 +178,7 @@
 
     function add(){
       var jenis_tiket =
-        '<div><div class="form-row row mb-2"><div class="col"><input type="text" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket..." required></div><div class="col"><input type="text" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..." required onkeyup="formatNumber(this)"></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2 btn btn-danger" style="text-decoration: none;"><i class="bi bi-trash-fill"></i></a></div></div></div>';
+        '<div><div class="form-row row mb-2"><div class="col"><input type="text" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket..." required></div><div class="col"><input type="number" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..." required onkeyup="formatNumber(this)"></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2 btn btn-danger" style="text-decoration: none;"><i class="bi bi-trash-fill"></i></a></div></div></div>';
       $('.jenis_tiket').append(jenis_tiket);
     };
 
