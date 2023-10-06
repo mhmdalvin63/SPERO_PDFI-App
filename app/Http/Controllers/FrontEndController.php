@@ -6,9 +6,10 @@ use Share;
 use Carbon\Carbon;
 use App\Models\Agenda;
 use App\Models\Banner;
+use App\Models\Jurnal;
 use App\Models\Update;
 use App\Models\Pendaftar;
-use App\Models\Jurnal;
+use App\Models\LikeUpdate;
 use App\Models\TypeAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,7 @@ use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Validator;
 
 class FrontEndController extends Controller
 {
@@ -53,15 +55,63 @@ class FrontEndController extends Controller
         ->whatsapp();   
         $detailupdate = Update::where('slug', $slug)->first();
         $terkait = Update::where('slug', '!=', $slug)->latest()->get();
+        $user = Auth::user()->id;
+        $countlike = LikeUpdate::where('id_update', $detailupdate->id)->count();
+
+        $similarUpdates = collect();
+
+        foreach ($detailupdate->tag as $tag) {
+            $relatedUpdates = $tag->upd->where('id', '!=', $detailupdate->id);
+            $similarUpdates = $similarUpdates->concat($relatedUpdates);
+        }
+
+        $similarUpdates = $similarUpdates->unique('id');
+
+        $like = LikeUpdate::where('id_user', $user)->where('id_update', $detailupdate->id)->first();
        
-        return view('pages.detailUpdate', compact('detailupdate', 'terkait', 'shareComponent'));
+        return view('pages.detailUpdate', compact('detailupdate', 'terkait', 'shareComponent', 'like', 'similarUpdates', 'countlike'));
+    }
+
+    public function countliked($slug){
+        $detailupdate = Update::where('slug', $slug)->first();
+        $countlike = LikeUpdate::where('id_update', $detailupdate->id)->count();
+
+        return response()->json(['countlike' => $countlike]);
+    }
+
+    public function liked($slug){
+        $detailupdate = Update::where('slug', $slug)->first();
+        $user = Auth::user()->id;
+        $iflike =LikeUpdate::where('id_user', $user)->where('id_update', $detailupdate->id)->first();
+
+
+        $like = new LikeUpdate();
+        $like->id_update = $detailupdate->id;
+        $like->id_user = $user;
+
+            $like->save();
+
+
+        return response()->json(['massage' => 'liked']);
+    }
+
+    public function unliked($slug){
+        $detailupdate = Update::where('slug', $slug)->first();
+        $user = Auth::user()->id;
+
+        $like = LikeUpdate::where('id_user', $user)->where('id_update', $detailupdate->id)->first();
+        if($like){
+            $like->delete();
+        }
+
+        return response()->json(['massage' => 'unliked']);
     }
 
     public function myevent(){
         $user = Auth::user()->id;
         $now = Carbon::now();
         $pendaftar = Pendaftar::whereHas('agenda', function (Builder $query) use ($now) {
-            $query->where('end_date', '>=', $now);
+            $query->orderBy('end_date', 'ASC');
            })->where('id_user', $user)->where('status', 'Approved')->get();
 
         return view('pages.MyEvent', compact('pendaftar', 'now'));
@@ -73,7 +123,17 @@ class FrontEndController extends Controller
         $detailagenda = Agenda::where('slug', $slug)->first();
         $allagenda = Agenda::where('slug', '!=', $slug)->where('end_date', '>=', $now)->get();
         $pendaftar = Pendaftar::all();
-        return view('pages.detailAgenda', compact('detailagenda', 'allagenda', 'now', 'provinsi', 'pendaftar'));
+
+        $similarUpdates = collect();
+
+        foreach ($detailagenda->type as $tag) {
+            $relatedUpdates = $tag->agenda->where('id', '!=', $detailagenda->id);
+            $similarUpdates = $similarUpdates->concat($relatedUpdates);
+        }
+
+        $similarUpdates = $similarUpdates->unique('id');
+
+        return view('pages.detailAgenda', compact('detailagenda', 'allagenda', 'now', 'provinsi', 'pendaftar', 'similarUpdates'));
     }
 
     public function jurnal(){
@@ -83,12 +143,25 @@ class FrontEndController extends Controller
 
     public function searchagenda(Request $request){
         // dd($request);
-        if ($request->search || $request->date) {
-            $searchAgenda = Agenda::whereHas('anggota', function (Builder $query) use ($request) {
-                $query->where('nama_anggota','LIKE','%'.$request->search.'%');
-               })->orwhere('start_date', $request->date)->orwhere('end_date', $request->date)->get();
+        $date = $request->date;
+        $anggota = $request->search;
+        if ($date) {
+            $searchAgenda = Agenda::where('start_date', '<=', $date)->where('end_date', '>=', $date)->get();
             return view('pages.agendasearch', compact('searchAgenda'));
-        } else {
+        } 
+        else if($anggota){
+            $searchAgenda = Agenda::whereHas('anggota', function (Builder $query) use ($anggota){
+                $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
+            })->get();
+            return view('pages.agendasearch', compact('searchAgenda'));
+        }
+        else if($date && $anggota){
+            $searchAgenda = Agenda::where('start_date', '<=', $date)->where('end_date', '>=', $date)->whereHas('anggota', function (Builder $query) use ($anggota){
+                $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
+            })->get();
+            return view('pages.agendasearch', compact('searchAgenda'));
+        }
+        else {
             Alert::error('Error', 'Search is Null');
            return redirect()->back();
         }
@@ -139,40 +212,37 @@ class FrontEndController extends Controller
 
     
 
-    public function daftaragenda(Request $request, $id){
+    public function daftaragenda(Request $request, $slug){
         // dd($request);
-        $this->validate($request,[
-            'bukti_transfer' => 'required|file|mimes:jpeg,jpg,png,webp',
-            'bukti_keanggotaan' => 'required|file|mimes:jpeg,jpg,png,webp',
+        $rules = [
             'name' => 'required',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
             'no_telp' => 'required',
             'email' => 'required',
-            'id_tiket' => 'required',
             'id_kecamatan' => 'required',
             'id_provinsi' => 'required',
             'id_kota' => 'required',
-        ],[
-            'bukti_transfer' => 'Insert Image',
-            'bukti_transfer.mimes' => 'Image Must Be jpeg, jpg, png, webp',
-            'bukti_keanggotaan' => 'Insert Image',
-            'bukti_keanggotaan.mimes' => 'Image Must Be jpeg, jpg, png, webp',
-            'name' => 'Insert Title Update',
-            'tanggal_lahir' => 'Insert Topic Update',
-            'jenis_kelamin' => 'Insert Start Date',
-            'alamat' => 'Insert End Date',
-            'no_telp' => 'Insert Location Event',
-            'email' => 'Insert Organizer',
-            'id_tiket' => 'Insert Event Status',
-            'id_kecamatan' => 'Insert Event Status',
-            'id_provinsi' => 'Insert Event Status',
-            'id_kota' => 'Insert Event Status',
-        ]);
+        ];
+
 
         
-            $detailagenda = Agenda::find($id);
+            $detailagenda = Agenda::where('slug', $slug)->first();
+
+            if($detailagenda->status_event == 'Buy'){
+                $rules['id_tiket'] = 'required';
+            };
+
+            $validator = Validator::make($request->all(), $rules);
+
+        // Check if validation fails
+            if ($validator->fails()) {
+                Alert::error('Error', 'Isi Data Dengan Lengkap');
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
             // dd($detailagenda);
             $daftar = new Pendaftar();
             // $daftar->token = $token;
@@ -188,18 +258,23 @@ class FrontEndController extends Controller
             $daftar->no_anggota_idi = Auth::user()->no_anggota_idi;
             $daftar->no_anggota_pdfi =  Auth::user()->no_anggota_pdfi;
             $daftar->cabang =  Auth::user()->asal_cabang;
-            $daftar->id_tiket = $request->id_tiket;
+            if($request->id_tiket){
+                $daftar->id_tiket = $request->id_tiket;
+            }
             $daftar->code_provinsi = $request->id_provinsi;
             $daftar->code_kota = $request->id_kota;
             $daftar->code_kecamatan = $request->id_kecamatan;
             $daftar->status = 'Unproved';
             // dd($daftar);
-            if($request->hasFile('bukti_transfer') && $request->hasFile('bukti_keanggotaan'))
+            if($request->hasFile('bukti_transfer'))
             {
                 $fotoDaftar = 'bukti_transfer'.rand(1,99999).'.'.$request->bukti_transfer->getClientOriginalExtension();
                 $request->file('bukti_transfer')->move(public_path().'/img/', $fotoDaftar);
                 $daftar->bukti_transfer = $fotoDaftar;
 
+               
+            }
+            if($request->hasFile('bukti_keanggotaan')){
                 $fotoAnggota = 'bukti_keanggotaan'.rand(1,99999).'.'.$request->bukti_keanggotaan->getClientOriginalExtension();
                 $request->file('bukti_keanggotaan')->move(public_path().'/img/', $fotoAnggota);
                 $daftar->bukti_keanggotaan = $fotoAnggota;

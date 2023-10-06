@@ -103,7 +103,7 @@
                                             </p>
                                             <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
                                                 <a class="btn btn-la  d-flex align-items-center gap-2" href="{{ url('/detailagenda', $item->slug) }}">
-                                                    <p class="text-blue fw-bold">Lihat Agenda</p>
+                                                    <p class="text-blue fw-bold">Detail Agenda</p>
                                                     <div class="arrow-la">
                                                         <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
                                                     </div>
@@ -137,16 +137,16 @@
   infinite: true,
   rows: 1,
   speed: 300,
-slidesPerRow: 3,
 slidesToShow: 3,
+slidesPerRow: 3,
   prevArrow: $('.prev'),
     nextArrow: $('.next'),
   responsive: [
     {
       breakpoint: 1200,
       settings: {
-        rows: 3,
-        slidesPerRow: 1,
+        rows: 1,
+        slidesToShow: 1,
       }
     }
     // You can unslick at a given breakpoint now by adding:

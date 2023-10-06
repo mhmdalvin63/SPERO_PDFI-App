@@ -54,8 +54,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*</span></label><br>
-                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
+                        <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*max 2mb</span></label><br>
+                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3</span></label>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
                     </div>

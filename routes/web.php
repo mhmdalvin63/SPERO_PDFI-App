@@ -55,8 +55,13 @@ Route::get('districts', 'FrontEndController@districts')->name('districts');
 Route::get('/detailagenda/{slug}', [FrontEndController::class, 'detailagenda'])->name('detailagenda');
 Route::get('/dw-panduan/{file}', [FrontEndController::class, 'download'])->name('download');
 
+
+Route::get('/countlike/{slug}', [FrontEndController::class, 'countliked'])->name('countliked');
+
 Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
-    Route::post('/daftar/{id}', [FrontEndController::class, 'daftaragenda'])->name('daftaragenda');
+    Route::post('/daftar/{slug}', [FrontEndController::class, 'daftaragenda'])->name('daftaragenda');
+    Route::post('/like/{slug}', [FrontEndController::class, 'liked'])->name('liked');
+    Route::delete('/unlike/{slug}', [FrontEndController::class, 'unliked'])->name('unliked');
     Route::get('/myevent', [FrontEndController::class, 'myevent'])->name('myevent');
     Route::get('/jurnal', [FrontEndController::class, 'jurnal'])->name('jurnal');
 

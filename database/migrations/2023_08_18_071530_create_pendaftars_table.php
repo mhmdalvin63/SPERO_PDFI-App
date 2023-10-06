@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('email');
             $table->string('no_anggota_idi');
             $table->string('no_anggota_pdfi');
-            $table->string('bukti_transfer');
+            $table->string('bukti_transfer')->nullable();
             $table->text('cabang');
             $table->foreignId('id_agenda')->references('id')->on('agendas')->onDelete('cascade');
-            $table->foreignId('id_tiket')->references('id')->on('tikets')->onDelete('cascade');
+            $table->foreignId('id_tiket')->references('id')->on('tikets')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

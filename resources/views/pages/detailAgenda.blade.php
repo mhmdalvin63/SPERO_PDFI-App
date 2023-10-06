@@ -53,9 +53,9 @@
                         <p class="md fw-bold">Location</p>
                         <p class="md fw-bold">:&emsp;{{$detailagenda->location}}</p>
                     </div>
-                    <div class="textFlex d-flex my-3">
+                    <div class="textFlex d-flex">
                         <p class="md fw-bold">Start - End Date</p>
-                        <p class="md fw-bold">:&emsp;{{$detailagenda->start_date}} - {{$detailagenda->end_date}}</p>
+                        <p class="md fw-bold">:&emsp;{{date('d F, Y', strtotime($detailagenda->start_date))}} - {{date('d F, Y', strtotime($detailagenda->end_date))}}</p>
                     </div>
                     <div class="textFlex d-flex my-3">
                         <p class="md fw-bold">Tickets</p>
@@ -75,13 +75,13 @@
                                 Join
                             </button>
                         @elseif($detailagenda->status_event == 'Buy')
-                            @if(Auth::user()->level != 'user')
-                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                                    Daftar
-                                </button>
-                            @else
+                            @if(Auth::check() && Auth::user()->level == 'user')
                                 <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
                                     Pesan
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                    Daftar
                                 </button>
                             @endif
                         @endif
@@ -95,7 +95,7 @@
                     <div class="container">
                         <h3 class="text-gray fw-bolder mb-2">Kegiatan Lainnya</h3>
                         <div class="row  justify-content-sm-start justify-content-center">
-                            @foreach($allagenda as $item)
+                            @foreach($similarUpdates as $item)
                                 <div class="col-12 col-sm-6 col-md-4  my-3">
                                     <a href="{{ url('/detailagenda', $item->slug) }}" style="text-decoration: none; color: black;">
                                         <div class="luContent">
@@ -110,7 +110,7 @@
                                                 <div class="ltTitle mb-2">
                                                     <p class="xl fw-bold">{{$item->judul_agenda}}</p>
                                                 </div>
-                                                    <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->start_date))}}</p>
+                                                    <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
                                             </div>
                                         </div>
                                     </a>
@@ -146,11 +146,11 @@ aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nobar</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Daftar {{$detailagenda->judul_agenda}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('daftaragenda', $detailagenda->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('daftaragenda', $detailagenda->slug) }}" id="myForm" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">Nama Panjang</label>
@@ -181,14 +181,27 @@ aria-hidden="true">
                 </div>
                 
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Tiket</label>
-                        <select name="id_tiket" class="form-select" aria-label="Default select example">
-                            <option selected disabled>Pilih Jenis Tiket</option>
-                           @foreach($detailagenda->tiket as $tiket)
-                           <option value="{{$tiket->id}}">{{$tiket->nama_tiket}} - {{number_format($tiket->harga_tiket)}}</option>
-                           @endforeach
-                        </select>
+                    <label for="tiket" class="form-label fw-bold">Jenis Tiket</label>
+                    <select name="id_tiket" id="tiket" class="form-select" aria-label="Default select example">
+                        <option selected disabled>Pilih Jenis Tiket</option>
+                        @foreach($detailagenda->tiket as $tiket)
+                        <option value="{{$tiket->id}}">{{$tiket->nama_tiket}} - {{number_format($tiket->harga_tiket)}}</option>
+                        @endforeach
+                    </select>
+                    <div id="error-message" style="color: red;"></div>
                 </div>
+                @if($detailagenda->qris != NULL)
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Qris Pembayaran</label><br>
+                    <img src="{{asset('img/'.$detailagenda->qris)}}" height="200px" alt="">
+                </div>
+                @endif
+                @if($detailagenda->no_rek != NULL)
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Transfer</label><br>
+                    <p class="fw-bold">No Rekening: {{$detailagenda->no_rek}}</p>
+                </div>
+                @endif
                 <div class="row g-3">
                     <div class="col">
                         <label for="exampleInputEmail1" class="form-label fw-bold">Provinsi</label>
@@ -218,12 +231,12 @@ aria-hidden="true">
                 </div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label fw-bold">Bukti Transfer</label>
-                    <input class="form-control" name="bukti_transfer" type="file" id="formFile">
+                    <input required class="form-control" name="bukti_transfer" type="file" id="formFile">
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label for="formFile" class="form-label fw-bold">Bukti Keanggotaan</label>
                     <input class="form-control" name="bukti_keanggotaan" type="file" id="formFile">
-                </div>
+                </div> -->
                 
             </div>
             <div class="modal-footer">
@@ -245,76 +258,81 @@ aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nobar</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Daftar {{$detailagenda->judul_agenda}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+            <form action="{{ route('daftaragenda', $detailagenda->slug) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">Nama Panjang</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Input Your Name">
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="exampleInputEmail1" class="form-label fw-bold">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="date" name="tanggal_lahir" placeholder="Input Your Birthdate" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     </div>
                     <div class="col">
                         <label for="exampleInputEmail1" class="form-label fw-bold">Jenis Kelamin</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Pilih Jenis Kelamin</option>
-                            <option value="1">Laki-Laki</option>
-                            <option value="2">Perempuan</option>
+                        <select class="form-select" name="jenis_kelamin" aria-label="Default select example">
+                            <option selected disabled>Pilih Jenis Kelamin</option>
+                            <option value="L">Laki-Laki</option>
+                            <option value="P">Perempuan</option>
                         </select>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">No Telepon</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="number" name="no_telp" placeholder="Input Your Phone Number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email" name="email" placeholder="Input Your Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota IDI</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">No. Anggota PDFI</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
                 <div class="row g-3">
                     <div class="col">
                         <label for="exampleInputEmail1" class="form-label fw-bold">Provinsi</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <select id="provinsi" name="id_provinsi" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih Provinsi</option>
+                            @foreach ($provinsi as $item)
+                                <option value="{{ $item->code }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col">
                         <label for="exampleInputEmail1" class="form-label fw-bold">Kabupaten/Kota</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <select id="kota" name="id_kota" class="form-select" aria-label="Default select example">
+                        <option selected disabled>Pilih Kabupaten/Kota</option>
+                        </select>
                     </div>
                     <div class="col">
                         <label for="exampleInputEmail1" class="form-label fw-bold">Kecamatan</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <select id="camat" name="id_kecamatan" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Pilih Kecamatan</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label fw-bold">Alamat</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="text" name="alamat" placeholder="Input Your Address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label fw-bold">Asal Cabang</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
+                <!-- <div class="mb-3">
+                    <label for="formFile" class="form-label fw-bold">Bukti Keanggotaan</label>
+                    <input class="form-control" name="bukti_keanggotaan" type="file" id="formFile">
+                </div> -->
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary store">
                     Pesan
                 </button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -343,6 +361,77 @@ aria-hidden="true">
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="{{ asset('slick/slick.min.js') }}"></script>
+
+<script>
+$(document).ready(function() {
+  $("#myForm").submit(function(e) {
+    e.preventDefault(); // Prevent the form from submitting by default
+    
+    // Get the selected value of the "gender" select element
+    var selectedtiket = $("#tiket").val();
+    
+    // Check if the selected value is empty (i.e., the user selected "Select")
+    if (selectedtiket === "") {
+      $("#error-message").text("Pilih Tiket");
+      return; // Stop form submission
+    }
+    
+    // If a gender is selected, you can proceed with form submission
+    // You can add additional validation logic here
+    
+    // If everything is valid, you can submit the form
+    this.submit();
+  });
+});
+</script>
+<script>
+    $(function (){
+        $.ajaxSetup({
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+        });
+
+        $(function(){
+            $('#provinsi').on('change', function(){
+                let id_provinsi = $('#provinsi').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('kota')}}",
+                    data: {id_provinsi:id_provinsi},
+                    cache: false,
+
+                    success: function(msg){
+                        $('#kota').html(msg);
+                    },
+                    error: function(data){
+                        console.log('error:', data)
+                    },
+                })
+            });
+
+
+            $('#kota').on('change', function(){
+                let id_kota = $('#kota').val();
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('kecamatan')}}",
+                    data: {id_kota:id_kota},
+                    cache: false,
+
+                    success: function(msg){
+                        $('#camat').html(msg);
+                    },
+                    error: function(data){
+                        console.log('error:', data)
+                    },
+                })
+            });
+
+        });
+
+    });
+</script>
 
 <script>
     $(function (){
