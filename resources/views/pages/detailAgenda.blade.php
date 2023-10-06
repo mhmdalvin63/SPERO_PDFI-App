@@ -62,7 +62,7 @@
                         <p class="md fw-bold">:&emsp;
                             @if($detailagenda->status_event == 'Buy')
                             @foreach($detailagenda->tiket as $item)
-                            {{$item->nama_tiket}} = Rp. {{number_format($item->harga_tiket)}}<br> &emsp;
+                            {{$item->nama_tiket}}, Rp. {{number_format($item->harga_tiket)}}<br>&emsp;&nbsp;
                             @endforeach
                             @elseif($detailagenda->status_event == 'Free')
                             Free
@@ -71,9 +71,15 @@
                     </div>  
                     
                         @if($detailagenda->status_event == 'Free')
+                        @if(Auth::check() && Auth::user()->level == 'user')
                             <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModaljoin">
                                 Join
                             </button>
+                            @else
+                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                    Daftar
+                                </button>
+                            @endif
                         @elseif($detailagenda->status_event == 'Buy')
                             @if(Auth::check() && Auth::user()->level == 'user')
                                 <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
@@ -232,6 +238,9 @@ aria-hidden="true">
                 <div class="mb-3">
                     <label for="formFile" class="form-label fw-bold">Bukti Transfer</label>
                     <input required class="form-control" name="bukti_transfer" type="file" id="formFile">
+                    @error('bukti_transfer')
+                            <p class="text-danger">Gambar Harus Berupa jpg, jpeg, png, atau webp</p>
+                    @enderror
                 </div>
                 <!-- <div class="mb-3">
                     <label for="formFile" class="form-label fw-bold">Bukti Keanggotaan</label>
