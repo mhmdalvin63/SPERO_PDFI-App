@@ -252,13 +252,14 @@ class FrontEndController extends Controller
 
             if($detailagenda->status_event == 'Buy'){
                 $rules['id_tiket'] = 'required';
+                $rules['bukti_transfer'] = 'required|file|mimes:jpg,jpeg,png,webp';
             };
 
             $validator = Validator::make($request->all(), $rules);
 
         // Check if validation fails
             if ($validator->fails()) {
-                Alert::error('Error', 'Isi Data Dengan Lengkap');
+                Alert::error('Error', 'Isi Data Dengan Lengkap Dan Benar');
                 return redirect()->back()
                     ->withErrors($validator)
                     ->withInput();
