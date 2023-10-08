@@ -23,22 +23,22 @@
     <div class="listUpdate mt-5">
         <div class="container">
         <div class="row d-flex justify-content-center mb-3">
-        <form action="/search-agenda">
+            <form action="/search-agenda">
                 <div class="row">
-                        <div class="col-5 form-group">
+                        <div class="col-lg-5 form-group">
                             <label class="fw-bold">Search Event By Organizer</label>
                             <input class="form-control" type="text" name="search" placeholder="Search...">
                         </div>
-                        <div class="col-3 form-group">
+                        <div class="col-lg-3 form-group">
                             <label class="fw-bold">Search Start Date</label>
                             <input class="form-control mb-2" type="Date" name="start_date" placeholder="Search...">
                         </div> 
-                        <div class="col-3 form-group">
+                        <div class="col-lg-3 form-group">
                             <label class="fw-bold">Search End Date</label>
                             <input class="form-control mb-2" type="Date" name="end_date" placeholder="Search...">
                         </div>
-                        <div class="col-1">
-                            <br>
+                        <div class="col-lg-1 mb-3">
+                            <div class="br"><br></div>
                             <button class="btn btn-primary btn-md btn-block" type="submit">Search</button>
                         </div>
                 </div>
@@ -49,20 +49,20 @@
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
                         <div class="lcImage">
-                        @foreach($item->take(1) as $foto)
+                        @foreach($item->foto->take(1) as $foto)
                             <img class="position-relative" style="height: 200px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">
                             @endforeach
                         </div>
                         <div class="lcText p-3">
                             <div class="ltHeader d-flex justify-content-between mb-2">
-                                <p class="lg fw-semibold">Event</p>
+                                <p class="lg fw-semibold">Agenda</p>
                                 <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">
                                 <p class="xl fw-bold">{{$item->judul_agenda}}</p>
                             </div>
                             <a class="text-decoration-none mt-3 px-3 py-2 mx-auto text-black d-flex justify-content-between align-items-center" href="{{ url('/detailagenda', $item->slug) }}">
-                                <p class="lg fw-semibold">Mulai Course</p>
+                                <p class="lg fw-semibold">Detail Agenda</p>
                                 <div class="arrow">
                                     <i class="fa-solid fa-arrow-right fa-2xs"></i>
                                 </div>

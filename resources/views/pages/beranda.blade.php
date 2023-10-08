@@ -145,7 +145,6 @@ slidesPerRow: 3,
     {
       breakpoint: 1200,
       settings: {
-        rows: 1,
         slidesToShow: 1,
       }
     }

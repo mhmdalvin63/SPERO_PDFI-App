@@ -72,27 +72,27 @@
                     
                         @if($detailagenda->status_event == 'Free')
                         @if(Auth::check() && Auth::user()->level == 'user')
-                            <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModaljoin">
+                            <button type="button" class="btn btn-sm btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModaljoin">
                                 Join
                             </button>
                             @else
-                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                <button type="button" class="btn btn-sm btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                                     Daftar
                                 </button>
                             @endif
                         @elseif($detailagenda->status_event == 'Buy')
                             @if(Auth::check() && Auth::user()->level == 'user')
-                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
+                                <button type="button" class="btn btn-sm btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModalpesan">
                                     Pesan
                                 </button>
                             @else
-                                <button type="button" class="btn btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                <button type="button" class="btn btn-sm btn-pesan px-5" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                                     Daftar
                                 </button>
                             @endif
                         @endif
                         @if($detailagenda->panduan != NULL)
-                        <a href="{{ URL( '/dw-panduan/'.$detailagenda->panduan)  }}" class="btn btn-success fw-bold">Download Panduan</a>
+                        <a href="{{ URL( '/dw-panduan/'.$detailagenda->panduan)  }}" class="btn btn-sm btn-success fw-bold">Download Panduan</a>
                         @endif
                 </div>
             </div>
