@@ -53,7 +53,7 @@
                             @if(Auth::check() && Auth::user()->level == 'user')
                                 <button class="trigLike-button btn {{ ($like && $like->id_user == Auth::user()->id) ? 'text-primary' : ''}} " data-update-slug="{{ $detailupdate->slug }}" data-trig="like"><i class="fa-solid fa-thumbs-up fa-xl"></i><span class="fw-bold text-primary ms-2 my-auto" id="like-count-{{$detailupdate->slug}}">{{$countlike}}</span></button>
                             @else
-                                <a class="pt-1" href="/login"><i class="fa-solid fa-thumbs-up fa-xl"></i></a>
+                                <a class="pt-1" href="/login"><i class="fa-solid fa-thumbs-up fa-xl"></i><span class="fw-bold text-primary ms-2 my-auto" id="like-count-{{$detailupdate->slug}}">{{$countlike}}</span></a>
                             @endif
                             </div>
                             <div class="hastag d-flex flex-wrap gap-2">

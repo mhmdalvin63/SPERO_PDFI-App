@@ -111,7 +111,7 @@
                         </td>
                         <td class="text-center">{{$item->name}}</td>
                         <td class="text-center">{{$item->no_telp}}</td>
-                        @if($item->id_tiket != NULL)
+                        @if($agenda->status_event == 'Buy')
                         <td class="text-center">{{$item->tiket->nama_tiket}} - {{$item->tiket->harga_tiket}}</td>
                         <td class="text-center"><img src="{{asset('img/'.$item->bukti_transfer)}}"  height="100" alt=""></td>
                         @endif                       

@@ -11,6 +11,9 @@
     #bg-header{
         text-align: center;
     }
+    .br{
+        display: none;
+    }
     .header img{
         width: 50%;
         max-inline-size: 100%;

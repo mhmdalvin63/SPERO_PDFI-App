@@ -55,7 +55,6 @@ class FrontEndController extends Controller
         ->whatsapp();   
         $detailupdate = Update::where('slug', $slug)->first();
         $terkait = Update::where('slug', '!=', $slug)->latest()->get();
-        $user = Auth::user()->id;
         $countlike = LikeUpdate::where('id_update', $detailupdate->id)->count();
 
         $similarUpdates = collect();
@@ -67,7 +66,7 @@ class FrontEndController extends Controller
 
         $similarUpdates = $similarUpdates->unique('id');
 
-        $like = LikeUpdate::where('id_user', $user)->where('id_update', $detailupdate->id)->first();
+        $like = LikeUpdate::where('id_update', $detailupdate->id)->first();
        
         return view('pages.detailUpdate', compact('detailupdate', 'terkait', 'shareComponent', 'like', 'similarUpdates', 'countlike'));
     }
@@ -166,16 +165,16 @@ class FrontEndController extends Controller
                 $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
             })->where('start_date', $date)->get();
         }
-        else if($end_date && $anggota){
+        else if($date == NULL && $end_date && $anggota){
             $searchAgenda = Agenda::with('anggota')->whereHas('anggota', function ($query) use ($anggota){
                 $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
             })->where('end_date', $end_date)->get();
         }
-        else if($end_date && $date){
-            $searchAgenda = Agenda::where('end_date', '=', date('Y-m-d', strtotime($end_date)))->where('start_date', '=', date('Y-m-d', strtotime($date)))->get();
+        else if($anggota == NULL && $end_date && $date){
+            $searchAgenda = Agenda::where('start_date',$date)->where('end_date', $end_date)->get();
         }
         else if($end_date && $anggota && $date){
-            $searchAgenda = Agenda::where('start_date', $date)->where('end_date', $end_date)->with('anggota', function ($query) use ($anggota){
+            $searchAgenda = Agenda::where('start_date', $date)->where('end_date', $end_date)->with('anggota')->whereHas('anggota', function ($query) use ($anggota){
                 $query->where('nama_anggota', 'LIKE', '%'.$anggota.'%');
             })->get();
         }

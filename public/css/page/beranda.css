@@ -145,12 +145,12 @@
 }
 @media only screen and (max-width: 1200px) {
     .arrowSlider{
-        width: 75%;
+        width: 100%;
     }
 }
 @media only screen and (max-width: 992px) {
     .arrowSlider{
-        width: 90%;
+        width: 100%;
     }
 }
 .arrowSlider .prev{
@@ -166,13 +166,13 @@
     background-color: #062D92;
 }
 @media only screen and (max-width: 430px) {
-    .responsive .slider-item{
+    /* .responsive .slider-item{
         width: 100% !important;
     }
     .slick-current div:not([class]){
         display: flex;
         justify-content: center;
-    }
+    } */
     .arrowSlider{
         top: 47.5% !important;
         width: 107.5%;
@@ -182,7 +182,7 @@
         display: none;
     }
 }
-@media screen and (min-width: 431px) and (max-width: 1200px) {
+/* @media screen and (min-width: 431px) and (max-width: 1200px) {
     .responsive .slider-item{
         display: flex !important;
         justify-content: center;
@@ -192,11 +192,7 @@
         display: flex;
         justify-content: center;
     }
-    /* .slick-current div:nth-child(2){
-        display: flex;
-        justify-content: center;
-    } */
-}
+} */
 
 
 /* SLIDER */
