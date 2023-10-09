@@ -57,7 +57,7 @@ class LoginController extends Controller
    
 
     public function postregister(Request $request){
-
+        // dd($request);
         $this->validate($request,[
             'email' => 'required',
             'name' => 'required',
@@ -67,6 +67,7 @@ class LoginController extends Controller
             'asal_cabang' => 'required',
             'tempat_praktek' => 'required',
             'password' => 'required|min:8',
+            'bukti_keanggotaan' => 'required|file|mimes:jpeg,jpg,png',
         ],[
             'email' => 'Input Your Email',
             'name' => 'Input Your Username',
@@ -75,6 +76,8 @@ class LoginController extends Controller
             'no_anggota_pdfi' => 'Input Your PDFI Number',
             'asal_cabang' => 'Input Your Branch Clinic',
             'tempat_praktek' => 'Input Your Address Branch Clinic',
+            'bukti_keanggotaan' => 'Input Proof Of Membership',
+            'bukti_keanggotaan.mimes' => 'Proof Of Membership must be jpg, jpeg, or png',
             'password' => 'Input Your Password',
             'password.min' => 'Password Must Be 8 Character',
         ]
@@ -92,6 +95,13 @@ class LoginController extends Controller
         $user->level = 'user';
         $user->verification = 'not verified';
         $user->status = 'Aktif';
+        if($request->hasFile('bukti_keanggotaan'))
+            {
+                $buktiAnggota = 'Anggota'.rand(1,99999).'.'.$request->bukti_keanggotaan->getClientOriginalExtension();
+                $request->file('bukti_keanggotaan')->move(public_path().'/img/', $buktiAnggota);
+                $user->bukti_keanggotaan = $buktiAnggota;
+                $user->save();
+            }
         $user->save();
         $kepada = $user->email;
         
@@ -136,6 +146,10 @@ class LoginController extends Controller
         if(Auth::attempt($infologin)){
             if(auth()->user()->level == 'user' && auth()->user()->verification == 'verified' && auth()->user()->status == 'aktif'){
                 return redirect()->route('home');
+            }
+            if(auth()->user()->level == 'user' && auth()->user()->verification == 'verified' && auth()->user()->status == 'nonaktif'){
+                Alert::error('Error', 'Akun Anda Telah Dinonaktifkan');
+                return redirect('/login')->with('verif', 'Akun Anda Telah Dinonaktifkan');
             }
             if(auth()->user()->level == 'user' && auth()->user()->verification == 'not verified' && auth()->user()->status == 'nonaktif'){
                 Alert::error('Error', 'Akun Anda Belum Terverifikasi, Hubungi Admin Untuk Memverifikasi Akun');

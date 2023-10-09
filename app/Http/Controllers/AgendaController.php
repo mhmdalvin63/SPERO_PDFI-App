@@ -220,7 +220,8 @@ class AgendaController extends Controller
             $editAgenda->save();
 
              
-
+            $deletependaftar = Pendaftar::where('id_agenda', $editAgenda->id)->delete();
+            
             if($request->status_event == 'Buy'){
                 $tiket = Tiket::where('id_agenda', $editAgenda->id)->delete();
                 if($request->nama_tiket){

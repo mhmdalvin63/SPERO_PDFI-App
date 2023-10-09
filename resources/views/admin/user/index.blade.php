@@ -24,7 +24,7 @@
     </div>
     @endif
             <div class="table-responsive text-center">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" style="overflow-x: auto;">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -33,6 +33,7 @@
                             <th>Email</th>
                             <th>Join Date</th>
                             <th>Verification</th>
+                            <th>Member Proofs</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +82,7 @@
                                 </form>
                             @endif
                         </td>
+                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_keanggotaan)}}" height="100" alt=""></td>
                     </tr>
                     @endforeach
                     </tbody>

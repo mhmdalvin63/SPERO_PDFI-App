@@ -33,7 +33,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
               @endif
-            <form method="POST" action="{{route('postregister.user')}}">
+            <form method="POST" action="{{route('postregister.user')}}" enctype="multipart/form-data">
             @csrf
                 <div class="form-group position-relative has-icon-left mb-4">
                     <input type="text" class="form-control form-control-xl"name="email" placeholder="Email">
@@ -98,6 +98,16 @@
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="file" class="form-control form-control-xl" id="selectImage" name="bukti_keanggotaan">
+                    <div class="form-control-icon">
+                    <i class="bi bi-person-square"></i>
+                    </div>
+                    <img id="preview" src="#" alt="your image" width="100%" class="mt-3" style="display:none;"/>
+                    @error('bukti_keanggotaan')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
                <div class="form-group position-relative has-icon-left mb-4">
                     <input id="password" type="password" class="form-control f form-control-xl" placeholder="Password">
                     <div class="form-control-icon">
@@ -151,6 +161,16 @@
 <script src="{{asset('dist/assets/js/pages/form-element-select.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<script>
+selectImage.onchange = evt => {
+    preview = document.getElementById('preview');
+    preview.style.display = 'block';
+    const [file] = selectImage.files
+    if (file) {
+        preview.src = URL.createObjectURL(file)
+    }
+}
+</script>
 <script>
 function check() {
 var x = document.getElementById("password");
