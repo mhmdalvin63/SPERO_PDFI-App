@@ -19,8 +19,9 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-10">
                     <form class="form_search px-md-4 px-2 py-md-3 py-1 fw-semibold" action="/search">
-                        <button type="submit py-auto"><i class="fa fa-search icon"></i></button>
+                    <button type="submit py-auto" class="d-none d-sm-block"><i class="fa fa-search icon"></i></button>
                         <input class="fw-semibold" type="text" placeholder="Search..." name="search">
+                        <button type="submit py-auto" class="d-sm-none d-block text-end"><i class="fa fa-search icon"></i></button>
                     </form>
                 </div>
             </div>
@@ -97,7 +98,10 @@
                                     <img class="position-relative" style="height: 262px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">
                                     @endforeach
                                     <div class="siText">
-                                        <p class="xl topTitle">Webinar</p>
+                                        <div class="row fw-bold">
+                                            <p class="xl col-8 topTitle">Webinar</p>
+                                            <p class="xl col text-end topTitle">{{$item->status_event}}</p>
+                                        </div>
                                         <div class="stBottom">
                                             <p class="md fw-bold">{{$item->judul_agenda}}
                                             </p>
