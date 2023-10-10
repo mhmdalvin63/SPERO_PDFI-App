@@ -190,9 +190,9 @@ class FrontEndController extends Controller
         $banner = Banner::latest()->get();
         // dd($request);
         if ($request->search) {
-            $searchUpdate = Update::where('judul_update','LIKE','%'.$request->search.'%')->latest()->get();
-            $searchUpdateUmum = Update::where('judul_update','LIKE','%'.$request->search.'%')->where('jenis_berita', 'umum')->latest()->get();
-            $searchAgenda = Agenda::where('judul_agenda','LIKE','%'.$request->search.'%')->orwhere('location','LIKE','%'.$request->search.'%')->latest()->get();
+            $searchUpdate = Update::where('judul_update','LIKE','%'.$request->search.'%')->orwhere('isi_berita','LIKE','%'.$request->search.'%')->latest()->get();
+            $searchUpdateUmum = Update::where('judul_update','LIKE','%'.$request->search.'%')->orwhere('isi_berita','LIKE','%'.$request->search.'%')->where('jenis_berita', 'umum')->latest()->get();
+            $searchAgenda = Agenda::where('judul_agenda','LIKE','%'.$request->search.'%')->orwhere('location','LIKE','%'.$request->search.'%')->orwhere('deskripsi','LIKE','%'.$request->search.'%')->latest()->get();
             return view('pages.search', compact('searchUpdate', 'searchAgenda', 'banner', 'searchUpdateUmum'));
         } else {
             Alert::error('Error', 'Search is Null');
