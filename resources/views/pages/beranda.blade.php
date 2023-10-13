@@ -44,7 +44,7 @@
                         <div class="lcText p-3">
                             <div class="ltHeader d-flex justify-content-between mb-2">
                                 <p class="lg fw-semibold">Update</p>
-                                <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->created_at))}}</p>
+                                <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">
                                 <p class="xl fw-bold">{{$item->judul_update}}</p>
@@ -112,7 +112,7 @@
                                                         <i class="fa-solid fa-arrow-right fa-2xs" style="color: #fcfcfc;"></i>
                                                     </div>
                                                 </a>
-                                                <p>{{date('F d, Y', strtotime($item->created_at))}}</p>
+                                                <p>{{date('d F, Y', strtotime($item->created_at))}}</p>
                                             </div>
                                         </div>
                                     </div>
