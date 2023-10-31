@@ -50,15 +50,15 @@
                         <p class="md fw-bold">:&emsp;@foreach($detailagenda->type as $item){{$item->nama_tipe}} @endforeach</p>
                     </div>
                     <div class="textFlex d-flex my-3">
-                        <p class="md fw-bold">Location</p>
+                        <p class="md fw-bold">Lokasi</p>
                         <p class="md fw-bold">:&emsp;{{$detailagenda->location}}</p>
                     </div>
                     <div class="textFlex d-flex">
-                        <p class="md fw-bold">Start - End Date</p>
-                        <p class="md fw-bold">:&emsp;{{date('d F, Y', strtotime($detailagenda->start_date))}} - {{date('d F, Y', strtotime($detailagenda->end_date))}}</p>
+                        <p class="md fw-bold">Tanggal</p>
+                        <p class="md fw-bold">:&emsp;{{date('d M, Y', strtotime($detailagenda->start_date))}} - {{date('d M, Y', strtotime($detailagenda->end_date))}}</p>
                     </div>
                     <div class="textFlex d-flex my-3">
-                        <p class="md fw-bold">Tickets</p>
+                        <p class="md fw-bold">Tiket</p>
                         <p class="md fw-bold">:&emsp;
                             @if($detailagenda->status_event == 'Buy')
                             @foreach($detailagenda->tiket as $item)
