@@ -100,7 +100,11 @@
                                     <div class="siText">
                                         <div class="row fw-bold">
                                             <p class="xl col-8 topTitle">Webinar</p>
-                                            <p class="xl col text-end topTitle">{{$item->status_event}}</p>
+                                            @if($item->status_event == 'Free')
+                                            <p class="xl col text-end topTitle">Gratis</p>
+                                            @else
+                                            <p class="xl col text-end topTitle">Berbayar</p>
+                                            @endif
                                         </div>
                                         <div class="stBottom">
                                             <p class="md fw-bold">{{$item->judul_agenda}}
