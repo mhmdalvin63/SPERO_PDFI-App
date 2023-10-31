@@ -111,7 +111,11 @@
                                             <div class="lcText p-3">
                                                 <div class="ltHeader d-flex justify-content-between mb-2">
                                                     <p class="lg fw-semibold">Webinar</p>
-                                                    <p class="lg fw-bold">{{$item->status_event}}</p>
+                                                    @if($item->status_event == 'Free')
+                                                    <p class="lg fw-bold">Gratis</p>
+                                                    @else
+                                                    <p class="lg fw-bold">Berbayar</p>
+                                                    @endif
                                                 </div>
                                                 <div class="ltTitle mb-2">
                                                     <p class="xl fw-bold">{{$item->judul_agenda}}</p>
