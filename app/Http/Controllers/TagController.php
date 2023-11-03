@@ -39,7 +39,6 @@ class TagController extends Controller
         try {
             $newTag = new Tag();
             $newTag->tag_name = $request->tag_name;
-            $newTag->deskripsi = $request->deskripsi;
     
            $newTag->save();
             // Artikel::create($request->all());
@@ -73,19 +72,15 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'tag_name' => 'required',
-            'deskripsi' => 'required',
+            'tag_name' => '',
         ],[
             'tag_name' => '',
-            'deskripsi' => '',
         ]);
 
         try {
             $editTag = Tag::find($id);
-            $editTag->update([
-                'tag_name' => $request->tag_name,
-                'deskripsi' => $request->deskripsi,
-            ]);
+            $editTag->tag_name = $request->tag_name;
+            $editTag->save();
             // Artikel::create($request->all());
             Alert::success('Success', 'Data Updated Successfully');
             return redirect('/admin/tag');

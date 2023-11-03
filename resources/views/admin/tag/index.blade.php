@@ -19,13 +19,6 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Tag Description</label>
-                        <textarea class="form-control" value="{{ old('deskripsi') }}" style="height: 200px" placeholder="Input Description Tag..." id="floatingTextarea" name="deskripsi"></textarea>
-                        @error('deskripsi')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
                     <div class="modal-footer gap-1">
                     <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                         <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
@@ -91,10 +84,6 @@
                                         <div class="form-group">
                                             <label for="exampleInputUsername1" class="fw-bold">Tag Name<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" value="{{$item->tag_name}}" id="exampleInputUsername1" placeholder="Input Tag Name..." name="tag_name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputUsername1" class="fw-bold">Tag Description</label>
-                                            <textarea class="form-control" style="height: 200px" placeholder="Input Description Tag..." id="floatingTextarea" value="{{$item->deskripsi}}" name="deskripsi">{{$item->deskripsi}}</textarea>
                                         </div>
                                         <div class="modal-footer gap-1">
                                         <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
