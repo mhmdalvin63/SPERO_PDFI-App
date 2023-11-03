@@ -24,7 +24,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Topic Event<span class="text-danger">*</span></label>
-                        <textarea class="form-control" style="height: 200px" placeholder="Input Topic Event..." id="floatingTextarea" name="deskripsi">{{ $agenda->deskripsi}}</textarea>
+                        <textarea class="ckeditor" style="height: 200px" placeholder="Input Topic Event..." id="floatingTextarea" name="deskripsi">{{ $agenda->deskripsi}}</textarea>
                     </div>
                     <div class="row">
                         <div class="form-group col-6">
@@ -101,10 +101,11 @@
                         <div class="jenis_tiket"></div>
                     </div>
                     <div class="form-group">
-                        <label for="formFile" class="form-label">Insert Image Event<span class="text-danger">*</span></label><br>
+                    <label for="formFile" class="form-label fw-bold">Upload Image Topic<span class="text-danger">*</span></label><br>
+                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3<span class="text-danger">*max 2mb</span></span></label>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
-                      </div>
+                    </div>
                       <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Link GForm<span class="text-danger">*</span></label>
                         <input type="url" class="form-control" value="{{ $agenda->link_gform}}" id="exampleInputUsername1" placeholder="Input Link GForm..." name="link_gform">

@@ -21,7 +21,6 @@
                             <th>No</th>
                             <th>Action</th>
                             <th>Title Event</th>
-                            <th>Topic</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Location</th>

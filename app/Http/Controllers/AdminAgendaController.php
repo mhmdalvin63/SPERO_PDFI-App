@@ -76,9 +76,10 @@ class AdminAgendaController extends Controller
         try {
             DB::beginTransaction();
             $user = Auth::user()->id;
+            $cleanedText = strip_tags($request->deskripsi);
             $newAgenda = new Agenda();
             $newAgenda->judul_agenda = $request->judul_agenda;
-            $newAgenda->deskripsi = $request->deskripsi;
+            $newAgenda->deskripsi = $cleanedText;
             $newAgenda->start_date = $request->start_date;
             $newAgenda->end_date = $request->end_date;
             $newAgenda->location = $request->location;
@@ -182,10 +183,11 @@ class AdminAgendaController extends Controller
             DB::beginTransaction();
             $editAgenda = Agenda::find($id);
             $user = Auth::user()->id;
+            $cleanedText = strip_tags($request->deskripsi);
             
 
             $editAgenda->judul_agenda = $request->judul_agenda;
-            $editAgenda->deskripsi = $request->deskripsi;
+            $editAgenda->deskripsi = $cleanedText;
             $editAgenda->start_date = $request->start_date;
             $editAgenda->end_date = $request->end_date;
             $editAgenda->location = $request->location;

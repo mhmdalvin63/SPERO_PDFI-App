@@ -15,14 +15,14 @@
                     <div class="form-group">
                     <label for="exampleInputUsername1" class="fw-bold">Gamber Banner <span class="text-danger text-sm">*max 2mb </span></label>
                     <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1440px x 506px</span></label>
-                    <input type="file" class="form-control" name="foto">
+                    <input type="file" value="{{ old('foto') }}"  class="form-control" name="foto">
                         @error('foto')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                     <label for="exampleInputUsername1" class="fw-bold">Deskripsi<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Deskripsi..." name="deskripsi">
+                        <input type="text" class="form-control" value="{{ old('deskripsi') }}" id="exampleInputUsername1" placeholder="Input Deskripsi..." name="deskripsi">
                         @error('deskripsi')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror

@@ -17,12 +17,6 @@
                     +
                 </a>
             </div>
-            @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show">
-        {{ session('success') }}
-        <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
             <div class="table-responsive text-center">
                 <table class="table table-hover table-striped">
                     <thead>
@@ -32,7 +26,6 @@
                             <th>Title</th>
                             <th>Update Type</th>
                             <th>Tag</th>
-                            <th>Topic</th>
                             <th>Image Topic</th>
                         </tr>
                     </thead>
@@ -81,20 +74,19 @@
                         <td>{{ $item->judul_update}}</td>
                         <td>
                             @if($item->jenis_berita == 'umum')
-                            <button class="btn btn-outline-primary">Public</button>
+                                Public
                             @else
-                            <button class="btn btn-outline-primary">Private</button>
+                                Private
                             @endif
                         </td>
                         <td>
                             @foreach($item->tag as $womp)
-                            <button class="btn btn-sm btn-primary">{{ $womp->tag_name}}</button>
+                            {{ $womp->tag_name}}&nbsp;
                             @endforeach
                         </td>
-                        <td>{{ Str::limit($item->isi_berita, 25)}}</td>
                         <td class="d-flex gap-1">
                         @foreach($item->foto as $foto)
-                            <img src="{{asset('img/'.$foto->foto)}}" class="ms-2"  height="150" alt="">
+                            <img src="{{asset('img/'.$foto->foto)}}" class="my-auto ms-2"  height="50" alt="">
                             @endforeach
                         </td>
                     </tr>

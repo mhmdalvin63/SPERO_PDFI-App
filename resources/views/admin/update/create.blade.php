@@ -19,14 +19,14 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Title Update<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Title Update..." name="judul_update">
+                        <input type="text" class="form-control" value="{{ old('judul_update') }}" id="exampleInputUsername1" placeholder="Input Title Update..." name="judul_update">
                         @error('judul_update')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Topic Update<span class="text-danger">*</span></label>
-                        <textarea class="form-control" style="height: 200px" placeholder="Input Topic Update..." id="floatingTextarea" name="isi_berita"></textarea>
+                        <textarea class="ckeditor" value="{{ old('isi_berita') }}" style="height: 200px" placeholder="Input Topic Update..." id="floatingTextarea" name="isi_berita"></textarea>
                         @error('isi_berita')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -54,8 +54,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*max 2mb</span></label><br>
-                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3</span></label>
+                        <label for="formFile" class="form-label">Insert Image Topic</label><br>
+                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3<span class="text-danger">*max 2mb</span></span></label>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
                     </div>
@@ -73,6 +73,24 @@
     </div>
 </div>
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const fotoDiv = document.querySelector(".foto");
+    const submitBtn = document.getElementById("dis");
+
+    submitBtn.addEventListener("click", function(event) {
+        // Check if the "foto" div contains any uploaded images
+        const uploadedImages = fotoDiv.querySelectorAll("img");
+        
+        if (uploadedImages.length === 0) {
+            // No images are uploaded, prevent form submission and show an error message
+            event.preventDefault();
+            document.querySelector(".result").innerHTML = "Upload Image";
+        }
+    });
+});
+</script>
 @push('scripts')
 <script>
     $('.foto').imageUploader({

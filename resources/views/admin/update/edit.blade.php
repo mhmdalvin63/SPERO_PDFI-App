@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Topic Update<span class="text-danger">*</span></label>
-                        <textarea class="form-control" value="{{ $updateEdit->isi_berita}}" style="height: 200px" placeholder="Input Topic Update..." id="floatingTextarea" name="isi_berita">{{ $updateEdit->isi_berita}}</textarea>
+                        <textarea class="ckeditor" value="{{ $updateEdit->isi_berita}}" style="height: 200px" placeholder="Input Topic Update..." id="floatingTextarea" name="isi_berita">{{ $updateEdit->isi_berita}}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Update Type<span class="text-danger">*</span></label>
@@ -35,9 +35,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*</span></label><br>
-                        <label for="formFile" class="form-label">Insert Image Topic<span class="text-danger">*max 2mb</span></label><br>
-                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3</span></label>
+                        <label for="formFile" class="form-label">Update Image Topic</label><br>
+                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3<span class="text-danger">*max 2mb</span></span></label>
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
                     </div>

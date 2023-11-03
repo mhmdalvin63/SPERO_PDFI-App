@@ -13,63 +13,63 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Name<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Name User..." name="name">
+                        <input type="text" class="form-control" value="{{ old('name') }}" id="exampleInputUsername1" placeholder="Input Name User..." name="name">
                         @error('name')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Email<span class="text-danger">*</span></label>
-                        <input type="Email" class="form-control" id="exampleInputUsername1" placeholder="Input Email User..." name="email">
+                        <input type="Email" class="form-control" value="{{ old('email') }}" id="exampleInputUsername1" placeholder="Input Email User..." name="email">
                         @error('email')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Asal Cabang<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Branch CLinic Origin..." name="asal_cabang">
+                        <input type="text" class="form-control"  value="{{ old('asal_cabang') }}" id="exampleInputUsername1" placeholder="Input Branch CLinic Origin..." name="asal_cabang">
                         @error('asal_cabang')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="tempat_praktek">
+                        <input type="text" class="form-control" value="{{ old('tempat_praktek') }}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="tempat_praktek">
                         @error('tempat_praktek')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Alamat<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Address..." name="alamat">
+                        <input type="text" class="form-control" value="{{ old('alamat') }}" id="exampleInputUsername1" placeholder="Input Address..." name="alamat">
                         @error('alamat')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">No. Anggota IDI<span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input Number IDI Organization..." name="no_anggota_idi">
+                        <input type="number" class="form-control" value="{{ old('no_anggota_idi') }}" id="exampleInputUsername1" placeholder="Input Number IDI Organization..." name="no_anggota_idi">
                         @error('no_anggota_idi')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">No. Anggota PDFI<span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input Number PDFI Organization..." name="no_anggota_pdfi">
+                        <input type="number" class="form-control" value="{{ old('no_anggota_pdfi') }}" id="exampleInputUsername1" placeholder="Input Number PDFI Organization..." name="no_anggota_pdfi">
                         @error('no_anggota_pdfi')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Password<span class="text-danger">*</span></label>
-                        <input id="password" type="password" class="form-control" placeholder="Password">
+                        <input id="password" type="password" value="{{ old('password') }}" class="form-control" placeholder="Password">
                         @error('password')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Confirm Password<span class="text-danger">*</span></label>
-                        <input id="password2" onchange="check()" type="password" name="password" class="form-control" placeholder="Confirm Password">
+                        <input id="password2" onchange="check()" value="{{ old('password') }}" type="password" name="password" class="form-control" placeholder="Confirm Password">
                         <div id="result" class="result text-danger"></div>
                         @error('password')
                                 <p class="text-danger">{{ $message }}</p>

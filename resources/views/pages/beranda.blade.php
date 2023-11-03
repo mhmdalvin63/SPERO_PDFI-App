@@ -47,10 +47,10 @@
                                 <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">
-                                <p class="xl fw-bold">{{$item->judul_update}}</p>
+                                <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
-                                <p class="lg fw-semibold">Selengkapnya>></p>
+                                <p class="lg text-primary fw-semibold">Selengkapnya>></p>
                             </a>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                                 <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">
-                                <p class="xl fw-bold">{{$item->judul_update}}</p>
+                                <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
                                 <p class="lg fw-semibold">Selengkapnya>></p>
@@ -107,7 +107,7 @@
                                             @endif
                                         </div>
                                         <div class="stBottom">
-                                            <p class="md fw-bold">{{$item->judul_agenda}}
+                                            <p class="md fw-bold">{{Str::limit($item->judul_agenda, 15)}}
                                             </p>
                                             <div class="flexBottom d-flex justify-content-between align-items-center mt-2">
                                                 <a class="btn btn-la  d-flex align-items-center gap-2" href="{{ url('/detailagenda', $item->slug) }}">

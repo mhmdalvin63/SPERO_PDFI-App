@@ -14,14 +14,14 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Title<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Title..." name="judul_jurnal">
+                        <input type="text" class="form-control" value="{{ old('judul_jurnal') }}" id="exampleInputUsername1" placeholder="Input Title..." name="judul_jurnal">
                         @error('judul_jurnal')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Link Jurnal</label>
-                        <input type="url" class="form-control" id="exampleInputUsername1" placeholder="Input Title..." name="link_jurnal">
+                        <input type="url" class="form-control" value="{{ old('link_jurnal') }}" id="exampleInputUsername1" placeholder="Input Title..." name="link_jurnal">
                         @error('link_jurnal')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror

@@ -23,10 +23,10 @@
         <button type="button" class="btn-close btn-white" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-            <div class="table-responsive text-center">
+            <div class=text-center">
                 <table class="table table-hover table-striped" style="overflow-x: auto;">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>No</th>
                             <th>Action</th>
                             <th>Name</th>
@@ -42,7 +42,7 @@
                         <td class="text-center">{{$loop->iteration}}</td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-1">
-                                <a href="{{ url('admin/user-management/'.$item->id.'/edit') }}" class="btn btn-warning btn-sm-lg text-white"><i class="bi bi-vector-pen"></i></a>
+                                <button class="btn btn-warning btn-sm-lg text-white"><a href="{{ url('admin/user-management/'.$item->id.'/edit') }}" class="text-white"><i class="bi bi-vector-pen"></i></a></button>
                                 <form action="{{ url('admin/user-management', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -57,13 +57,13 @@
                                 <form action="{{  url('admin/user-management/nonactivated/'.$item->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" class="btn btn-danger btn-sm-lg text-white">Nonaktifkan Akun</button>
+                                    <button type="submit" class="btn btn-danger btn-sm-lg text-white"><i class="bi bi-clipboard-x-fill"></i></i></button>
                                 </form>
                                 @else
                                 <form action="{{  url('admin/user-management/activated/'.$item->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" class="btn btn-success btn-sm-lg text-white">Aktifkan Akun</button>
+                                    <button type="submit" class="btn btn-success btn-sm-lg text-white"><i class="bi bi-clipboard-check-fill"></i></i></button>
                                 </form>
                                 @endif
                             </div>
@@ -82,7 +82,7 @@
                                 </form>
                             @endif
                         </td>
-                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_keanggotaan)}}" height="100" alt=""></td>
+                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_keanggotaan)}}" height="50" width="100" alt=""></td>
                     </tr>
                     @endforeach
                     </tbody>
