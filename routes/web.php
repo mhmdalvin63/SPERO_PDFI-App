@@ -104,6 +104,8 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::put('/user-management/activated/{id}', [UserController::class, 'activated'])->name('activated');
     Route::put('/user-management/nonactivated/{id}', [UserController::class, 'nonactivated'])->name('nonactivated');
 });
+Route::delete('/agenda/image/{id}', [AdminAgendaController::class, 'deleteimage'])->name('deleteimage');
+Route::delete('/update/image/{id}', [UpdateController::class, 'deleteimage'])->name('deleteimage');
 
 Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->group(function (){
     Route::get('/dashboard', [HomeController::class, 'cabang'])->name('cbdashboard');

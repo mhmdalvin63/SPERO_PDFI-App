@@ -65,7 +65,7 @@
                     </div>
                     <div class="form-group" id="">
                     <label for="exampleInputUsername1" class="fw-bold">Free or Buy<span class="text-danger">*</span></label>
-                    <select name="status_event" class="form-control" id="select">
+                    <select name="status_event" class="form-control" id="select"  onchange="toggleInput()">
                         <option value="Free" @if($agenda->status_event == 'Free')@selected(true)@endif>Free</option>
                         <option value="Buy" @if($agenda->status_event == 'Buy')@selected(true)@endif>Buy</option>
                     </select>
@@ -101,9 +101,20 @@
                         <div class="jenis_tiket"></div>
                     </div>
                     <div class="form-group">
-                    <label for="formFile" class="form-label fw-bold">Upload Image Topic<span class="text-danger">*</span></label><br>
+                    <label for="formFile" class="form-label fw-bold">Upload New Image Topic<span class="text-danger">*</span></label><br>
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3<span class="text-danger">*max 2mb</span></span></label>
-                        <div class="foto"></div>
+                        <div class="foto mb-3"></div>
+                        <p class="fw-bold mb-0">Image Lama</p>
+                        <div class="image-uploader">
+                            <div class="uploaded">
+                                @foreach($agenda->foto as $image)
+                                    <div class="uploaded-image">
+                                        <img id="image_{{$image->id}}" src="{{asset('img/'.$image->foto)}}" alt="">
+                                        <a href="javascript:void(0)"  id="btn-delete-post" data-id="{{ $image->id }}" class="delete-image" ><i class="iui-close text-white"></i></a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                         <div class="result text-danger fw-bold"></div>
                     </div>
                       <div class="form-group">
@@ -114,12 +125,9 @@
                         <label for="exampleInputUsername1" class="fw-bold">File Panduan<span class="text-danger">*</span></label>
                         <input type="file" class="form-control" value="{{ $agenda->panduan}}" id="exampleInputUsername1" placeholder="Input Panduan..." name="panduan">
                     </div>
-                      <div class="form-group">
+                    <div style="display: none;" id="qris" class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Upload Qris<span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" name="qris">
-                        @error('qris')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        <input type="file" value="{{ old('qris') }}" class="form-control" id="exampleInputUsername1" name="qris">
                     </div>
                     @if($agenda->no_rek != NULL)
                     <div class="form-group">
@@ -153,7 +161,43 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function toggleInput() {
+        const selectElement = document.getElementById("select");
+        const inputElement = document.getElementById("qris");
 
+        if (selectElement.value === "Buy") {
+            inputElement.style.display = "block";
+        } else {
+            inputElement.style.display = "none";
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+    $(".delete-image").click(function () {
+        var button = $(this);
+        var resourceId = button.data('id');
+        var hilang = button.closest('.uploaded-image')
+        $.ajax({
+            type: 'DELETE',
+            url: '/agenda/image/' + resourceId,
+            data: {
+                "_token": "{{ csrf_token() }}"
+            },
+            success: function (data) {
+                // Check for a successful response
+                    console.log(data)
+                    hilang.remove();
+            },
+            error: function (data) {
+                // Handle error response
+                console.log(data);
+            }
+        });
+    });
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 var checkrek = document.getElementById('checkrek');
@@ -210,7 +254,7 @@ checkrek.addEventListener('change', function() {
     $('.foto').imageUploader({
         imagesInputName: 'foto',
         maxSize: 2 * 1024 * 1024,
-        maxFiles: 3
+        maxFiles: 3,
     });
 </script>
 @endpush

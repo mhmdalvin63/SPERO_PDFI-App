@@ -156,4 +156,14 @@ class UpdateController extends Controller
 
         return redirect()->back();
     }
+
+    public function deleteimage($id){
+        $image = FotoUpdate::find($id);
+        File::delete('img/'.$image->foto);
+        $image->delete();
+
+        return response()->json([
+            'message' => 'Data Post Berhasil Dihapus!.',
+        ]); 
+    }   
 }

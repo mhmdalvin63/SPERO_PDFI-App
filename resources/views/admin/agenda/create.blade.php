@@ -78,9 +78,9 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group" id="">
+                    <div class="form-group">
                     <label for="exampleInputUsername1" class="fw-bold">Free or Buy<span class="text-danger">*</span></label>
-                    <select name="status_event" class="form-control" id="select">
+                    <select name="status_event" class="form-control" id="select"  onchange="toggleInput()">
                         <option value="Free">Free</option>
                         <option value="Buy">Buy</option>
                     </select>
@@ -120,12 +120,9 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                      <div class="form-group">
+                      <div style="display: none;" id="qris" class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Upload Qris<span class="text-danger">*</span></label>
                         <input type="file" value="{{ old('qris') }}" class="form-control" id="exampleInputUsername1" name="qris">
-                        @error('qris')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
                     <div class="form-group">
                         <div class="d-flex">
@@ -152,6 +149,19 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    function toggleInput() {
+        const selectElement = document.getElementById("select");
+        const inputElement = document.getElementById("qris");
+
+        if (selectElement.value === "Buy") {
+            inputElement.style.display = "block";
+        } else {
+            inputElement.style.display = "none";
+        }
+    }
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
