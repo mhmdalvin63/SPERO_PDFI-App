@@ -21,7 +21,7 @@
                 <div class="col-10">
                     <form class="form_search px-md-4 px-2 py-md-3 py-1 fw-semibold" action="/search">
                         <button type="submit py-auto" class="d-none d-sm-block"><i class="fa fa-search icon"></i></button>
-                        <input class="fw-semibold" type="text" placeholder="Search..." name="search">
+                        <input class="fw-semibold" value="{{ request('search') }}" type="text" placeholder="Search..." name="search">
                         <button type="submit py-auto" class="d-sm-none d-block text-end"><i class="fa fa-search icon"></i></button>
                     </form>
                 </div>
