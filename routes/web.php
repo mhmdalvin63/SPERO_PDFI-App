@@ -31,6 +31,7 @@ Route::post('/login', [LoginController::class, 'postloginuser'])->name('postlogi
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/update', [FrontEndController::class, 'update'])->name('update');
+Route::get('/update/tag/{slug}', [FrontEndController::class, 'detailtag'])->name('update.tag');
 Route::get('/', [FrontEndController::class, 'index'])->name('home');
 Route::get('/home', [FrontEndController::class, 'index'])->name('home');
 Route::get('/detailupdate/{slug}', [FrontEndController::class, 'detailupdate'])->name('detailupdate');

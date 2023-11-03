@@ -32,13 +32,13 @@
             <div class="col-sm-6 col-12 ">
                 <div class="container my-5">
                     <div class="row justify-content-between">
-                        <div class="col-lg-8 col-md-7 col-sm-7">
+                        <div class="">
                             <div class="daTitle mb-5">
                                 <h3 class="fw-bold">{{$detailupdate->judul_update}}</h3>
                                 <p class="fw-semibold">Upload On {{date('d F Y', strtotime($detailupdate->created_at))}}</p>
                             </div>
                             <div class="daDesc my-3">
-                                <p class="md fw-semibold text-justify">{{$detailupdate->isi_berita}}
+                                <p class="fw-semibold text-justify">{{$detailupdate->isi_berita}}
                                 </p>
                             </div>
                             <div class="interactiveIcon d-flex gap-2 my-3">
@@ -58,7 +58,7 @@
                             </div>
                             <div class="hastag d-flex flex-wrap gap-2">
                                 @foreach($detailupdate->tag as $item)
-                                <a href=""><p class="xl">#{{$item->tag_name}}</p></a>
+                                <a href="{{url('/update/tag/'.$item->slug)}}"><p class="xl">#{{$item->tag_name}}</p></a>
                                 @endforeach
                             </div>
                         </div>

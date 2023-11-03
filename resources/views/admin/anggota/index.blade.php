@@ -15,7 +15,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Name Organizer<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Name Organizer..." name="nama_anggota">
+                        <input type="text" class="form-control" value="{{ old('nama_anggota') }}" id="exampleInputUsername1" placeholder="Input Name Organizer..." name="nama_anggota">
                         @error('nama_anggota')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -32,7 +32,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Name Organizer<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Name Organizer..." name="nama_anggota">
+                        <input type="text" class="form-control" value="{{ old('nama_anggota') }}" id="exampleInputUsername1" placeholder="Input Name Organizer..." name="nama_anggota">
                         @error('nama_anggota')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror

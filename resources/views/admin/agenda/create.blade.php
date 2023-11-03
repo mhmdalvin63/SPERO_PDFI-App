@@ -19,14 +19,14 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Title Event<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Title Event..." name="judul_agenda">
+                        <input type="text" value="{{ old('judul_agenda') }}" class="form-control" id="exampleInputUsername1" placeholder="Input Title Event..." name="judul_agenda">
                         @error('judul_agenda')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Topic Event<span class="text-danger">*</span></label>
-                        <textarea class="form-control" style="height: 200px" placeholder="Input Topic Event..." id="floatingTextarea" name="deskripsi"></textarea>
+                        <textarea class="ckeditor" name="deskripsi">{{ old('deskripsi') }}</textarea>
                         @error('deskripsi')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -34,14 +34,14 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="exampleInputUsername1" class="fw-bold">Start Event<span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="exampleInputUsername1" placeholder="Input Start Date Event..." name="start_date">
+                            <input type="date" value="{{ old('start_date') }}" class="form-control" id="exampleInputUsername1" placeholder="Input Start Date Event..." name="start_date">
                             @error('start_date')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-group col-6">
                             <label for="exampleInputUsername1" class="fw-bold">End Event<span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="exampleInputUsername1" placeholder="Input End Date Event..." name="end_date">
+                            <input type="date" value="{{ old('end_date') }}" class="form-control" id="exampleInputUsername1" placeholder="Input End Date Event..." name="end_date">
                             @error('end_date')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -50,7 +50,7 @@
                     
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Location Event<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Location Event..." name="location">
+                        <input type="text" value="{{ old('location') }}" class="form-control" id="exampleInputUsername1" placeholder="Input Location Event..." name="location">
                         @error('location')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -58,7 +58,7 @@
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Organizer Event<span class="text-danger">*</span></label>
                         <select class="form-control" name="id_anggota">
-                            <option>Select Oragnizer Name</option>
+                            <option selected disabled>Select Oragnizer Name</option>
                             @foreach ($anggota as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_anggota }}</option>
                             @endforeach
@@ -98,27 +98,31 @@
                         <div class="jenis_tiket"></div>
                     </div>
                     <div class="form-group">
-                        <label for="formFile" class="form-label">Insert Image Event<span class="text-danger">*</span></label><br>
+                        <label for="formFile" class="form-label">Insert Image Topic</label><br>
+                        <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3<span class="text-danger">*max 2mb</span></span></label>
                         <div class="foto"></div>
+                        @error('foto')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         <div class="result text-danger fw-bold"></div>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Link GForm<span class="text-danger">*</span></label>
-                        <input type="url" class="form-control" id="exampleInputUsername1" placeholder="Input Link GForm..." name="link_gform">
+                        <input type="url" value="{{ old('link_gform') }}" class="form-control" id="exampleInputUsername1" placeholder="Input Link GForm..." name="link_gform">
                         @error('link_gform')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                       <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">File Panduan<span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" placeholder="Input Panduan..." name="panduan">
+                        <input type="file" value="{{ old('panduan') }}" class="form-control" id="exampleInputUsername1" placeholder="Input Panduan..." name="panduan">
                         @error('panduan')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                       <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Upload Qris<span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" id="exampleInputUsername1" name="qris">
+                        <input type="file" value="{{ old('qris') }}" class="form-control" id="exampleInputUsername1" name="qris">
                         @error('qris')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -131,7 +135,7 @@
                     </div>
                       <div style="display: none;" id="norek" class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Input No. Rekening</label>
-                        <input type="number" class="form-control" id="exampleInputUsername1" placeholder="Input No. Rekening..." name="no_rek">
+                        <input type="number" value="{{ old('no_rek') }}" class="form-control" id="exampleInputUsername1" placeholder="Input No. Rekening..." name="no_rek">
                     </div>
                     <div  class="modal-footer gap-1 mt-5">
                         <a href="/admin/agenda" class="btn btn-outline-warning btn-icon-text">
@@ -148,6 +152,24 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const fotoDiv = document.querySelector(".foto");
+    const submitBtn = document.getElementById("dis");
+
+    submitBtn.addEventListener("click", function(event) {
+        // Check if the "foto" div contains any uploaded images
+        const uploadedImages = fotoDiv.querySelectorAll("img");
+        
+        if (uploadedImages.length === 0) {
+            // No images are uploaded, prevent form submission and show an error message
+            event.preventDefault();
+            document.querySelector(".result").innerHTML = "Upload Image";
+        }
+    });
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -173,7 +195,7 @@ checkrek.addEventListener('change', function() {
 
     function add(){
       var jenis_tiket =
-        '<div><div class="form-row row mb-2"><div class="col"><input type="text" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket..." required></div><div class="col"><input type="number" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..." required onkeyup="formatNumber(this)"></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2 btn btn-danger" style="text-decoration: none;"><i class="bi bi-trash-fill"></i></a></div></div></div>';
+        '<div><div class="form-row row mb-2"><div class="col"><input required type="text" class="form-control" name="nama_tiket[]" placeholder="Input Name Ticket..." required></div><div class="col"><input required type="number" class="form-control" name="harga_tiket[]" placeholder="Input Price Ticket..." required onkeyup="formatNumber(this)"></div><div class="col-auto my-auto"><a href="javascript:void(0)" class="delete2 btn btn-danger" style="text-decoration: none;"><i class="bi bi-trash-fill"></i></a></div></div></div>';
       $('.jenis_tiket').append(jenis_tiket);
     };
 
@@ -199,6 +221,8 @@ checkrek.addEventListener('change', function() {
         imagesInputName: 'foto',
         maxSize: 2 * 1024 * 1024,
         maxFiles: 3
+
     });
+
 </script>
 @endpush

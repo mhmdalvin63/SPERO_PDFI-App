@@ -56,12 +56,12 @@
                         <div class="lcText p-3">
                             <div class="ltHeader d-flex justify-content-between mb-2">
                                 <p class="lg fw-semibold">Agenda</p>
-                                <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->created_at))}}</p>
+                                <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">
-                                <p class="xl fw-bold">{{$item->judul_agenda}}</p>
+                                <p class="xl fw-bold">{{Str::limit($item->judul_agenda, 60)}}</p>
                             </div>
-                            <a class="text-decoration-none mt-3 px-3 py-2 mx-auto text-black d-flex justify-content-between align-items-center" href="{{ url('/detailagenda', $item->slug) }}">
+                            <a class="text-decoration-none mt-3 px-3 py-2 mx-auto text-black d-flex justify-content-between align-items-center" href="{{ url('/detailagenda/'.$item->slug) }}">
                                 <p class="lg fw-semibold">Detail Agenda</p>
                                 <div class="arrow">
                                     <i class="fa-solid fa-arrow-right fa-2xs"></i>

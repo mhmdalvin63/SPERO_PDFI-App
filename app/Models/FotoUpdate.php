@@ -14,7 +14,7 @@ class FotoUpdate extends Model
         'foto','id_update'
     ];
 
-    public function agenda(){
+    public function upd(){
         return $this->BelongsTo(Update::class, 'id_update');
     }
 }

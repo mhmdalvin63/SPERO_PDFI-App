@@ -19,14 +19,14 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Title Event<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Title Event..." name="judul_agenda">
+                        <input type="text" class="form-control" value="{{ old('password') }}" id="exampleInputUsername1" placeholder="Input Title Event..." name="judul_agenda">
                         @error('judul_agenda')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Topic Event<span class="text-danger">*</span></label>
-                        <textarea class="form-control" style="height: 200px" placeholder="Input Topic Event..." id="floatingTextarea" name="deskripsi"></textarea>
+                        <textarea class="ckeditor" placeholder="Input Topic Event..." id="floatingTextarea" name="deskripsi">{{ old('deskripsi') }}</textarea>
                         @error('deskripsi')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -34,14 +34,14 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="exampleInputUsername1" class="fw-bold">Start Event<span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="exampleInputUsername1" placeholder="Input Start Date Event..." name="start_date">
+                            <input type="date" class="form-control" value="{{ old('start_date') }}" id="exampleInputUsername1" placeholder="Input Start Date Event..." name="start_date">
                             @error('start_date')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <div class="form-group col-6">
                             <label for="exampleInputUsername1" class="fw-bold">End Event<span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="exampleInputUsername1" placeholder="Input End Date Event..." name="end_date">
+                            <input type="date" class="form-control" value="{{ old('end_date') }}" id="exampleInputUsername1" placeholder="Input End Date Event..." name="end_date">
                             @error('end_date')
                                 <p class="text-danger">{{ $message }}</p>
                             @enderror
@@ -50,14 +50,14 @@
                     
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Location Event<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Location Event..." name="location">
+                        <input type="text" class="form-control" value="{{ old('location') }}" id="exampleInputUsername1" placeholder="Input Location Event..." name="location">
                         @error('location')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Organizer Event<span class="text-danger">*</span></label>
-                        <select class="form-control" name="id_anggota">
+                        <select class="form-control"  name="id_anggota">
                             <option>Select Oragnizer Name</option>
                             @foreach ($anggota as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_anggota }}</option>
@@ -104,7 +104,7 @@
                       </div>
                       <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Link GForm<span class="text-danger">*</span></label>
-                        <input type="url" class="form-control" id="exampleInputUsername1" placeholder="Input Link GForm Event..." name="link_gform">
+                        <input type="url" value="{{ old('link_gform') }}" class="form-control" id="exampleInputUsername1" placeholder="Input Link GForm Event..." name="link_gform">
                         @error('link_gform')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror

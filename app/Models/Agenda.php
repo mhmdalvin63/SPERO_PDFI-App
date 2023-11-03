@@ -18,7 +18,7 @@ class Agenda extends Model
     protected $primaryKey = "id";
     protected $table = "agendas";
     protected $fillable = [
-        'judul_agenda','deskripsi', 'link_gform', 'slug', 'start_date', 'end_date', 'location', 'id_anggota', 'foto', 'status_event'
+        'judul_agenda','deskripsi', 'link_gform', 'slug', 'start_date', 'end_date', 'location', 'id_anggota', 'status_event'
     ];
 
     public function getSlugOptions() : SlugOptions

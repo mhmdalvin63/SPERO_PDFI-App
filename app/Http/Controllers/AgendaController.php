@@ -77,8 +77,9 @@ class AgendaController extends Controller
             DB::beginTransaction();
             $user = Auth::user()->id;
             $newAgenda = new Agenda();
+            $cleanedText = strip_tags($request->deskripsi);
             $newAgenda->judul_agenda = $request->judul_agenda;
-            $newAgenda->deskripsi = $request->deskripsi;
+            $newAgenda->deskripsi = $cleanedText;
             $newAgenda->start_date = $request->start_date;
             $newAgenda->end_date = $request->end_date;
             $newAgenda->location = $request->location;
@@ -185,9 +186,9 @@ class AgendaController extends Controller
             $editAgenda = Agenda::find($id);
             $user = Auth::user()->id;
             
-
+            $cleanedText = strip_tags($request->deskripsi);
             $editAgenda->judul_agenda = $request->judul_agenda;
-            $editAgenda->deskripsi = $request->deskripsi;
+            $editAgenda->deskripsi = $cleanedText;
             $editAgenda->start_date = $request->start_date;
             $editAgenda->end_date = $request->end_date;
             $editAgenda->location = $request->location;

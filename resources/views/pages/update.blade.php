@@ -38,7 +38,7 @@
                                 <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">
-                                <p class="xl fw-bold">{{$item->judul_update}}</p>
+                                <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
                                 <p class="lg fw-semibold">Selengkapnya>></p>
@@ -62,7 +62,7 @@
                                 <p class="lg fw-semibold">{{date('F d, Y', strtotime($item->created_at))}}</p>
                             </div>
                             <div class="ltTitle mb-2">
-                                <p class="xl fw-bold">{{$item->judul_update}}</p>
+                                <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
                                 <p class="lg fw-semibold">Selengkapnya>></p>

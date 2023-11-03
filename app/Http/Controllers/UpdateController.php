@@ -48,8 +48,9 @@ class UpdateController extends Controller
 
         try {
             $newUpdate = new Update();
+            $cleanedText = strip_tags($request->isi_berita);
             $newUpdate->judul_update = $request->judul_update;
-            $newUpdate->isi_berita = $request->isi_berita;
+            $newUpdate->isi_berita = $cleanedText;
             $newUpdate->jenis_berita = $request->jenis_berita;
            $newUpdate->save();
 
@@ -106,9 +107,11 @@ class UpdateController extends Controller
 
         
         // try {
+
             $editUpdate = Update::find($id);
+            $cleanedText = strip_tags($request->isi_berita);
             $editUpdate->judul_update =  $request->judul_update;
-            $editUpdate->isi_berita =  $request->isi_berita;
+            $editUpdate->isi_berita =  $cleanedText;
             $editUpdate->jenis_berita =  $request->jenis_berita;
             $editUpdate->save();
 

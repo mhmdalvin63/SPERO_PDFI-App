@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="daDesc my-3">
-                        <p class="md fw-semibold">{{$detailagenda->deskripsi}}
+                        <p class="md text-justify fw-semibold">{{$detailagenda->deskripsi}}
                         </p>
                     </div>
                     <div class="textFlex d-flex my-3">

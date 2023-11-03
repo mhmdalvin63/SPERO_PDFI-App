@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Share;
 use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Agenda;
 use App\Models\Banner;
 use App\Models\Jurnal;
@@ -28,6 +29,13 @@ class FrontEndController extends Controller
         $Update = Update::latest()->get();
         $UpdateUmum = Update::where('jenis_berita', 'umum')->latest()->get();
         return view("pages.update", compact('Update', 'UpdateUmum'));
+    }
+    public function detailtag($slug){
+        $detailtag = Tag::where('slug', $slug)->first();
+        $detailtagpublic = Tag::where('slug', $slug)->with('upd')->whereHas('upd', function($query){
+            $query->where('jenis_berita', 'umum');
+        })->first();
+        return view('pages.detailtag', compact('detailtag', 'detailtagpublic'));
     }
 
     public function agenda(){

@@ -15,7 +15,7 @@ class Update extends Model
     protected $primaryKey = "id";
     protected $table = "updates";
     protected $fillable = [
-        'judul_update','isi_berita', 'foto', 'jenis_berita', 'slug'
+        'judul_update','isi_berita', 'jenis_berita', 'slug'
     ];
     public function getSlugOptions() : SlugOptions
     {
