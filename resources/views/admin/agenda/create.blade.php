@@ -124,7 +124,7 @@
                         <label for="exampleInputUsername1" class="fw-bold">Upload Qris<span class="text-danger">*</span></label>
                         <input type="file" value="{{ old('qris') }}" class="form-control" id="exampleInputUsername1" name="qris">
                     </div>
-                    <div class="form-group">
+                    <div id="cek" style="display: none;" class="form-group">
                         <div class="d-flex">
                             <input type="checkbox" id="checkrek" class="form-check" id="exampleInputUsername1">
                             <label class="fw-bold">Anda Ingin Input No. Rekening?</label>
@@ -152,13 +152,16 @@
 
 <script>
     function toggleInput() {
+        const cekElement = document.getElementById('cek');
         const selectElement = document.getElementById("select");
         const inputElement = document.getElementById("qris");
 
         if (selectElement.value === "Buy") {
             inputElement.style.display = "block";
+            cekElement.style.display = "block";
         } else {
             inputElement.style.display = "none";
+            cekElement.style.display = "none";
         }
     }
 </script>
