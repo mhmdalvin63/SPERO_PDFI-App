@@ -33,29 +33,29 @@
             <h3 class="text-blue fw-bolder mb-2 mb-lg-5">List Update</h3>
             <div class="row d-flex justify-content-sm-start justify-content-center">
             @if(Auth::check() && Auth::user()->level != 'user')
-            @foreach ($listupdateumum->take(3) as $item)
-                <div class="col-10 col-sm-6 col-md-4  my-3">
-                    <div class="luContent">
-                        <div class="lcImage">
-                            @foreach($item->foto->take(1) as $foto)
-                            <img class="position-relative" style="height: 200px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">
-                            @endforeach
-                        </div>
-                        <div class="lcText p-3">
-                            <div class="ltHeader d-flex justify-content-between mb-2">
-                                <p class="lg fw-semibold">Update</p>
-                                <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
+                @foreach ($listupdateumum->take(3) as $item)
+                    <div class="col-10 col-sm-6 col-md-4  my-3">
+                        <div class="luContent">
+                            <div class="lcImage">
+                                @foreach($item->foto->take(1) as $foto)
+                                <img class="position-relative" style="height: 200px; border-radius: 10px;" src="{{asset('img/'.$foto->foto)}}" alt="">
+                                @endforeach
                             </div>
-                            <div class="ltTitle mb-2">
-                                <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
+                            <div class="lcText p-3">
+                                <div class="ltHeader d-flex justify-content-between mb-2">
+                                    <p class="lg fw-semibold">Update</p>
+                                    <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
+                                </div>
+                                <div class="ltTitle mb-2">
+                                    <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
+                                </div>
+                                <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
+                                    <p class="lg text-primary fw-semibold">Selengkapnya>></p>
+                                </a>
                             </div>
-                            <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
-                                <p class="lg text-primary fw-semibold">Selengkapnya>></p>
-                            </a>
                         </div>
                     </div>
-                </div>
-               @endforeach
+                @endforeach
                @else
                @foreach ($listupdate->take(3) as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
@@ -74,7 +74,7 @@
                                 <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
-                                <p class="lg fw-semibold">Selengkapnya>></p>
+                                <p class="lg text-primary fw-semibold">Selengkapnya>></p>
                             </a>
                         </div>
                     </div>

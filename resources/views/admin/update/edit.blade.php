@@ -35,6 +35,19 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tags Update<span class="text-danger">*</span></label>
+                        <select multiple="multiple" class="choices form-control multiple-remove" name="id_tag[]" id="selectType">
+                            @foreach ($tag as $item)
+                            <option value="{{ $item->id }}" @foreach($updateEdit->tag as $tag2)
+                            @if($tag2->id == $item->id)@selected(true)@endif
+                            @endforeach>{{ $item->tag_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('id_tag')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="formFile" class="form-label">Update Image Topic</label><br>
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3<span class="text-danger">*max 2mb</span></span></label>
                         <div class="foto"></div>

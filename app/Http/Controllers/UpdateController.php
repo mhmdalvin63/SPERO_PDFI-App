@@ -90,7 +90,8 @@ class UpdateController extends Controller
     public function edit($id)
     {
         $updateEdit = Update::findorfail($id);
-        return view('admin.update.edit', compact('updateEdit'));
+        $tag = Tag::all();
+        return view('admin.update.edit', compact('updateEdit', 'tag'));
     }
 
     /**
