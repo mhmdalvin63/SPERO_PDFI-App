@@ -63,6 +63,13 @@ class UserController extends Controller
             $user->level = 'user';
             $user->verification = 'verified';
             $user->status = 'aktif';
+            if($request->hasFile('bukti_keanggotaan'))
+            {
+                $buktiAnggota = 'Anggota'.rand(1,99999).'.'.$request->bukti_keanggotaan->getClientOriginalExtension();
+                $request->file('bukti_keanggotaan')->move(public_path().'/img/', $buktiAnggota);
+                $user->bukti_keanggotaan = $buktiAnggota;
+                $user->save();
+            }
             $user->save();
             Alert::success('Success', 'Data Created Successfully');
             return redirect('/admin/user-management');
@@ -121,6 +128,13 @@ class UserController extends Controller
             $user->no_anggota_pdfi = $request->no_anggota_pdfi;
             $user->asal_cabang = $request->asal_cabang;
             $user->tempat_praktek = $request->tempat_praktek;
+            if($request->hasFile('bukti_keanggotaan'))
+            {
+                $buktiAnggota = 'Anggota'.rand(1,99999).'.'.$request->bukti_keanggotaan->getClientOriginalExtension();
+                $request->file('bukti_keanggotaan')->move(public_path().'/img/', $buktiAnggota);
+                $user->bukti_keanggotaan = $buktiAnggota;
+                $user->save();
+            }
             $user->save();
             Alert::success('Success', 'Data Updated Successfully');
            

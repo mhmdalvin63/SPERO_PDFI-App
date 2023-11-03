@@ -57,7 +57,6 @@ class AdminAgendaController extends Controller
             'status_event' => 'required',
             'link_gform' => 'required',
             'panduan' => 'required|file|mimes:png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
-            'qris' => 'required|file|mimes:png,jpg,jpeg',
         ],[
             'judul_agenda' => 'Insert Title Update',
             'deskripsi' => 'Insert Topic Update',
@@ -69,8 +68,6 @@ class AdminAgendaController extends Controller
             'link_gform' => 'Insert Link GForm',
             'panduan' => 'Insert Panduan',
             'panduan.mimes' => 'File Must Be png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
-            'qris' => 'Insert Qris',
-            'qris.mimes' => 'File Must Be png,jpg,jpeg',
         ]);
 
         try {
@@ -171,7 +168,9 @@ class AdminAgendaController extends Controller
         $tipe = Type::where('id_user', $user)->get();
         $anggota = Anggota::where('id_user', $user)->get();
         $agenda = Agenda::find($id);
-        return view('admin.agenda.edit', compact('agenda', 'anggota', 'tipe'));
+        $fileqris = 'http://127.0.0.1:8000/img/'.$agenda->qris;
+        // dd($fileqris);
+        return view('admin.agenda.edit', compact('agenda', 'anggota', 'tipe', 'fileqris'));
     }
 
     /**
@@ -243,7 +242,9 @@ class AdminAgendaController extends Controller
             
             $foto = FotoAgenda::where('id_agenda', $editAgenda->id)->first();
             if($request->has('foto')){
+                if($foto){
                     File::delete('img/'.$foto->foto);
+                }
                 $deleteimage = FotoAgenda::where('id_agenda', $editAgenda->id)->delete();
                     foreach($request->file('foto') as $image){
                         $image2 = 'agenda'.rand(1,9999).$image->getClientOriginalExtension();
@@ -272,7 +273,9 @@ class AdminAgendaController extends Controller
     {
         $agenda = Agenda::find($id);
         $foto = FotoAgenda::where('id_agenda', $agenda->id)->first();
-        
+        if($foto){
+            File::delete('img/'.$foto->foto);
+        }
         $agenda->delete();
 
         return redirect()->back()->with('success','Data Has Been Deleted');
@@ -337,5 +340,15 @@ class AdminAgendaController extends Controller
         $pendaftar = Pendaftar::where('id_agenda', $agenda->id)->get();
 
         return view('cabang.daftar', compact('agenda', 'pendaftar'));
+    }
+
+    public function deleteimage($id){
+        $image = FotoAgenda::find($id);
+        File::delete('img/'.$image->foto);
+        $image->delete();
+
+        return response()->json([
+            'message' => 'Data Post Berhasil Dihapus!.',
+        ]); 
     }
 }

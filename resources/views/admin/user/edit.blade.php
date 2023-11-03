@@ -62,6 +62,13 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Bukti Keanggotaan<span class="text-danger">*</span></label>
+                        <input type="file" class="form-control"  id="exampleInputUsername1" placeholder="Input Number PDFI Organization..." name="bukti_keanggotaan">
+                        @error('bukti_keanggotaan')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/user-management" class="btn btn-outline-warning btn-icon-text">
                             Cancel

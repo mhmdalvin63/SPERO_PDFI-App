@@ -38,6 +38,16 @@
                         <label for="formFile" class="form-label">Update Image Topic</label><br>
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 1:1 atau 4:3<span class="text-danger">*max 2mb</span></span></label>
                         <div class="foto"></div>
+                        <div class="image-uploader">
+                            <div class="uploaded">
+                                @foreach($updateEdit->foto as $image)
+                                    <div class="uploaded-image">
+                                        <img id="image_{{$image->id}}" src="{{asset('img/'.$image->foto)}}" alt="">
+                                        <a href="javascript:void(0)"  id="btn-delete-post" data-id="{{ $image->id }}" class="delete-image" ><i class="iui-close text-white"></i></a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                         <div class="result text-danger fw-bold"></div>
                     </div>
                     <div class="modal-footer gap-1 mt-5">
@@ -53,6 +63,32 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function () {
+    $(".delete-image").click(function () {
+        var button = $(this);
+        var resourceId = button.data('id');
+        var hilang = button.closest('.uploaded-image')
+        $.ajax({
+            type: 'DELETE',
+            url: '/update/image/' + resourceId,
+            data: {
+                "_token": "{{ csrf_token() }}"
+            },
+            success: function (data) {
+                // Check for a successful response
+                    console.log(data)
+                    hilang.remove();
+            },
+            error: function (data) {
+                // Handle error response
+                console.log(data);
+            }
+        });
+    });
+});
+</script>
 @endsection
 @push('scripts')
 <script>
