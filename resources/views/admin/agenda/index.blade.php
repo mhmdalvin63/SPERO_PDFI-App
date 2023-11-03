@@ -45,7 +45,6 @@
                             
                         </td>
                         <td>{{ $item->judul_agenda}}</td>
-                        <td>{{ Str::limit($item->deskripsi, 25)}}</td>
                         <td>{{ date('j F Y', strtotime($item->start_date)) }}</td>
                         <td>{{ date('j F Y', strtotime($item->end_date)) }}</td>
                         <td>{{ $item->location}}</td>

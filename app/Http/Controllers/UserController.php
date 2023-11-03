@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $userindex = User::where('level', '!=', 'admin')->get();
+        $userindex = User::where('level', 'user')->get();
         return view('admin.user.index', compact('userindex'));
     }
 
