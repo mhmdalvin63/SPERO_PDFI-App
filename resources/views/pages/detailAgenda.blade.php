@@ -497,8 +497,8 @@ $(document).ready(function() {
 
 <script>
     $('.slider-single').slick({
-        autoplay: true,
-    autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 2000,
  	slidesToShow: 1,
  	slidesToScroll: 1,
  	arrows: true,
@@ -506,7 +506,6 @@ $(document).ready(function() {
  	adaptiveHeight: true,
  	infinite: false,
 	useTransform: true,
- 	speed: 400,
  	cssEase: 'cubic-bezier(0.77, 0, 0.18, 1)',
  });
 
