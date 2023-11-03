@@ -57,7 +57,6 @@ class AgendaController extends Controller
             'status_event' => 'required',
             'link_gform' => 'required',
             'panduan' => 'required|file|mimes:png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
-            'qris' => 'required|file|mimes:png,jpg,jpeg',
         ],[
             'judul_agenda' => 'Insert Title Update',
             'deskripsi' => 'Insert Topic Update',
@@ -69,8 +68,6 @@ class AgendaController extends Controller
             'link_gform' => 'Insert Link GForm',
             'panduan' => 'Insert Panduan',
             'panduan.mimes' => 'File Must Be png,jpg,jpeg,csv,txt,xlx,xls,xlsx,pdf,doc,docx,ppt,pptx',
-            'qris' => 'Insert Qris',
-            'qris.mimes' => 'File Must Be png,jpg,jpeg',
         ]);
 
         try {
@@ -338,5 +335,15 @@ class AgendaController extends Controller
             });
         Alert::success('Success', 'Data Telah Di Approve Sistem Akan Mengirim Qr Ke Email Pendaftar Otomatis');
         return redirect()->back();
+    }
+
+    public function deleteimage($id){
+        $image = FotoAgenda::find($id);
+        File::delete('img/'.$image->foto);
+        $image->delete();
+
+        return response()->json([
+            'message' => 'Data Post Berhasil Dihapus!.',
+        ]); 
     }
 }

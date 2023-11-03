@@ -78,9 +78,9 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group" id="">
+                    <div class="form-group" >
                     <label for="exampleInputUsername1" class="fw-bold">Free or Buy<span class="text-danger">*</span></label>
-                    <select name="status_event" class="form-control" id="select">
+                    <select name="status_event" class="form-control" id="select" onchange="toggleInput()">
                         <option value="Free">Free</option>
                         <option value="Buy">Buy</option>
                     </select>
@@ -116,14 +116,11 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                      <div class="form-group">
+                      <div style="display: none;" id="qris" class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Upload Qris<span class="text-danger">*</span></label>
                         <input type="file" class="form-control" id="exampleInputUsername1" name="qris">
-                        @error('qris')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
-                    <div class="form-group">
+                    <div style="display: none;" id="cek" class="form-group">
                         <div class="d-flex">
                             <input type="checkbox" id="checkrek" class="form-check" id="exampleInputUsername1">
                             <label class="fw-bold">Anda Ingin Input No. Rekening?</label>
@@ -148,7 +145,38 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function toggleInput() {
+        const cekElement = document.getElementById('cek');
+        const selectElement = document.getElementById("select");
+        const inputElement = document.getElementById("qris");
 
+        if (selectElement.value === "Buy") {
+            inputElement.style.display = "block";
+            cekElement.style.display = "block";
+        } else {
+            inputElement.style.display = "none";
+            cekElement.style.display = "none";
+        }
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const fotoDiv = document.querySelector(".foto");
+    const submitBtn = document.getElementById("dis");
+
+    submitBtn.addEventListener("click", function(event) {
+        // Check if the "foto" div contains any uploaded images
+        const uploadedImages = fotoDiv.querySelectorAll("img");
+        
+        if (uploadedImages.length === 0) {
+            // No images are uploaded, prevent form submission and show an error message
+            event.preventDefault();
+            document.querySelector(".result").innerHTML = "Upload Image";
+        }
+    });
+});
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
