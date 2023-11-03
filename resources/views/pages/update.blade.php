@@ -23,7 +23,7 @@
         <div class="container">
         <h3 class="text-gray fw-bolder mb-2 mb-lg-4"><span class="text-blue">List Update</span></h3>
             <div class="row  justify-content-sm-start justify-content-center">
-            @if(Auth::check() && Auth::user()->level != 'user')
+            @if(!Auth::user()  || Auth::user()->level != 'user')
                 @foreach ($UpdateUmum as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
@@ -41,7 +41,7 @@
                                 <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
-                                <p class="lg fw-semibold">Selengkapnya>></p>
+                                <p class="lg text-pimary fw-semibold">Selengkapnya>></p>
                             </a>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                                 <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
-                                <p class="lg fw-semibold">Selengkapnya>></p>
+                                <p class="lg text-primary fw-semibold">Selengkapnya>></p>
                             </a>
                         </div>
                     </div>

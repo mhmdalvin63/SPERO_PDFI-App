@@ -32,7 +32,7 @@
         <div class="container">
             <h3 class="text-blue fw-bolder mb-2 mb-lg-5">List Update</h3>
             <div class="row d-flex justify-content-sm-start justify-content-center">
-            @if(Auth::check() && Auth::user()->level != 'user')
+            @if(!Auth::user()  || Auth::user()->level != 'user')
                 @foreach ($listupdateumum->take(3) as $item)
                     <div class="col-10 col-sm-6 col-md-4  my-3">
                         <div class="luContent">

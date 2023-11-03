@@ -17,7 +17,7 @@
         <div class="container">
         <h3 class="text-gray fw-bolder mb-2 mb-lg-4"><span class="">List Tag <span class="text-blue">#{{$detailtag->tag_name}}</span></span></h3>
             <div class="row  justify-content-sm-start justify-content-center">
-            @if(Auth::check() && Auth::user()->level != 'user')
+            @if(!Auth::user() || Auth::user()->level != 'user')
                 @foreach ($detailtagpublic->upd as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
