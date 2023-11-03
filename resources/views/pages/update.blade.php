@@ -23,7 +23,7 @@
         <div class="container">
         <h3 class="text-gray fw-bolder mb-2 mb-lg-4"><span class="text-blue">List Update</span></h3>
             <div class="row  justify-content-sm-start justify-content-center">
-            @if(Auth::user() != 'user')
+            @if(Auth::check() && Auth::user()->level != 'user')
                 @foreach ($UpdateUmum as $item)
                 <div class="col-10 col-sm-6 col-md-4  my-3">
                     <div class="luContent">
