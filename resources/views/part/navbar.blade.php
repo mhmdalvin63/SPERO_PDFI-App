@@ -20,11 +20,9 @@
           <li class="nav-item">
             <a class="nav-link fw-bold active" aria-current="page" href="/agenda">Agenda</a>
           </li>
-          @if(Auth::check() != NULL && Auth::user()->level == 'user')
           <li class="nav-item">
             <a class="nav-link fw-bold active" aria-current="page" href="/jurnal">Jurnal</a>
           </li>
-          @endif
           <li class="nav-item">
             <a class="nav-link fw-bold active" aria-current="page" href="/organisasi">Organisasi</a>
           </li>

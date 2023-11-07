@@ -27,6 +27,12 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+                    <label for="exampleInputUsername1" class="fw-bold">Link Iklan</label>
+                        <input type="url" class="form-control" value="{{ old('link') }}" id="exampleInputUsername1" placeholder="Input Deskripsi..." name="link">
+                        @error('link')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="modal-footer gap-1">
                     <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                         <button type="submit" id="dis" class="btn btn-outline-primary btn-icon-text">
@@ -65,6 +71,7 @@
                             <th>Action</th>
                             <th>Banner <br><span class="text-sm">Max 2048kb</span></th>
                             <th>Deskripsi</th>
+                            <th>Url</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,6 +100,10 @@
                                         <div class="form-group">
                                             <label for="exampleInputUsername1" class="fw-bold">Deskripsi<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" value="{{$item->deskripsi}}" id="exampleInputUsername1" placeholder="Input Deskripsi..." name="deskripsi">                        
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1" class="fw-bold">Link Iklan</label>
+                                            <input type="url" class="form-control" value="{{$item->link}}" id="exampleInputUsername1" placeholder="Input Deskripsi..." name="link">                        
                                         </div>
                                         <div class="modal-footer gap-1">
                                         <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
@@ -130,6 +141,11 @@
                                             <div class="col-4">Description Banner: </div>
                                             <div class="col-8 text-start">{{$item->deskripsi}}</div>
                                         </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-4">Url Banner: </div>
+                                            <div class="col-8 text-start">{{$item->link}}</div>
+                                        </div>
                                     </div>
                                     </div>
                                 </div>
@@ -139,6 +155,7 @@
                         </td>
                         <td class="text-center"><img src="{{asset('img/'.$item->foto)}}"  height="100" alt=""></td>
                         <td class="text-center">{{ Str::limit($item->deskripsi, 25)}}</td>
+                        <td class="text-center">{{ Str::limit($item->link, 25)}}</td>
                     </tr>
                     @endforeach
                     </tbody>
