@@ -42,6 +42,7 @@ class BannerController extends Controller
         try{
             $banner = new Banner();
             $banner->deskripsi = $request->deskripsi;
+            $banner->link = $request->link;
             if($request->hasFile('foto'))
             {
                 $fotoBanner = 'Banner'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
@@ -91,6 +92,7 @@ class BannerController extends Controller
         try{
             $banner = Banner::find($id);
             $banner->deskripsi = $request->deskripsi;
+            $banner->link = $request->link;
             if($request->hasFile('foto'))
             {
                 File::delete('img/'.$banner->foto);

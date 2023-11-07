@@ -8,7 +8,11 @@
     <div class="header">
         <div class="headerImage">
             @foreach($banner as $item)
+            @if($item->link == NULL)
             <img class="single-item" src="{{asset('img/'.$item->foto)}}" alt="">
+            @else
+            <a target="_blank" href="{{$item->link}}"><img class="single-item" src="{{asset('img/'.$item->foto)}}" alt=""></a>
+            @endif
             @endforeach
         </div>
         <div class="container">

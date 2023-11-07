@@ -38,6 +38,7 @@ Route::get('/detailupdate/{slug}', [FrontEndController::class, 'detailupdate'])-
 Route::get('/agenda', [FrontEndController::class, 'agenda'])->name('agenda');
 Route::get('/search', [FrontEndController::class, 'search'])->name('search');
 Route::get('/search-agenda', [FrontEndController::class, 'searchagenda'])->name('search-agenda');
+Route::get('/jurnal', [FrontEndController::class, 'jurnal'])->name('jurnal');
 
 Route::get('/register', [LoginController::class, 'register'])->name('register.user');
 Route::post('/register/store', [LoginController::class, 'postregister'])->name('postregister.user');
@@ -64,7 +65,6 @@ Route::middleware(['isUser', 'auth:web', 'PreventBack'])->group(function (){
     Route::post('/like/{slug}', [FrontEndController::class, 'liked'])->name('liked');
     Route::delete('/unlike/{slug}', [FrontEndController::class, 'unliked'])->name('unliked');
     Route::get('/myevent', [FrontEndController::class, 'myevent'])->name('myevent');
-    Route::get('/jurnal', [FrontEndController::class, 'jurnal'])->name('jurnal');
 
     Route::post('/getkota', [FrontEndController::class, 'kota'])->name('kota');
     Route::post('/getkecamatan', [FrontEndController::class, 'kecamatan'])->name('kecamatan');
@@ -97,7 +97,6 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::resource('/agenda', AdminAgendaController::class);
     Route::resource('/update', UpdateController::class);
     Route::resource('/banner', BannerController::class);
-    Route::resource('/jurnal', JurnalController::class);
     Route::resource('/user-management', UserController::class);
     Route::put('/user-management/resetpassword/{id}', [UserController::class, 'resetpassword'])->name('resetpassword');
     Route::put('/user-management/verified/{id}', [UserController::class, 'verified'])->name('verified');
