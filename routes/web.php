@@ -8,10 +8,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\BidangController;
 use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\PosisiController;
 use App\Http\Controllers\UpdateController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AdminAgendaController;
 
 /*
@@ -25,7 +28,7 @@ use App\Http\Controllers\AdminAgendaController;
 |
 */
 
-Route::get('organisasi', function () {return view('pages.organisasi');});
+Route::get('/organisasi',[FrontEndController::class, 'organisasi'])->name('organisasi');
 Route::get('/login', [LoginController::class, 'loginuser'])->name('login.user');
 Route::post('/login', [LoginController::class, 'postloginuser'])->name('postlogin.user');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -97,6 +100,9 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::resource('/agenda', AdminAgendaController::class);
     Route::resource('/update', UpdateController::class);
     Route::resource('/banner', BannerController::class);
+    Route::resource('/kepengurusan', OrganisasiController::class);
+    Route::resource('/bidang', BidangController::class);
+    Route::resource('/posisi', PosisiController::class);
     Route::resource('/user-management', UserController::class);
     Route::put('/user-management/resetpassword/{id}', [UserController::class, 'resetpassword'])->name('resetpassword');
     Route::put('/user-management/verified/{id}', [UserController::class, 'verified'])->name('verified');

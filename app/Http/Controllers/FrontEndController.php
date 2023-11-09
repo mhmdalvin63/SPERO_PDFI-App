@@ -7,10 +7,12 @@ use Carbon\Carbon;
 use App\Models\Tag;
 use App\Models\Agenda;
 use App\Models\Banner;
+use App\Models\Bidang;
 use App\Models\Jurnal;
 use App\Models\Update;
 use App\Models\Pendaftar;
 use App\Models\LikeUpdate;
+use App\Models\Organisasi;
 use App\Models\TypeAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +27,20 @@ use Illuminate\Support\Facades\Validator;
 
 class FrontEndController extends Controller
 {
+    public function organisasi(){
+        $ketua = Organisasi::whereHas('posisi', function($query){
+            $query->where('tingkatan', 1);
+        })->get();
+        $sekretaris = Organisasi::whereHas('posisi', function($query){
+            $query->where('tingkatan', 2);
+        })->get();
+        $seksi = Organisasi::whereHas('posisi', function($query){
+            $query->where('tingkatan', 3);
+        })->get();
+        $bidang = Bidang::all();
+        return view('pages.organisasi', compact('bidang', 'ketua', 'sekretaris', 'seksi'));
+    }
+
     public function update(){
         $Update = Update::latest()->get();
         $UpdateUmum = Update::where('jenis_berita', 'umum')->latest()->get();

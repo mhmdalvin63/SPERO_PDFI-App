@@ -46,119 +46,66 @@
             </div>
         </div>
     </div>
-    <div class="pengurus my-sm-5 my-3 py-sm-5 py-3">
+    <div class="pengurus my-2 my-sm-2">
         <div class="container">
-            <div class="row justify-content-center  align-items-center">
-                <h3 class="text-blue fw-bold mb-3">Pengurus Besar</h3>
-                <div class="card col-10 col-md-3 mb-3 col-sm-6">
-                    <img src="{{asset('../image/profile.jpg')}}" class="" alt="...">
+            <h3 class="text-blue fw-bold mb-3">Pengurus Besar</h3>
+            <div class="row align-items-center">
+                @foreach($ketua as $ket)
+                <div class="card col-10 bx mx-1 col-md-3 mb-3 col-sm-6">
+                    <img src="{{asset('img/'.$ket->foto)}}" class="" alt="...">
                     <div class="card-body">
-                        <p class="card-text fs-5 fw-bold text-center">Ketua Pengurus 1</p>
+                        <p class="card-text fs-5 fw-bold text-blue text-center">{{$ket->nama}}</p>
+                        <p class="card-text fs-5 fw-bold text-center">{{$ket->posisi->posisi}}</p>
                     </div>
                 </div>
-                <div class="card col-10 col-md-3 mb-3 col-sm-6">
-                    <img src="{{asset('../image/profile.jpg')}}" class="" alt="...">
+                @endforeach
+            </div>
+            <div class="row">
+                @foreach($sekretaris as $sek)
+                <div class="card col-10 bx mx-1 col-md-3 mb-3 col-sm-6">
+                    <img src="{{asset('img/'.$sek->foto)}}" class="" alt="...">
                     <div class="card-body">
-                        <p class="card-text fs-5 fw-bold text-center">Ketua Pengurus 2</p>
+                        <p class="card-text fs-5 fw-bold text-blue text-center">{{$sek->nama}}</p>
+                        <p class="card-text fs-5 fw-bold text-center">{{$sek->posisi->posisi}}</p>
                     </div>
                 </div>
-                <div class="card col-10 col-md-3 mb-3 col-sm-6">
-                    <img src="{{asset('../image/profile.jpg')}}" class="" alt="...">
+                @endforeach
+            </div>
+            <div class="row">
+                @foreach($seksi as $seksis)
+                <div class="card col-10 bx mx-1 col-md-3 mb-3 col-sm-6">
+                    <img src="{{asset('img/'.$seksis->foto)}}" class="" alt="...">
                     <div class="card-body">
-                        <p class="card-text fs-5 fw-bold text-center">Wakil Ketua Pengurus 1</p>
+                        <p class="card-text fs-5 fw-bold text-blue text-center">{{$seksis->nama}}</p>
+                        <p class="card-text fs-5 fw-bold text-center">{{$seksis->posisi->posisi}}</p>
                     </div>
                 </div>
-                <div class="card col-10 col-md-3 mb-3 col-sm-6">
-                    <img src="{{asset('../image/profile.jpg')}}" class="" alt="...">
-                    <div class="card-body">
-                        <p class="card-text fs-5 fw-bold text-center">Wakil Ketua Pengurus 2</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
     
-    <div class="sejarah my-sm-5 my-3 py-sm-5 py-3">
+    <div class="sejarah">
         <div class="container">
             <ul class="nav nav-tabs fw-bold justify-content-center" id="myTab" role="tablist">
+                @foreach($bidang as $key => $item)
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Bidang A</button>
+                    <button class="nav-link {{ $key === 0 ? 'active' : '' }}" id="home-tab" data-bs-toggle="tab" data-bs-target="#content-{{ $item->id }}" type="button" role="tab" aria-controls="content-{{ $item->id }}">{{$item->nama}}</button>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Bidang B</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Bidang C</button>
-                </li>
+                @endforeach
             </ul>
             <div class="tab-content pt-3 pb-5 box-tab mt-3" id="myTabContent">
-                <div class="tab-pane mx-3 fw-bold fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                    <h4 class="fw-bold">Lorem Lorem</h4>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut totam soluta nemo laboriosam eaque beatae reprehenderit, quasi eos! Alias, obcaecati.</p>
+                @foreach($bidang as $item)
+                <div class="tab-pane mx-3 fw-bold fade{{ $loop->first ? ' show active' : '' }}" id="content-{{ $item->id }}" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <h4 class="fw-bold">{{$item->nama}}</h4>
+                    <p>{{$item->deskripsi}}</p>
                     <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
+                        @foreach($item->organisasi as $pengurus)
+                        <li>{{$pengurus->nama}}</li>
+                        @endforeach
                     </ul>
                 </div>
-                <div class="tab-pane mx-3 fw-bold fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                    <h4 class="fw-bold">Lorem Lorem</h4>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut totam soluta nemo laboriosam eaque beatae reprehenderit, quasi eos! Alias, obcaecati.</p>
-                    <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                    </ul>
-                </div>
-                <div class="tab-pane mx-3 fw-bold fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                    <h4 class="fw-bold">Lorem Lorem</h4>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut totam soluta nemo laboriosam eaque beatae reprehenderit, quasi eos! Alias, obcaecati.</p>
-                    <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                    </ul>
-                </div>
-                <div class="tab-pane mx-3 fw-bold fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
-                    <h4 class="fw-bold">Lorem Lorem</h4>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut totam soluta nemo laboriosam eaque beatae reprehenderit, quasi eos! Alias, obcaecati.</p>
-                    <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                        <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia consequatur labore accusamus officiis? Libero porro voluptas explicabo,</li>
-                    </ul>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
