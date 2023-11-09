@@ -1,21 +1,28 @@
 @extends('admin.template')
-@section('title', 'Tag')
+@section('title', 'Bidang')
 @section('layout')
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Tag</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Bidang</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="{{ url('admin/tag') }}" method="post" enctype="multipart/form-data">
+      <form action="{{ url('admin/bidang') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Tag Name<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" value="{{ old('tag_name') }}" id="exampleInputUsername1" placeholder="Input Tag Name..." name="tag_name">
-                        @error('tag_name')
+                        <label for="exampleInputUsername1" class="fw-bold">Nama Bidang<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{ old('nama') }}" id="exampleInputUsername1" placeholder="Input Bidang Name..." name="nama">
+                        @error('nama')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Deskripsi Bidang<span class="text-danger">*</span></label>
+                        <textarea name="deskripsi" class="ckeditor">{{old('deskripsi')}}</textarea>
+                        @error('deskripsi')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
@@ -31,7 +38,7 @@
   </div>
 </div>
 <div class="page-heading">
-    <h3>Table Tags</h3>
+    <h3>Table Bidang</h3>
 </div>
 <div class="col-lg-12 grid-margin stretch-card">
         <div class="card-body">
@@ -59,11 +66,12 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>Action</th>
-                            <th>Tag Name</th>
+                            <th>Nama Bidang</th>
+                            <th>Deskripsi Bidang</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($tag as $item)
+                    @foreach($bidang as $item)
                     <tr class="fw-bold">
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td >
@@ -73,16 +81,20 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="EditLabel">Edit Tag</h1>
+                                        <h1 class="modal-title fs-5" id="EditLabel">Edit Bidang</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="{{ url('admin/tag', $item->id) }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ url('admin/bidang', $item->id) }}" method="post" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         @method('PUT')
                                         <div class="form-group">
-                                            <label for="exampleInputUsername1" class="fw-bold">Tag Name<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" value="{{$item->tag_name}}" id="exampleInputUsername1" placeholder="Input Tag Name..." name="tag_name">
+                                            <label for="exampleInputUsername1" class="fw-bold">Nama Bidang<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" value="{{$item->nama}}" id="exampleInputUsername1" placeholder="Input Nama Bidang..." name="nama">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputUsername1" class="fw-bold">Deskripsi Bidang<span class="text-danger">*</span></label>
+                                            <textarea name="deskripsi" class="ckeditor">{{$item->deskripsi}}</textarea>
                                         </div>
                                         <div class="modal-footer gap-1">
                                         <button type="button" class="btn btn-outline-warning btn-icon-text" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
@@ -96,7 +108,7 @@
                                 </div>
                                 </div>
 
-                                <form action="{{ url('admin/tag', $item->id) }}" method="POST">
+                                <form action="{{ url('admin/bidang', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="btn btn-icon btn-danger delete" data-id="{{ $item->id }}"><i class="bi bi-trash-fill"></i></button>    
@@ -107,14 +119,19 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="DetailLabel">Detail Tag</h1>
+                                        <h1 class="modal-title fs-5" id="DetailLabel">Detail Posisi</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-4">Tag Name: </div>
-                                            <div class="col-8 text-start">{{$item->tag_name}}</div>
+                                            <div class="col-4">Nama Bidang: </div>
+                                            <div class="col-8 text-start">{{$item->nama}}</div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-4">Deskripsi Bidang: </div>
+                                            <div class="col-8 text-start">{{$item->deskripsi}}</div>
+                                        </div>
+                                        <hr>
                                     </div>
                                     </div>
                                 </div>
@@ -122,7 +139,8 @@
 
                             </div>
                         </td>
-                        <td class="text-center">{{ $item->tag_name}}</td>
+                        <td class="text-center">{{ $item->nama}}</td>
+                        <td class="text-center">{{ $item->deskripsi}}</td>
                     </tr>
                     @endforeach
                     </tbody>
