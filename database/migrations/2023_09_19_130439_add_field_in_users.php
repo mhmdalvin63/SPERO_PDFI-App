@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigIntegerphp ('asal_cabang');
+            $table->bigInteger('asal_cabang');
             $table->string('tempat_praktek');
             $table->string('no_anggota_idi');
             $table->string('no_anggota_pdfi');
