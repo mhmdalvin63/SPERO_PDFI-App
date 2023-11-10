@@ -45,7 +45,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Domisili<span class="text-danger">*</span></label>
                         <select name="domisili" placeholder="Cari Nama Kota..." id="kota">
                         <option value="">Cari Nama Kota...</option>
@@ -56,7 +56,7 @@
                         @error('domisili')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="form-group" id="foto" style="display: none;">
                         <label for="formFile" class="form-label">Input Foto</label><br>
                         <label for="formFile"><span class="text-sm mt-0">Rekomendasi Ukuran: 4:3, Khusus tingkatan 1 - 3<span class="text-danger">*max 2mb</span></span></label>

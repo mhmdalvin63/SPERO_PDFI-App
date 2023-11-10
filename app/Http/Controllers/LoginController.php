@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Throwable;
+use App\Models\City;
 use App\Models\User;
-use App\Models\ResetPassword;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ResetPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -51,7 +52,8 @@ class LoginController extends Controller
     }
 
     public function register(){
-        return view('register');
+        $kota = City::all();
+        return view('register', compact('kota'));
     }
 
    

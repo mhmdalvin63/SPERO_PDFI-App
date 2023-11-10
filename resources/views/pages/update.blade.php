@@ -41,7 +41,7 @@
                                 <p class="xl fw-bold">{{Str::limit($item->judul_update, 60)}}</p>
                             </div>
                             <a class="text-decoration-none text-black" href="{{ url('/detailupdate', $item->slug) }}">
-                                <p class="lg text-pimary fw-semibold">Selengkapnya>></p>
+                                <p class="lg text-primary fw-semibold">Selengkapnya>></p>
                             </a>
                         </div>
                     </div>

@@ -63,4 +63,8 @@ class User extends Authenticatable
     public function upd(){
         return $this->BelongsToMany(Update::class, 'like_updates', 'id_user',  'id_update');
     }
+
+    public function kota(){
+        return $this->BelongsTo(City::class, 'asal_cabang');
+    }
 }

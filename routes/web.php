@@ -100,6 +100,7 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::resource('/agenda', AdminAgendaController::class);
     Route::resource('/update', UpdateController::class);
     Route::resource('/banner', BannerController::class);
+    Route::resource('/jurnal', JurnalController::class);
     Route::resource('/kepengurusan', OrganisasiController::class);
     Route::resource('/bidang', BidangController::class);
     Route::resource('/posisi', PosisiController::class);
@@ -124,7 +125,7 @@ Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->g
     Route::post('/search', [AgendaController::class, 'search'])->name('search');
 });
 
-
+Route::get('/fetch-data', [FrontEndController::class, 'fetchData']);
 // Route::get('/', function () {return view('pages.beranda');});
 // Route::get('update', function () {return view('pages.update');});
 // Route::get('detailupdate', function () {return view('pages.detailUpdate');});

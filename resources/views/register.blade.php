@@ -16,7 +16,19 @@
 <link type="text/css" rel="stylesheet" href="{{asset('image-uploader/dist/image-uploader.min.css')}}">
 
 </head>
-
+<style>
+    .selectize-input input{
+        width: 100%!important;
+        border: none;
+    }
+    .selectize-input input:focus{
+        outline: none;
+    }
+    .selectize-dropdown{
+        border: none;
+        padding: 0!important;
+    }
+</style>
 <body>
     <div id="auth">
         
@@ -81,7 +93,12 @@
                     @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="text" class="form-control form-control-xl" name="asal_cabang" placeholder="Asal Cabang">
+                    <select name="asal_cabang" class="form-control form-control-xl" placeholder="Asal Cabang" id="kota">
+                        <option value="">Asal Cabang</option>
+                        @foreach($kota as $item)
+                        <option value="{{$item->id}}">{{$item->name}}</option>
+                        @endforeach
+                    </select>
                     <div class="form-control-icon">
                     <i class="bi bi-hospital"></i>
                     </div>
@@ -160,7 +177,13 @@
 <script src="{{asset('dist/assets/extensions/choices.js/public/assets/scripts/choices.js')}}"></script>
 <script src="{{asset('dist/assets/js/pages/form-element-select.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
 
+<script>
+$('#kota').selectize({
+    sortField: 'text',
+});
+</script>
 <script>
 selectImage.onchange = evt => {
     preview = document.getElementById('preview');

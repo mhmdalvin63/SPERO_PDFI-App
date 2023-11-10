@@ -31,6 +31,7 @@
                             <th>Action</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Asal Cabang</th>
                             <th>Join Date</th>
                             <th>Verification</th>
                             <th>Member Proofs</th>
@@ -70,6 +71,7 @@
                         </td>
                         <td class="text-center">{{$item->name}}</td>
                         <td class="text-center">{{$item->email}}</td>
+                        <td class="text-center">{{$item->kota->name}}</td>
                         <td class="text-center">{{date('d F Y', strtotime($item->created_at))}}</td>
                         <td class="text-center">
                             @if($item->verification == 'verified')
@@ -82,7 +84,27 @@
                                 </form>
                             @endif
                         </td>
-                        <td class="text-center"><img src="{{asset('img/'.$item->bukti_keanggotaan)}}" height="50" width="100" alt=""></td>
+                        <td class="text-center">
+                        <a data-bs-toggle="modal" data-bs-target="#Detail{{$item->id}}" class="btn btn-sm-lg text-white">
+                            <img src="{{asset('img/'.$item->bukti_keanggotaan)}}" height="50" width="100" alt="">
+                        </a>
+                        <div class="modal fade" id="Detail{{$item->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DetailLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="DetailLabel">Detail Image Member</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-4">Detail Image Member</div>
+                                            <img src="{{asset('img/'.$item->bukti_keanggotaan)}}" width="100%" alt="">
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>
