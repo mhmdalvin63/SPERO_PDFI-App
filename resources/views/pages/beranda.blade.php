@@ -138,7 +138,72 @@
             </div>
         </div>
     </div>
+    @if($users->count() > 0)
+    <div class="statistik">
+        <div class="container">
+            <h3 class="text-blue fw-bolder mb-2 mb-lg-5">Statistik</h3>
+            <div class="row">
+                <div class="">
+                    <canvas style="width: 100%;" id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fetch data using AJAX
+        $.ajax({
+            url: '/fetch-data',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Create chart with Chart.js
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: getWeekLabels(data.weeks),
+                        datasets: [{
+                            label: 'User Terdaftar Minggu Ini',
+                            data: data.counts,
+                            backgroundColor: '#E0F4FF',
+                            borderColor: '#39A7FF',
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+            error: function(error) {
+                console.log('Error fetching data:', error);
+            }
+        });
+    });
+
+    // Helper function to convert week numbers to labels
+    function getWeekLabels(weeks) {
+        var weekLabels = [];
+        for (var i = 0; i < weeks.length; i++) {
+            var week = weeks[i];
+            weekLabels.push('Minggu Ke ' + week );
+        }
+        return weekLabels;
+    }
+</script>
+
+
+
+
 @endsection
 
 @section('customScript')
@@ -175,4 +240,6 @@ slidesPerRow: 3,
         nextArrow: $('.next-top')
   });
 </script>
+
+
 @endsection

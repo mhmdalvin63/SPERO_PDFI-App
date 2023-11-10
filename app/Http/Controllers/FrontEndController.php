@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Share;
 use Carbon\Carbon;
 use App\Models\Tag;
+use App\Models\User;
 use App\Models\Agenda;
 use App\Models\Banner;
 use App\Models\Bidang;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Laravolt\Indonesia\Models\City;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use ConsoleTVs\Charts\Facades\Charts;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Province;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -63,12 +65,29 @@ class FrontEndController extends Controller
         return response()->download(public_path('file/'.$file));
     }
 
+    public function fetchData(){
+        // $data = [10, 20, 30, 40, 50];
+        $users = User::selectRaw('COUNT(*) as count, WEEK(created_at) as week')
+        ->where('level', 'user')
+        ->groupBy('week')
+        ->get();
+
+        $counts = $users->pluck('count');
+        $weeks = $users->pluck('week');
+
+        return response()->json(['counts' => $counts, 'weeks' => $weeks]);
+    }
+
     public function index(){
         $banner = Banner::latest()->get();
         $listupdateumum = Update::where('jenis_berita', 'umum')->latest()->get();
         $listupdate = Update::latest()->get();
         $listagenda = Agenda::latest()->get();
-        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner', 'listupdateumum'));
+        $users = User::where('level', 'user')->get();
+
+        // dd($users);
+
+        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner', 'listupdateumum', 'users'));
     }
 
     public function detailupdate($slug){

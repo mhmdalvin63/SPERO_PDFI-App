@@ -70,7 +70,7 @@
                         </select>
                     </div>
                     @endif
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Domisili<span class="text-danger">*</span></label>
                         <select name="domisili" placeholder="Cari Nama Kota..." id="kota">
                         <option value="">Cari Nama Kota...</option>
@@ -78,7 +78,7 @@
                             <option value="{{$item->name}}" @if($organisasi->domisili == $item->name)@selected(true)@endif>{{$item->name}}</option>
                            @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/kepengurusan" class="btn btn-outline-warning btn-icon-text">
                             Cancel
