@@ -85,9 +85,34 @@ class FrontEndController extends Controller
         $listagenda = Agenda::latest()->get();
         $users = User::where('level', 'user')->get();
 
+        $monthlyCounts = User::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, count(*) as count')
+        ->where('level', 'user')
+            ->groupBy('month')
+            ->get();
+
+        $data = [];
+
+        // Initialize data array with zero counts for each month
+        $startMonth = Carbon::parse(User::min('created_at'))->format('Y-m');
+        $endMonth = Carbon::now()->format('Y-m');
+        $currentMonth = Carbon::createFromDate(null, 1, 1)->format('Y-m'); // Start from January
+
+        while ($currentMonth <= '2023-12') { // Ganti '2023-12' dengan tahun-bulan terakhir yang Anda inginkan
+            $data['labels'][] = Carbon::parse($currentMonth)->format('M Y');
+            $data['data'][$currentMonth] = 0;
+            $currentMonth = Carbon::parse($currentMonth)->addMonth()->format('Y-m');
+        }
+
+        // Fill in counts for existing months
+        foreach ($monthlyCounts as $count) {
+            $monthKey = Carbon::parse($count->month)->format('Y-m');
+            $data['data'][$monthKey] = $count->count;
+        }
+
+        // dd($data);
         // dd($users);
 
-        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner', 'listupdateumum', 'users'));
+        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner', 'listupdateumum', 'users', 'data'));
     }
 
     public function detailupdate($slug){
