@@ -38,11 +38,9 @@ class OrganisasiController extends Controller
     {
         $this->validate($request,[
             'nama' => 'required',
-            'domisili' => 'required',
             'id_posisi' => 'required',
         ],[
             'nama' => 'Input Nama Dan Gelar',
-            'domisili' => 'Input Domisili',
             'id_posisi' => 'Input Posisi',
         ]);
 

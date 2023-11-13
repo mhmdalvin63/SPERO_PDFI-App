@@ -22,7 +22,6 @@
                             <th>Action</th>
                             <th>Nama & Gelar</th>
                             <th>Posisi</th>
-                            <th>Domisili</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,7 +40,6 @@
                         </td>
                         <td>{{ $item->nama}}</td>
                         <td>{{ $item->posisi->posisi}}</td>
-                        <td>{{ $item->domisili}}</td>
                     </tr>
                     @endforeach
                     </tbody>

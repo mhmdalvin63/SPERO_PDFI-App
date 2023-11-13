@@ -154,51 +154,32 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Fetch data using AJAX
-        $.ajax({
-            url: '/fetch-data',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                // Create chart with Chart.js
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: getWeekLabels(data.weeks),
-                        datasets: [{
-                            label: 'User Terdaftar Minggu Ini',
-                            data: data.counts,
-                            backgroundColor: '#E0F4FF',
-                            borderColor: '#39A7FF',
-                            borderWidth: 3
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            },
-            error: function(error) {
-                console.log('Error fetching data:', error);
-            }
-        });
-    });
+var labels = <?php echo json_encode($data['labels']); ?>;
+var data = <?php echo json_encode(array_values($data['data'])); ?>;
 
-    // Helper function to convert week numbers to labels
-    function getWeekLabels(weeks) {
-        var weekLabels = [];
-        for (var i = 0; i < weeks.length; i++) {
-            var week = weeks[i];
-            weekLabels.push('Minggu Ke ' + week );
-        }
-        return weekLabels;
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Total Users',
+            data: data,
+            backgroundColor: '#87C4FF',
+            borderColor: '#39A7FF',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+      y: {
+        suggestedMax: 10,
+      }
     }
+    }
+});
 </script>
 
 
