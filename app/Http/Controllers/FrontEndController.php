@@ -39,8 +39,14 @@ class FrontEndController extends Controller
         $seksi = Organisasi::whereHas('posisi', function($query){
             $query->where('tingkatan', 3);
         })->get();
+        $ketubid = Organisasi::whereHas('posisi', function($query){
+            $query->where('tingkatan', 4);
+        })->get();
+        $anggota = Organisasi::whereHas('posisi', function($query){
+            $query->where('tingkatan', 5);
+        })->get();
         $bidang = Bidang::all();
-        return view('pages.organisasi', compact('bidang', 'ketua', 'sekretaris', 'seksi'));
+        return view('pages.organisasi', compact('bidang', 'ketua', 'sekretaris', 'seksi', 'ketubid', 'anggota'));
     }
 
     public function update(){
