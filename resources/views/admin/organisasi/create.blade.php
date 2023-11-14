@@ -91,7 +91,7 @@ $('#kota').selectize({
         $('#posisi').change(function () {
             var selectedTingkatan = $('option:selected', this).data('tingkatan');
             
-            if (selectedTingkatan === 4) {
+            if (selectedTingkatan === 4 || selectedTingkatan === 5) {
                 $('#foto').hide();
                 $('#bidang').show();
             } else {

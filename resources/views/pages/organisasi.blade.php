@@ -90,18 +90,25 @@
             <ul class="nav nav-tabs fw-bold justify-content-center" id="myTab" role="tablist">
                 @foreach($bidang as $key => $item)
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link {{ $key === 0 ? 'active' : '' }}" id="home-tab" data-bs-toggle="tab" data-bs-target="#content-{{ $item->id }}" type="button" role="tab" aria-controls="content-{{ $item->id }}">{{$item->nama}}</button>
+                    <button class="nav-link {{ $key === 0 ? 'active text-primary' : '' }}" id="home-tab" data-bs-toggle="tab" data-bs-target="#content-{{ $item->id }}" type="button" role="tab" aria-controls="content-{{ $item->id }}">{{$item->nama}}</button>
                 </li>
                 @endforeach
             </ul>
             <div class="tab-content pt-3 pb-5 box-tab mt-3" id="myTabContent">
                 @foreach($bidang as $item)
                 <div class="tab-pane mx-3 fw-bold fade{{ $loop->first ? ' show active' : '' }}" id="content-{{ $item->id }}" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                    <h4 class="fw-bold">{{$item->nama}}</h4>
-                    <p>{{$item->deskripsi}}</p>
+                    <h4 class="fw-bold text-blue">{{$item->nama}}</h4>
+                    @foreach($item->organisasi as $ketu)
+                        @if($ketu->posisi->tingkatan == 4)
+                            <h5 class=" fw-bold text-blue">Ketua Bidang : {{$ketu->nama}}</h5>
+                        @endif
+                    @endforeach
+                    <p class="text-blue">Anggota:</p>
                     <ul>
                         @foreach($item->organisasi as $pengurus)
-                        <li>{{$pengurus->nama}}</li>
+                        @if($pengurus->posisi->tingkatan == 5)
+                            <li class="text-dark fw-bold">{{$ketu->nama}}</li>
+                        @endif
                         @endforeach
                     </ul>
                 </div>

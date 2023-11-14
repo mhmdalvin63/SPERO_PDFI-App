@@ -92,7 +92,7 @@ class OrganisasiController extends Controller
         $editOrganisasi->id_posisi = $request->id_posisi;
         $editOrganisasi->domisili = $request->domisili;
         $editOrganisasi->nama = $request->nama;
-        if($request->tingkatan == 4){
+        if($request->tingkatan == 4 || $request->tingkatan == 5){
             $editOrganisasi->foto = NULL;
             $editOrganisasi->id_bidang = $request->id_bidang;
         }else{

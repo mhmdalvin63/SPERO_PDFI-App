@@ -23,10 +23,11 @@
                         <label for="exampleInputUsername1" class="fw-bold">Tingkatan<span class="text-danger">*</span></label>
                         <select name="tingkatan" class="form-control" id="">
                             <option selected disabled>Pilih Tingkatan</option>
-                            <option value="1">1: Ketua/Wakil</option>
+                            <option value="1">1: Ketua/Wakil/Dewan</option>
                             <option value="2">2: Bendahara/Sekretaris/dll</option>
                             <option value="3">3: Seksi Pengurus</option>
-                            <option value="4">4: Anggota</option>
+                            <option value="4">4: Ketua Bidang/Koordinator</option>
+                            <option value="5">5: Anggota</option>
                         </select>
                         @error('tingkatan')
                                 <p class="text-danger">{{ $message }}</p>
@@ -102,10 +103,11 @@
                                             <label for="exampleInputUsername1" class="fw-bold">Tingkatan<span class="text-danger">*</span></label>
                                             <select name="tingkatan" class="form-control" id="">
                                                 <option disabled>Pilih Tingkatan</option>
-                                                <option value="1" @if($item->tingkatan == 1)@selected(true)@endif>1: Ketua/Wakil</option>
+                                                <option value="1" @if($item->tingkatan == 1)@selected(true)@endif>1: Ketua/Wakil/Dewan Penasehat</option>
                                                 <option value="2" @if($item->tingkatan == 2)@selected(true)@endif>2: Bendahara/Sekretaris/dll</option>
                                                 <option value="3" @if($item->tingkatan == 3)@selected(true)@endif>3: Seksi Pengurus</option>
-                                                <option value="4" @if($item->tingkatan == 4)@selected(true)@endif>4: Anggota</option>
+                                                <option value="4" @if($item->tingkatan == 4)@selected(true)@endif>4: Ketua Bidang</option>
+                                                <option value="5" @if($item->tingkatan == 5)@selected(true)@endif>5: Anggota</option>
                                             </select>
                                         </div>
                                         <div class="modal-footer gap-1">
