@@ -135,7 +135,6 @@
                             <p class="fw-bold text-dark fs-5 ms-2">Sekretaris: {{$ketu->nama}}</p>
                             @endif
                         @endforeach
-                            <p class="fw-bold text-dark fs-5">Anggota:</p>
                             <ul class="fw-bold text-dark fs-5">
                         @foreach($item->organisasi as $pengurus)
                             @if($pengurus->posisi->tingkatan == 7)
