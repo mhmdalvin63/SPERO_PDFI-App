@@ -87,13 +87,13 @@
         <div class="container">
             <ul class="nav nav-tabs fw-bold justify-content-center" id="myTabs">
                 <li class="nav-item">
-                    <a class="nav-link active" id="bidangTab" data-bs-toggle="tab" href="#bidang">Bidang</a>
+                    <a class="nav-link fs-5 active" id="bidangTab" data-bs-toggle="tab" href="#bidang">Bidang</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="dewanTab" data-bs-toggle="tab" href="#dewan">Dewan</a>
+                    <a class="nav-link fs-5" id="dewanTab" data-bs-toggle="tab" href="#dewan">Dewan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="koorTab" data-bs-toggle="tab" href="#koor">Koordinator</a>
+                    <a class="nav-link fs-5" id="koorTab" data-bs-toggle="tab" href="#koor">Koordinator</a>
                 </li>
             </ul>
             <div class="tab-content fw-bold">
@@ -159,7 +159,6 @@
                             <p class="fw-bold text-dark fs-5 ms-2">Sekretaris: {{$ketu->nama}}</p>
                             @endif
                         @endforeach
-                            <p class="fw-bold text-dark fs-5">Anggota:</p>
                             <ul class="fw-bold text-dark fs-5">
                         @foreach($item->organisasi as $pengurus)
                             @if($pengurus->posisi->tingkatan == 7)
