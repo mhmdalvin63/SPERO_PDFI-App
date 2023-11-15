@@ -11,7 +11,7 @@ class Bidang extends Model
     protected $primaryKey = "id";
     protected $table = "bidangs";
     protected $fillable = [
-        'nama', 'deskripsi',
+        'nama',
     ];
 
     public function organisasi(){

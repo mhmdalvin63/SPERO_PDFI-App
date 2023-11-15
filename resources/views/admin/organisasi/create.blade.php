@@ -18,9 +18,9 @@
                 <form action="{{ url('admin/kepengurusan') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Posisi<span class="text-danger">*</span></label>
+                        <label for="exampleInputUsername1" class="fw-bold">Jabatan<span class="text-danger">*</span></label>
                         <select class="form-control" name="id_posisi" id="posisi">
-                           <option selected disabled>Pilih Posisi</option>
+                           <option selected disabled>Pilih Jabatan</option>
                            @foreach($posisi as $item)
                            <option value="{{$item->id}}" data-tingkatan="{{$item->tingkatan}}">{{$item->posisi}}</option>
                            @endforeach
@@ -36,11 +36,38 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div class="form-group" style="display: none;" id="select-posisi">
+                        <label for="exampleInputUsername1" class="fw-bold">Pilih Posisi<span class="text-danger">*</span></label>
+                        <select class="form-control" id="select-p">
+                            <option selected disabled>Select Posisi</option>
+                            <option value="koor">Koordinator</option>
+                            <option value="dewan">Dewan</option>
+                            <option value="bidang">Bidang</option>
+                        </select>
+                    </div>
                     <div class="form-group" style="display: none;" id="bidang">
                         <label for="exampleInputUsername1" class="fw-bold">Bidang<span class="text-danger">*</span></label>
                         <select name="id_bidang" class="form-control" id="bidang">
                             <option selected disabled>Select Bidang</option>
                             @foreach($bidang as $item)
+                            <option value="{{$item->id}}">{{$item->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: none;" id="dewan">
+                        <label for="exampleInputUsername1" class="fw-bold">Dewan<span class="text-danger">*</span></label>
+                        <select name="id_dewan" class="form-control" id="dewan">
+                            <option selected disabled>Select Dewan</option>
+                            @foreach($dewan as $item)
+                            <option value="{{$item->id}}">{{$item->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: none;" id="koor">
+                        <label for="exampleInputUsername1" class="fw-bold">Koordinator<span class="text-danger">*</span></label>
+                        <select name="id_koordinator" class="form-control" id="koor">
+                            <option selected disabled>Select Koordinator</option>
+                            @foreach($koor as $item)
                             <option value="{{$item->id}}">{{$item->nama}}</option>
                             @endforeach
                         </select>
@@ -91,12 +118,34 @@ $('#kota').selectize({
         $('#posisi').change(function () {
             var selectedTingkatan = $('option:selected', this).data('tingkatan');
             
-            if (selectedTingkatan === 4 || selectedTingkatan === 5) {
+            if (selectedTingkatan !== 1 && selectedTingkatan !== 2 && selectedTingkatan !== 3) {
                 $('#foto').hide();
-                $('#bidang').show();
+                $('#select-posisi').show();
             } else {
                 $('#foto').show();
+                $('#select-posisi').hide();
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#select-p').change(function () {
+            var selected = $(this).val();
+            
+            if (selected === 'koor') {
+                $('#dewan').hide();
                 $('#bidang').hide();
+                $('#koor').show();
+            } else if(selected === 'dewan'){
+                $('#dewan').show();
+                $('#bidang').hide();
+                $('#koor').hide();
+            }else{
+                $('#dewan').hide();
+                $('#bidang').show();
+                $('#koor').hide();
             }
         });
     });

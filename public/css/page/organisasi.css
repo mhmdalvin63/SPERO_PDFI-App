@@ -3,6 +3,11 @@
     height: 100% !important;
     flex-wrap: wrap-reverse;
 }
+
+.nav-link.active {
+    color: blue;
+}
+
 .header img{
     max-inline-size: 100%;
     block-size: auto;

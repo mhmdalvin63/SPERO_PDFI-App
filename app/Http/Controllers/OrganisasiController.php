@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Dewan;
 use App\Models\Bidang;
 use App\Models\Posisi;
 use App\Models\Organisasi;
+use App\Models\Koordinator;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -28,7 +30,9 @@ class OrganisasiController extends Controller
         $kota = City::all();
         $bidang = Bidang::all();
         $posisi = Posisi::orderBy('tingkatan')->get();
-        return view('admin.organisasi.create', compact('kota', 'bidang', 'posisi'));
+        $dewan = Dewan::all();
+        $koor = Koordinator::all();
+        return view('admin.organisasi.create', compact('kota', 'bidang', 'posisi', 'dewan', 'koor'));
     }
 
     /**
@@ -49,6 +53,8 @@ class OrganisasiController extends Controller
         $newOrganisasi->domisili = $request->domisili;
         $newOrganisasi->nama = $request->nama;
         $newOrganisasi->id_bidang = $request->id_bidang;
+        $newOrganisasi->id_koordinator = $request->id_koordinator;
+        $newOrganisasi->id_dewan = $request->id_dewan;
 
         if($request->hasFile('foto'))
             {
@@ -78,8 +84,10 @@ class OrganisasiController extends Controller
         $kota = City::all();
         $bidang = Bidang::all();
         $posisi = Posisi::orderBy('tingkatan')->get();
+        $dewan = Dewan::all();
+        $koor = Koordinator::all();
         $organisasi = Organisasi::find($id);
-        return view('admin.organisasi.edit', compact('kota', 'organisasi', 'bidang', 'posisi'));
+        return view('admin.organisasi.edit', compact('kota', 'organisasi', 'bidang', 'posisi', 'dewan', 'koor'));
     }
 
     /**
@@ -92,9 +100,22 @@ class OrganisasiController extends Controller
         $editOrganisasi->id_posisi = $request->id_posisi;
         $editOrganisasi->domisili = $request->domisili;
         $editOrganisasi->nama = $request->nama;
-        if($request->tingkatan == 4 || $request->tingkatan == 5){
+        if($request->tingkatan != 1 && $request->tingkatan != 2 && $request->tingkatan != 3){
             $editOrganisasi->foto = NULL;
             $editOrganisasi->id_bidang = $request->id_bidang;
+            $editOrganisasi->id_koordinator = $request->id_koordinator;
+            $editOrganisasi->id_dewan = $request->id_dewan;
+        }elseif($request->tingkatan == NULL){
+            $editOrganisasi->id_bidang = $request->id_bidang;
+            $editOrganisasi->id_koordinator = $request->id_koordinator;
+            $editOrganisasi->id_dewan = $request->id_dewan;
+            if($request->hasFile('foto'))
+            {
+                $fotoprofil = 'profil'.rand(1,99999).'.'.$request->foto->getClientOriginalExtension();
+                $request->file('foto')->move(public_path().'/img/', $fotoprofil);
+                $editOrganisasi->foto = $fotoprofil;
+                $editOrganisasi->save();
+            }
         }else{
             if($request->hasFile('foto'))
             {
@@ -104,6 +125,8 @@ class OrganisasiController extends Controller
                 $editOrganisasi->save();
             }
             $editOrganisasi->id_bidang = NULL;
+            $editOrganisasi->id_koordinator =NULL;
+            $editOrganisasi->id_dewan = NULL;
         }
 
         

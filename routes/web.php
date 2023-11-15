@@ -5,6 +5,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DewanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BannerController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\AdminAgendaController;
+use App\Http\Controllers\KoordinatorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,6 +106,8 @@ Route::middleware(['isAdmin', 'auth:web', 'PreventBack'])->prefix('/admin')->gro
     Route::resource('/kepengurusan', OrganisasiController::class);
     Route::resource('/bidang', BidangController::class);
     Route::resource('/posisi', PosisiController::class);
+    Route::resource('/dewan', DewanController::class);
+    Route::resource('/koordinator', KoordinatorController::class);
     Route::resource('/user-management', UserController::class);
     Route::put('/user-management/resetpassword/{id}', [UserController::class, 'resetpassword'])->name('resetpassword');
     Route::put('/user-management/verified/{id}', [UserController::class, 'verified'])->name('verified');

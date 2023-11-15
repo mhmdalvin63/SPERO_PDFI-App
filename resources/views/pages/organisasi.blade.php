@@ -3,9 +3,7 @@
 
 @section('content')
 <link rel="stylesheet" href=" {{ asset('css/page/organisasi.css')}}">
-
 <div class="organisasiPage"  style="transform: translateY(7rem)">
-
     <div class="header">
         <div class="container">
             <div class="row align-items-center" id="bg-header">
@@ -87,32 +85,72 @@
     
     <div class="sejarah">
         <div class="container">
-            <ul class="nav nav-tabs fw-bold justify-content-center" id="myTab" role="tablist">
-                @foreach($bidang as $key => $item)
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link {{ $key === 0 ? 'active text-primary' : '' }}" id="home-tab" data-bs-toggle="tab" data-bs-target="#content-{{ $item->id }}" type="button" role="tab" aria-controls="content-{{ $item->id }}">{{$item->nama}}</button>
+            <ul class="nav nav-tabs fw-bold justify-content-center" id="myTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="bidangTab" data-bs-toggle="tab" href="#bidang">Bidang</a>
                 </li>
-                @endforeach
+                <li class="nav-item">
+                    <a class="nav-link" id="dewanTab" data-bs-toggle="tab" href="#dewan">Dewan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="koorTab" data-bs-toggle="tab" href="#koor">Koordinator</a>
+                </li>
             </ul>
-            <div class="tab-content pt-3 pb-5 box-tab mt-3" id="myTabContent">
-                @foreach($bidang as $item)
-                <div class="tab-pane mx-3 fw-bold fade{{ $loop->first ? ' show active' : '' }}" id="content-{{ $item->id }}" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                    <h4 class="fw-bold text-blue">{{$item->nama}}</h4>
-                    @foreach($item->organisasi as $ketu)
-                        @if($ketu->posisi->tingkatan == 4)
-                            <h5 class=" fw-bold text-blue">Ketua Bidang : {{$ketu->nama}}</h5>
-                        @endif
-                    @endforeach
-                    <p class="text-blue">Anggota:</p>
-                    <ul>
-                        @foreach($item->organisasi as $pengurus)
-                        @if($pengurus->posisi->tingkatan == 5)
-                            <li class="text-dark fw-bold">{{$ketu->nama}}</li>
-                        @endif
+            <div class="tab-content fw-bold">
+                <div class="tab-pane show active fade" id="bidang">
+                    @foreach($bidang as $item)
+                    <p class="fw-bold text-blue">{{$item->nama}}</p>
+                        @foreach($item->organisasi as $ketu)
+                            @if($ketu->posisi->tingkatan == 4)
+                            <p class="fw-bold text-dark ms-2">Ketua: {{$ketu->nama}}</p>
+                            @endif
                         @endforeach
-                    </ul>
+                            <p class="fw-bold text-dark">Anggota:</p>
+                            <ul class="fw-bold text-dark">
+                        @foreach($item->organisasi as $pengurus)
+                            @if($pengurus->posisi->tingkatan == 7)
+                                <li>{{$pengurus->nama}}</li>
+                                @endif
+                                @endforeach
+                            </ul>
+                    @endforeach
                 </div>
-                @endforeach
+                <div class="tab-pane fade" id="dewan">
+                @foreach($dewan as $item)
+                    <p class="fw-bold text-blue">{{$item->nama}}</p>
+                        @foreach($item->organisasi as $ketu)
+                            @if($ketu->posisi->tingkatan == 4)
+                            <p class="fw-bold text-dark ms-2">Ketua: {{$ketu->nama}}</p>
+                            @endif
+                        @endforeach
+                            <p class="fw-bold text-dark">Anggota:</p>
+                            <ul class="fw-bold text-dark">
+                        @foreach($item->organisasi as $pengurus)
+                            @if($pengurus->posisi->tingkatan == 7)
+                                <li>{{$pengurus->nama}}</li>
+                                @endif
+                                @endforeach
+                            </ul>
+                    @endforeach
+                </div>
+                <div class="tab-pane fade" id="koor">
+                @foreach($koor as $item)
+                    <p class="fw-bold text-blue">{{$item->nama}}</p>
+                        @foreach($item->organisasi as $ketu)
+                            @if($ketu->posisi->tingkatan == 4)
+                            <p class="fw-bold text-dark ms-2">Ketua: {{$ketu->nama}}</p>
+                            @endif
+                        @endforeach
+                            <p class="fw-bold text-dark">Anggota:</p>
+                            <ul class="fw-bold text-dark">
+                        @foreach($item->organisasi as $pengurus)
+                            @if($pengurus->posisi->tingkatan == 7)
+                                <li>{{$pengurus->nama}}</li>
+                                @endif
+                                @endforeach
+                            </ul>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ use Share;
 use Carbon\Carbon;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Dewan;
 use App\Models\Agenda;
 use App\Models\Banner;
 use App\Models\Bidang;
@@ -15,6 +16,7 @@ use App\Models\Pendaftar;
 use App\Models\LikeUpdate;
 use App\Models\Organisasi;
 use App\Models\TypeAgenda;
+use App\Models\Koordinator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravolt\Indonesia\Models\City;
@@ -46,7 +48,9 @@ class FrontEndController extends Controller
             $query->where('tingkatan', 5);
         })->get();
         $bidang = Bidang::all();
-        return view('pages.organisasi', compact('bidang', 'ketua', 'sekretaris', 'seksi', 'ketubid', 'anggota'));
+        $koor = Koordinator::all();
+        $dewan = Dewan::all();
+        return view('pages.organisasi', compact('bidang', 'ketua', 'sekretaris', 'seksi', 'ketubid', 'anggota', 'koor', 'dewan'));
     }
 
     public function update(){
