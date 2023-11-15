@@ -99,14 +99,20 @@
             <div class="tab-content fw-bold">
                 <div class="tab-pane show active fade" id="bidang">
                     @foreach($bidang as $item)
-                    <p class="fw-bold text-blue">{{$item->nama}}</p>
+                    <p class="fw-bold text-blue fs-4">{{$item->nama}}</p>
                         @foreach($item->organisasi as $ketu)
                             @if($ketu->posisi->tingkatan == 4)
-                            <p class="fw-bold text-dark ms-2">Ketua: {{$ketu->nama}}</p>
+                            <p class="fw-bold text-dark fs-5 ms-2">Ketua: {{$ketu->nama}}</p>
+                            @endif
+                            @if($ketu->posisi->tingkatan == 5)
+                            <p class="fw-bold text-dark fs-5 ms-2">Wakil Ketua: {{$ketu->nama}}</p>
+                            @endif
+                            @if($ketu->posisi->tingkatan == 6)
+                            <p class="fw-bold text-dark fs-5 ms-2">Sekretaris: {{$ketu->nama}}</p>
                             @endif
                         @endforeach
-                            <p class="fw-bold text-dark">Anggota:</p>
-                            <ul class="fw-bold text-dark">
+                            <p class="fw-bold text-dark fs-5">Anggota:</p>
+                            <ul class="fw-bold text-dark fs-5">
                         @foreach($item->organisasi as $pengurus)
                             @if($pengurus->posisi->tingkatan == 7)
                                 <li>{{$pengurus->nama}}</li>
@@ -117,14 +123,20 @@
                 </div>
                 <div class="tab-pane fade" id="dewan">
                 @foreach($dewan as $item)
-                    <p class="fw-bold text-blue">{{$item->nama}}</p>
+                    <p class="fw-bold text-blue fs-4">{{$item->nama}}</p>
                         @foreach($item->organisasi as $ketu)
                             @if($ketu->posisi->tingkatan == 4)
-                            <p class="fw-bold text-dark ms-2">Ketua: {{$ketu->nama}}</p>
+                            <p class="fw-bold text-dark fs-5 ms-2">Ketua: {{$ketu->nama}}</p>
+                            @endif
+                            @if($ketu->posisi->tingkatan == 5)
+                            <p class="fw-bold text-dark fs-5 ms-2">Wakil Ketua: {{$ketu->nama}}</p>
+                            @endif
+                            @if($ketu->posisi->tingkatan == 6)
+                            <p class="fw-bold text-dark fs-5 ms-2">Sekretaris: {{$ketu->nama}}</p>
                             @endif
                         @endforeach
-                            <p class="fw-bold text-dark">Anggota:</p>
-                            <ul class="fw-bold text-dark">
+                            <p class="fw-bold text-dark fs-5">Anggota:</p>
+                            <ul class="fw-bold text-dark fs-5">
                         @foreach($item->organisasi as $pengurus)
                             @if($pengurus->posisi->tingkatan == 7)
                                 <li>{{$pengurus->nama}}</li>
@@ -135,14 +147,20 @@
                 </div>
                 <div class="tab-pane fade" id="koor">
                 @foreach($koor as $item)
-                    <p class="fw-bold text-blue">{{$item->nama}}</p>
+                    <p class="fw-bold text-blue fs-4">{{$item->nama}}</p>
                         @foreach($item->organisasi as $ketu)
                             @if($ketu->posisi->tingkatan == 4)
-                            <p class="fw-bold text-dark ms-2">Ketua: {{$ketu->nama}}</p>
+                            <p class="fw-bold text-dark fs-5 ms-2">Ketua: {{$ketu->nama}}</p>
+                            @endif
+                            @if($ketu->posisi->tingkatan == 5)
+                            <p class="fw-bold text-dark fs-5 ms-2">Wakil Ketua: {{$ketu->nama}}</p>
+                            @endif
+                            @if($ketu->posisi->tingkatan == 6)
+                            <p class="fw-bold text-dark fs-5 ms-2">Sekretaris: {{$ketu->nama}}</p>
                             @endif
                         @endforeach
-                            <p class="fw-bold text-dark">Anggota:</p>
-                            <ul class="fw-bold text-dark">
+                            <p class="fw-bold text-dark fs-5">Anggota:</p>
+                            <ul class="fw-bold text-dark fs-5">
                         @foreach($item->organisasi as $pengurus)
                             @if($pengurus->posisi->tingkatan == 7)
                                 <li>{{$pengurus->nama}}</li>
