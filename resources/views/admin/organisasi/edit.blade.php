@@ -32,6 +32,27 @@
                         <label for="exampleInputUsername1" class="fw-bold">Nama & Gelar<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Input Title Update..." value="{{$organisasi->nama}}" name="nama">
                     </div>
+                    @if($organisasi->id_bidang != NULL || $organisasi->id_koordinator != NULL || $organisasi->id_dewan != NULL)
+                    <div class="form-group" id="select-posisi">
+                        <label for="exampleInputUsername1" class="fw-bold">Pilih Posisi<span class="text-danger">*</span></label>
+                        <select class="form-control" id="select-p">
+                            <option selected disabled>Select Posisi</option>
+                            <option value="koor">Koordinator</option>
+                            <option value="dewan">Dewan</option>
+                            <option value="bidang">Bidang</option>
+                        </select>
+                    </div>
+                    @else
+                    <div class="form-group" style="display: none;" id="select-posisi">
+                        <label for="exampleInputUsername1" class="fw-bold">Pilih Posisi<span class="text-danger">*</span></label>
+                        <select class="form-control" id="select-p">
+                            <option selected disabled>Select Posisi</option>
+                            <option value="koor">Koordinator</option>
+                            <option value="dewan">Dewan</option>
+                            <option value="bidang">Bidang</option>
+                        </select>
+                    </div>
+                    @endif
                     @if($organisasi->foto != NULL)
                     <div class="form-group" id="foto">
                         <label for="formFile" class="form-label">Input Foto</label><br>
@@ -50,7 +71,7 @@
                     </div>
                     @endif
                     @if($organisasi->id_bidang == NULL)
-                    <div class="form-group" style="display: none;" id="bidang">
+                    <div class="form-group" style="display: none;" id="selectbidang">
                         <label for="exampleInputUsername1" class="fw-bold">Bidang<span class="text-danger">*</span></label>
                         <select name="id_bidang" class="form-control" id="bidang">
                             <option selected disabled>Select Bidang</option>
@@ -60,12 +81,54 @@
                         </select>
                     </div>
                     @else
-                    <div class="form-group" id="bidang">
+                    <div class="form-group" id="selectbidang">
                         <label for="exampleInputUsername1" class="fw-bold">Bidang<span class="text-danger">*</span></label>
                         <select name="id_bidang" class="form-control" id="bidang">
                             <option disabled>Select Bidang</option>
                             @foreach($bidang as $item)
                             <option value="{{$item->id}}" @if($item->id == $organisasi->id_bidang)@selected(true)@endif>{{$item->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
+                    @if($organisasi->id_dewan == NULL)
+                    <div class="form-group" style="display: none;" id="selectdewan">
+                        <label for="exampleInputUsername1" class="fw-bold">Dewan<span class="text-danger">*</span></label>
+                        <select name="id_dewan" class="form-control" id="dewan">
+                            <option selected disabled>Select Dewan</option>
+                            @foreach($dewan as $item)
+                            <option value="{{$item->id}}" @if($item->id == $organisasi->id_dewan)@selected(true)@endif>{{$item->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @else
+                    <div class="form-group" id="selectdewan">
+                        <label for="exampleInputUsername1" class="fw-bold">Dewan<span class="text-danger">*</span></label>
+                        <select name="id_dewan" class="form-control" id="dewan">
+                            <option disabled>Select Dewan</option>
+                            @foreach($dewan as $item)
+                            <option value="{{$item->id}}" @if($item->id == $organisasi->id_dewan)@selected(true)@endif>{{$item->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @endif
+                    @if($organisasi->id_koordinator == NULL)
+                    <div class="form-group" style="display: none;" id="selectkoor">
+                        <label for="exampleInputUsername1" class="fw-bold">Koordinator<span class="text-danger">*</span></label>
+                        <select name="id_koordinator" class="form-control" id="koor">
+                            <option selected disabled>Select Koordinator</option>
+                            @foreach($koor as $item)
+                            <option value="{{$item->id}}" @if($item->id == $organisasi->id_koordinator)@selected(true)@endif>{{$item->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @else
+                    <div class="form-group" id="selectkoor">
+                        <label for="exampleInputUsername1" class="fw-bold">Koordinator<span class="text-danger">*</span></label>
+                        <select name="id_koordinator" class="form-control" id="koor">
+                            <option selected disabled>Select Koordinator</option>
+                            @foreach($koor as $item)
+                            <option value="{{$item->id}}" @if($item->id == $organisasi->id_koordinator)@selected(true)@endif>{{$item->nama}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -101,15 +164,43 @@
         $('#posisi').change(function () {
             var selectedTingkatan = $('option:selected', this).data('tingkatan');
             
-            if (selectedTingkatan === 4 || selectedTingkatan === 5) {
+            if (selectedTingkatan !== 1 && selectedTingkatan !== 2 && selectedTingkatan !== 3) {
                 $('#foto').hide();
-                $('#bidang').show();
+                $('#select-posisi').show();
             } else {
                 $('#foto').show();
-                $('#bidang').hide();
+                $('#select-posisi').hide();
             }
 
             $('#select-tingkatan').val(selectedTingkatan);
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#select-p').change(function () {
+            var selected = $(this).val();
+            
+            if (selected === 'koor') {
+                $('#selectdewan').hide();
+                $('#dewan').val(null);
+                $('#selectbidang').hide();
+                $('#bidang').val(null);
+                $('#selectkoor').show();
+            } else if(selected === 'dewan'){
+                $('#selectdewan').show();
+                $('#selectbidang').hide();
+                $('#bidang').val(null);
+                $('#selectkoor').hide();
+                $('#koor').val(null);
+            }else{
+                $('#selectdewan').hide();
+                $('#dewan').val(null);
+                $('#selectbidang').show();
+                $('#selectkoor').hide();
+                $('#koor').val(null);
+            }
         });
     });
 </script>
@@ -122,21 +213,7 @@ $('#kota').selectize({
 
 
 
-<script>
-    function toggleInput() {
-        const cekElement = document.getElementById('foto');
-        const selectElement = document.getElementById("posisi");
-        const bidangElement = document.getElementById("bidang");
 
-        if (selectElement.value === "Anggota") {
-            cekElement.style.display = "none";
-            bidangElement.style.display = "block";
-        } else {
-            cekElement.style.display = "block";
-            bidangElement.style.display = "none";
-        }
-    }
-</script>
 
 <script>
 const foto = document.getElementById('selectImage');

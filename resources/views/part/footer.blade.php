@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-md-between align-items-start">
             <div class="col-lg-2 col-md-2 footerLogo">
-                    <img src="{{asset('../image/pdfiLogoEllipse.png')}}" alt="">
+                    <img src="{{asset('../image/logo_pdfmi.png')}}" alt="">
             </div>
             <div class="col-lg-3 col-md-3 footerTitle">
                 <p class="xl fw-bold my-2">PERHIMPUNAN DOKTER FORENSIK INDONESIA</p>

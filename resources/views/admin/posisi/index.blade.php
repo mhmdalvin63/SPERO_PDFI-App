@@ -1,19 +1,19 @@
 @extends('admin.template')
-@section('title', 'Posisi')
+@section('title', 'Jabatan')
 @section('layout')
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Posisi</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Jabatan</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
       <form action="{{ url('admin/posisi') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Posisi<span class="text-danger">*</span></label>
+                        <label for="exampleInputUsername1" class="fw-bold">Jabatan<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" value="{{ old('posisi') }}" id="exampleInputUsername1" placeholder="Input Posisi Name..." name="posisi">
                         @error('posisi')
                                 <p class="text-danger">{{ $message }}</p>
@@ -23,11 +23,13 @@
                         <label for="exampleInputUsername1" class="fw-bold">Tingkatan<span class="text-danger">*</span></label>
                         <select name="tingkatan" class="form-control" id="">
                             <option selected disabled>Pilih Tingkatan</option>
-                            <option value="1">1: Ketua/Wakil/Dewan</option>
+                            <option value="1">1: Ketua/Wakil</option>
                             <option value="2">2: Bendahara/Sekretaris/dll</option>
                             <option value="3">3: Seksi Pengurus</option>
-                            <option value="4">4: Ketua Bidang/Koordinator</option>
-                            <option value="5">5: Anggota</option>
+                            <option value="4">4: Ketua Bidang/Koordinator/Dewan</option>
+                            <option value="5">5: Wakil Ketua Bidang/Koordinator/Dewan</option>
+                            <option value="6">6: Sekretaris Bidang/Koordinator/Dewan</option>
+                            <option value="7">7: Anggota/Anggota Dewan</option>
                         </select>
                         @error('tingkatan')
                                 <p class="text-danger">{{ $message }}</p>
@@ -73,7 +75,7 @@
                         <tr class="text-center">
                             <th>No</th>
                             <th>Action</th>
-                            <th>Posisi</th>
+                            <th>Jabatan</th>
                             <th>Tingkatan</th>
                         </tr>
                     </thead>
@@ -88,7 +90,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="EditLabel">Edit Posisi</h1>
+                                        <h1 class="modal-title fs-5" id="EditLabel">Edit Jabatan</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
@@ -96,18 +98,20 @@
                                         {{ csrf_field() }}
                                         @method('PUT')
                                         <div class="form-group">
-                                            <label for="exampleInputUsername1" class="fw-bold">Posisi<span class="text-danger">*</span></label>
+                                            <label for="exampleInputUsername1" class="fw-bold">Jabatan<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" value="{{$item->posisi}}" id="exampleInputUsername1" placeholder="Input Posisi..." name="posisi">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputUsername1" class="fw-bold">Tingkatan<span class="text-danger">*</span></label>
                                             <select name="tingkatan" class="form-control" id="">
                                                 <option disabled>Pilih Tingkatan</option>
-                                                <option value="1" @if($item->tingkatan == 1)@selected(true)@endif>1: Ketua/Wakil/Dewan Penasehat</option>
+                                                <option value="1" @if($item->tingkatan == 1)@selected(true)@endif>1: Ketua/Wakil</option>
                                                 <option value="2" @if($item->tingkatan == 2)@selected(true)@endif>2: Bendahara/Sekretaris/dll</option>
                                                 <option value="3" @if($item->tingkatan == 3)@selected(true)@endif>3: Seksi Pengurus</option>
-                                                <option value="4" @if($item->tingkatan == 4)@selected(true)@endif>4: Ketua Bidang</option>
-                                                <option value="5" @if($item->tingkatan == 5)@selected(true)@endif>5: Anggota</option>
+                                                <option value="4" @if($item->tingkatan == 4)@selected(true)@endif>4: Ketua Bidang/Koordinator/Dewan</option>
+                                                <option value="5" @if($item->tingkatan == 5)@selected(true)@endif>5: Wakil Ketua Bidang/Koordinator/Dewan</option>
+                                                <option value="6" @if($item->tingkatan == 6)@selected(true)@endif>6: Sekretaris Bidang/Koordinator/Dewan</option>
+                                                <option value="7" @if($item->tingkatan == 7)@selected(true)@endif>7: Anggota/Anggota Dewan</option>
                                             </select>
                                         </div>
                                         <div class="modal-footer gap-1">
@@ -138,7 +142,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-4">Posisi: </div>
+                                            <div class="col-4">Jabatan: </div>
                                             <div class="col-8 text-start">{{$item->posisi}}</div>
                                         </div>
                                     </div>

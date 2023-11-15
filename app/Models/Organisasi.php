@@ -21,4 +21,12 @@ class Organisasi extends Model
     public function posisi(){
         return $this->belongsTo(Posisi::class, 'id_posisi');
     }
+
+    public function dewan(){
+        return $this->belongsTo(Dewan::class, 'id_dewan');
+    }
+
+    public function koordinator(){
+        return $this->belongsTo(Koordinator::class, 'id_koordinator');
+    }
 }
