@@ -15,17 +15,17 @@
                 </a>
             </div>
             <div class="text-center">
-                <table class="table table-responsive table-hover table-striped">
+                <table class="table table-responsive table-hover table-striped" id="table1">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Title Event</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Location</th>
-                            <th>Organizer</th>
-                            <th>Image Event</th>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Action</th>
+                            <th style="text-align: center;">Title Event</th>
+                            <th style="text-align: center;">Start Date</th>
+                            <th style="text-align: center;">End Date</th>
+                            <th style="text-align: center;">Location</th>
+                            <th style="text-align: center;">Organizer</th>
+                            <th style="text-align: center;">Image Event</th>
                         </tr>
                     </thead>
                     <tbody>

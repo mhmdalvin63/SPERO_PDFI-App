@@ -143,8 +143,11 @@
         <div class="container">
             <h3 class="text-blue fw-bolder mb-2 mb-lg-5">Statistik</h3>
             <div class="row">
-                <div class="">
-                    <canvas style="width: 100%;" id="myChart"></canvas>
+                <div class="col-sm-6">
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+                <div class="col-sm-6">
+                    <canvas id="ageChart" width="400" height="200"></canvas>
                 </div>
             </div>
         </div>
@@ -154,35 +157,67 @@
 
 
 <script>
-var labels = <?php echo json_encode($data['labels']); ?>;
-var data = <?php echo json_encode(array_values($data['data'])); ?>;
+     var maleCount = <?php echo $maleCount; ?>;
+    var femaleCount = <?php echo $femaleCount; ?>;
+    // Fetch data from the controller method
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: labels,
+    var data = {
+        labels: ['Male', 'Female'],
         datasets: [{
-            label: 'Total Users',
-            data: data,
-            backgroundColor: '#87C4FF',
-            borderColor: '#39A7FF',
-            borderWidth: 2
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-      y: {
-        suggestedMax: 10,
-      }
-    }
-    }
-});
+            label: 'Total User',
+            data: [maleCount, femaleCount],
+            backgroundColor :['#87C4FF', '#662549'],
+            borderWidth : 0,
+        }],
+    };
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: 10,
+                }
+            },
+            responsive: true,
+        }
+    });
 </script>
 
+<script>
+    // Data from the controller
+    var ageGroups = <?php echo json_encode($ageGroups); ?>;
 
+    // Data for the age group chart
+    var ageChartData = {
+        labels: Object.keys(ageGroups),
+        datasets: [{
+            label: 'Total User Sesuai Umur',
+            data: Object.values(ageGroups),
+            backgroundColor: ['rgba(0, 123, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+            borderWidth: 1,
+        }],
+    };
+
+    // Create the age group chart
+    var ctx = document.getElementById('ageChart').getContext('2d');
+    var ageChart = new Chart(ctx, {
+        type: 'bar',
+        data: ageChartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    suggestedMax: 10,
+                }
+            },
+            maintainAspectRatio: false, // Make the chart responsive
+            responsive: true,
+        }
+    });
+</script>
 
 
 @endsection

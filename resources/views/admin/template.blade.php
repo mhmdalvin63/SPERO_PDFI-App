@@ -13,6 +13,8 @@
     <link rel="shortcut icon" href="{{asset('dist/assets/images/logo/favicon.png')}}" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
     
+<link rel="stylesheet" href="{{asset('dist/assets/extensions/simple-datatables/style.css')}}">
+<link rel="stylesheet" href="{{asset('dist/assets/css/pages/simple-datatables.css')}}">
 <link rel="stylesheet" href="{{asset('dist/assets/css/shared/iconly.css')}}')}}">
 <link rel="stylesheet" href="{{asset('dist/assets/extensions/filepond/filepond.css')}}">
 <link rel="stylesheet" href="{{asset('dist/assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css')}}">
@@ -216,6 +218,9 @@
     <script src="{{asset('dist/assets/js/app.js')}}"></script>
     
 <!-- Need: Apexcharts -->
+
+<script src="{{asset('dist/assets/extensions/simple-datatables/umd/simple-datatables.js')}}"></script>
+<script src="{{asset('dist/assets/js/pages/simple-datatables.js')}}"></script>
 <script src="{{asset('dist/assets/extensions/filepond/filepond.js')}}"></script>
 <script src="{{asset('dist/assets/extensions/toastify-js/src/toastify.js')}}"></script>
 <script src="{{asset('dist/assets/js/pages/filepond.js')}}"></script>

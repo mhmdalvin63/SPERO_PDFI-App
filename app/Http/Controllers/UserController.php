@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\City;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -22,7 +23,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $kota = City::all();
+        return view('admin.user.create', compact('kota'));
     }
 
     /**
@@ -37,6 +39,8 @@ class UserController extends Controller
             'no_anggota_idi' => 'required',
             'no_anggota_pdfi' => 'required',
             'asal_cabang' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required',
             'tempat_praktek' => 'required',
             'password' => 'required|min:8',
         ],[
@@ -47,6 +51,8 @@ class UserController extends Controller
             'no_anggota_pdfi' => 'Input Your PDFI Number',
             'asal_cabang' => 'Input Your Branch Clinic',
             'tempat_praktek' => 'Input Your Address Branch Clinic',
+            'jenis_kelamin' => 'Input Your Gender',
+            'tanggal_lahir' => 'Input Your Date of Birth',
             'password' => 'Input Your Password',
             'password.min' => 'Password Must Be 8 Character',
         ]);   
@@ -59,6 +65,8 @@ class UserController extends Controller
             $user->no_anggota_pdfi = $request->no_anggota_pdfi;
             $user->asal_cabang = $request->asal_cabang;
             $user->tempat_praktek = $request->tempat_praktek;
+            $user->jenis_kelamin = $request->jenis_kelamin;
+            $user->tanggal_lahir = $request->tanggal_lahir;
             $user->password = bcrypt($request->password);
             $user->level = 'user';
             $user->verification = 'verified';
@@ -92,8 +100,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        
+        $kota = City::all();
         $userEdit = User::find($id);
-        return view('admin.user.edit', compact('userEdit'));
+        return view('admin.user.edit', compact('userEdit', 'kota'));
     }
 
     /**
@@ -128,6 +138,8 @@ class UserController extends Controller
             $user->no_anggota_pdfi = $request->no_anggota_pdfi;
             $user->asal_cabang = $request->asal_cabang;
             $user->tempat_praktek = $request->tempat_praktek;
+            $user->jenis_kelamin = $request->jenis_kelamin;
+            $user->tanggal_lahir = $request->tanggal_lahir;
             if($request->hasFile('bukti_keanggotaan'))
             {
                 $buktiAnggota = 'Anggota'.rand(1,99999).'.'.$request->bukti_keanggotaan->getClientOriginalExtension();

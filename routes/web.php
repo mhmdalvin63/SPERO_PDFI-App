@@ -129,7 +129,7 @@ Route::middleware(['isCabang', 'auth:web', 'PreventBack'])->prefix('/cabang')->g
     Route::post('/search', [AgendaController::class, 'search'])->name('search');
 });
 
-Route::get('/fetch-data', [FrontEndController::class, 'fetchData']);
+Route::get('/chart-data', [FrontEndController::class, 'fetchData']);
 // Route::get('/', function () {return view('pages.beranda');});
 // Route::get('update', function () {return view('pages.update');});
 // Route::get('detailupdate', function () {return view('pages.detailUpdate');});

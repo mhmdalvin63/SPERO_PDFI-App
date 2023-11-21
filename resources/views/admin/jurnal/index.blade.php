@@ -68,14 +68,14 @@
     </div>
 @endif
             <div class="table-responsive">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" id="table1">
                     <thead>
                         <tr class="text-center">
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Title</th>
-                            <th>Link</th>
-                            <th>Image</th>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Action</th>
+                            <th style="text-align: center;">Title</th>
+                            <th style="text-align: center;">Link</th>
+                            <th style="text-align: center;">Image</th>
                         </tr>
                     </thead>
                     <tbody>

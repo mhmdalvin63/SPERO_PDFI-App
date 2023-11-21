@@ -1,6 +1,7 @@
 @extends('admin.template')
 @section('title', 'Kepengurusan')
 @section('layout')
+
 <div class="page-heading">
     <h3>Table Kepengurusan</h3>
 </div>
@@ -15,13 +16,13 @@
                 </a>
             </div>
             <div class="text-center">
-                <table class="table table-responsive table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Nama & Gelar</th>
-                            <th>Posisi</th>
+                <table class="table table-responsive table-hover table-striped" id="table1">
+                    <thead >
+                        <tr style="text-align: center;">
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Action</th>
+                            <th style="text-align: center;">Nama & Gelar</th>
+                            <th style="text-align: center;">Posisi</th>
                         </tr>
                     </thead>
                     <tbody>
