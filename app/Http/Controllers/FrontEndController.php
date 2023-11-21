@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Share;
 use Carbon\Carbon;
 use App\Models\Tag;
+use App\Models\City;
 use App\Models\User;
 use App\Models\Dewan;
 use App\Models\Agenda;
@@ -19,7 +20,6 @@ use App\Models\TypeAgenda;
 use App\Models\Koordinator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Laravolt\Indonesia\Models\City;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use ConsoleTVs\Charts\Facades\Charts;
@@ -47,10 +47,13 @@ class FrontEndController extends Controller
         $anggota = Organisasi::whereHas('posisi', function($query){
             $query->where('tingkatan', 5);
         })->get();
+
+        $users = User::where('level', 'user')->where('verification', 'verified')->distinct('asal_cabang')->get();
+        $kota = City::all();
         $bidang = Bidang::all();
         $koor = Koordinator::all();
         $dewan = Dewan::all();
-        return view('pages.organisasi', compact('bidang', 'ketua', 'sekretaris', 'seksi', 'ketubid', 'anggota', 'koor', 'dewan'));
+        return view('pages.organisasi', compact('bidang', 'ketua', 'sekretaris', 'seksi', 'ketubid', 'anggota', 'koor', 'dewan', 'users', 'kota'));
     }
 
     public function update(){
@@ -77,15 +80,23 @@ class FrontEndController extends Controller
 
     public function fetchData(){
         // $data = [10, 20, 30, 40, 50];
-        $users = User::selectRaw('COUNT(*) as count, WEEK(created_at) as week')
-        ->where('level', 'user')
-        ->groupBy('week')
-        ->get();
+        $maleCount = User::where('gender', 'male')->where('level', 'user')->count();
+        $femaleCount = User::where('gender', 'female')->where('level', 'user')->count();
 
-        $counts = $users->pluck('count');
-        $weeks = $users->pluck('week');
+        $data = [
+            'labels' => ['Laki Laki', 'Perempuan'],
+            'datasets' => [
+                [
+                    'label' => 'Users Count',
+                    'data' => [$maleCount, $femaleCount],
+                    'backgroundColor' => ['#87C4FF', '#FFEED9'],
+                    'borderColor' => ['#2B3499', '#2B3499'],
+                    'borderWidth' => 1,
+                ],
+            ],
+        ];
 
-        return response()->json(['counts' => $counts, 'weeks' => $weeks]);
+        return response()->json(['data' => $data]);
     }
 
     public function index(){
@@ -94,6 +105,8 @@ class FrontEndController extends Controller
         $listupdate = Update::latest()->get();
         $listagenda = Agenda::latest()->get();
         $users = User::where('level', 'user')->get();
+        $countUser = User::where('level', 'user')->where('verification', 'verified')->count();
+        $countCabang = User::where('level', 'user')->where('verification', 'verified')->distinct('asal_cabang')->count();
 
         $monthlyCounts = User::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, count(*) as count')
         ->where('level', 'user')
@@ -121,8 +134,35 @@ class FrontEndController extends Controller
 
         // dd($data);
         // dd($users);
+        $ageGroups = [
+            '<40' => 0,
+            '41-50' => 0,
+            '51-60' => 0,
+            '61>' => 0,
+        ];
+    
+        $currentDate = Carbon::now();
+    
+        foreach ($users as $user) {
+            $birthDate = Carbon::parse($user->tanggal_lahir);
+            $age = $currentDate->diffInYears($birthDate);
+            // dd($age);
+            if ($age <= 40) {
+                $ageGroups['<40']++;
+            } elseif ($age >= 41 && $age <= 50) {
+                $ageGroups['41-50']++;
+            } elseif ($age >= 51 && $age <= 60) {
+                $ageGroups['51-60']++;
+            } else {
+                $ageGroups['61>']++;
+            }
+        }
+        // dd(Carbon::parse($users->tanggal_lahir));
 
-        return view("pages.beranda", compact('listupdate', 'listagenda', 'banner', 'listupdateumum', 'users', 'data'));
+        // dd($ageGroups);
+        $maleCount = User::where('jenis_kelamin', 'L')->where('level', 'user')->count();
+        $femaleCount = User::where('jenis_kelamin', 'P')->where('level', 'user')->count();
+        return view("pages.beranda", compact('listupdate', 'ageGroups', 'maleCount', 'femaleCount', 'listagenda', 'banner', 'listupdateumum', 'users', 'data', 'countUser', 'countCabang'));
     }
 
     public function detailupdate($slug){

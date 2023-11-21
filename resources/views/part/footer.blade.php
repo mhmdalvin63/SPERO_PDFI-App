@@ -7,13 +7,8 @@
                     <img src="{{asset('../image/logo_pdfmi.png')}}" alt="">
             </div>
             <div class="col-lg-3 col-md-3 footerTitle">
-                <p class="xl fw-bold my-2">PERHIMPUNAN DOKTER FORENSIK INDONESIA</p>
-                <p class="text-justify my-2">Perhimpunan Dokter Forensik Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia.</p>
-                @php
-                    use App\Models\User;
-                    $count = User::where('level', 'user')->count();
-                @endphp
-                <p>Total Pengurus PDFI Saat Ini: {{$count}} Orang</p>
+                <p class="xl fw-bold my-2">PERHIMPUNAN DOKTER FORENSIK-MEDIKOLEGAL INDONESIA</p>
+                <p class="text-justify my-2">Perhimpunan Dokter Forensik-Medikolegal Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia.</p>
                 
             </div>
             <div class="col-lg-2 col-md-3 col-sm-8 col-5">

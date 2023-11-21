@@ -68,6 +68,8 @@ class LoginController extends Controller
             'no_anggota_pdfi' => 'required',
             'asal_cabang' => 'required',
             'tempat_praktek' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required',
             'password' => 'required|min:8',
             'bukti_keanggotaan' => 'required|file|mimes:jpeg,jpg,png',
         ],[
@@ -78,6 +80,8 @@ class LoginController extends Controller
             'no_anggota_pdfi' => 'Input Your PDFI Number',
             'asal_cabang' => 'Input Your Branch Clinic',
             'tempat_praktek' => 'Input Your Address Branch Clinic',
+            'jenis_kelamin' => 'Input Your Gender',
+            'tanggal_lahir' => 'Input Your Date of Birth',
             'bukti_keanggotaan' => 'Input Proof Of Membership',
             'bukti_keanggotaan.mimes' => 'Proof Of Membership must be jpg, jpeg, or png',
             'password' => 'Input Your Password',
@@ -93,6 +97,8 @@ class LoginController extends Controller
         $user->no_anggota_pdfi = $request->no_anggota_pdfi;
         $user->asal_cabang = $request->asal_cabang;
         $user->tempat_praktek = $request->tempat_praktek;
+        $user->jenis_kelamin = $request->jenis_kelamin;
+        $user->tanggal_lahir = $request->tanggal_lahir;
         $user->password = bcrypt($request->password);
         $user->level = 'user';
         $user->verification = 'not verified';

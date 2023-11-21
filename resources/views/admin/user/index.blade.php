@@ -24,17 +24,17 @@
     </div>
     @endif
             <div class=text-center">
-                <table class="table table-hover table-striped" style="overflow-x: auto;">
+                <table class="table table-hover table-striped" style="overflow-x: auto;" id="table1">
                     <thead>
                         <tr class="text-center">
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Asal Cabang</th>
-                            <th>Join Date</th>
-                            <th>Verification</th>
-                            <th>Member Proofs</th>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Action</th>
+                            <th style="text-align: center;">Name</th>
+                            <th style="text-align: center;">Email</th>
+                            <th style="text-align: center;">Asal Cabang</th>
+                            <th style="text-align: center;">Join Date</th>
+                            <th style="text-align: center;">Verification</th>
+                            <th style="text-align: center;">Member Proofs</th>
                         </tr>
                     </thead>
                     <tbody>

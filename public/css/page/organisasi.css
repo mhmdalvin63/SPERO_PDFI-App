@@ -3,6 +3,35 @@
     height: 100% !important;
     flex-wrap: wrap-reverse;
 }
+.organisasiPage{
+    padding-top: 7rem;
+}
+
+.dataTables_length{
+    font-weight: bold;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.dataTables_length select{
+    border: 1px solid #35354f;
+    border-radius: .25rem;
+}
+
+.dataTables_filter input{
+    border: 1px solid #35354f;
+    border-radius: .25rem;
+}
+
+.dataTables_paginate{
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.dataTables_filter{
+    font-weight: bold;
+    float: right;
+}
 
 .nav-link.active {
     color: blue;
@@ -37,9 +66,7 @@
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
 
-.card{
-    border: none;
-}
+
 
 
 @media only screen and (max-width: 992px) {

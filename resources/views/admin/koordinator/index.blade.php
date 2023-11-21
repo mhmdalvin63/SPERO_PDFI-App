@@ -54,12 +54,12 @@
     </div>
 @endif
             <div class="table-responsive">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" id="table1">
                     <thead>
                         <tr class="text-center">
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Koordinator</th>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Action</th>
+                            <th style="text-align: center;">Koordinator</th>
                         </tr>
                     </thead>
                     <tbody>

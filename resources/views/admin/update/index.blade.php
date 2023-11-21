@@ -18,15 +18,15 @@
                 </a>
             </div>
             <div class="table-responsive text-center">
-                <table class="table table-hover table-striped">
+                <table class="table table-hover table-striped" id="table1">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Action</th>
-                            <th>Title</th>
-                            <th>Update Type</th>
-                            <th>Tag</th>
-                            <th>Image Topic</th>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Action</th>
+                            <th style="text-align: center;">Title</th>
+                            <th style="text-align: center;">Update Type</th>
+                            <th style="text-align: center;">Tag</th>
+                            <th style="text-align: center;">Image Topic</th>
                         </tr>
                     </thead>
                     <tbody>

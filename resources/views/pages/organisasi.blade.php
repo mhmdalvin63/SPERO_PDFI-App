@@ -3,7 +3,7 @@
 
 @section('content')
 <link rel="stylesheet" href=" {{ asset('css/page/organisasi.css')}}">
-<div class="organisasiPage"  style="transform: translateY(7rem)">
+<div class="organisasiPage">
     <div class="header">
         <div class="container">
             <div class="row align-items-center" id="bg-header">
@@ -173,10 +173,74 @@
 
     <div class="sejarah my-sm-5 my-3 py-sm-5 py-3">
         <div class="container">
+            <h3 class="text-blue fw-bold mb-3">Demografi PDFI</h3>
+            <div class="row justify-content-center gap-1">
+                @foreach ($users->pluck('kota')->unique('id') as $city)
+                <div class="col-sm-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="fw-bold fs-5 text-blue">{{$city->name}}</p>
+                            <p class="card-text mb-3">Total Dokter Forensik: {{ $users->where('asal_cabang', $city->id)->count() }}</p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{$city->id}}">
+                                Launch demo modal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{$city->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Detail {{$city->name}}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                               <table class="table table-hover table-striped" id="table1_{{ $city->id }}">
+                               <thead>
+                                    <tr>
+                                        <th style="text-align: center;">No</th>
+                                        <th style="text-align: center;">Name</th>
+                                        <th style="text-align: center;">Jenis Kelamin</th>
+                                        <th style="text-align: center;">Umur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($users->where('asal_cabang', $city->id) as $user)
+                                    <tr class="text-center">
+                                        <td>{{ $loop->iteration}}</td>
+                                        <td>{{ $user->name}}</td>
+                                        <td>{{ $user->jenis_kelamin == "P" ? "Perempuan" : "Laki-Laki" }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($user->tanggal_lahir)->age }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                               </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+            // Initialize DataTable for each table with a dynamic ID
+                    $(document).ready(function() {
+                        $('#table1_{{ $city->id }}').DataTable();
+                    });
+                </script>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="sejarah my-sm-5 my-3 py-sm-5 py-3">
+        <div class="container">
             <h3 class="text-blue fw-bold mb-3">Sejarah PDFI</h3>
             <p class="md text-justify fw-bold mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga molestias quisquam similique neque assumenda, doloribus maiores iure! Alias, voluptatum nobis modi esse, dolorum sint inventore voluptatem asperiores iusto quas ea! Sint rem nisi mollitia, labore fuga fugit! Saepe sint maxime perspiciatis minus vitae fuga temporibus earum necessitatibus, quaerat ipsum commodi praesentium, autem laborum consequuntur aliquid odio aspernatur. Distinctio totam assumenda placeat modi vitae adipisci, ipsam exercitationem omnis, obcaecati, mollitia impedit tempora officiis odio dolore eligendi quasi! Voluptatum tenetur assumenda quidem.</p>
         </div>
     </div>
 
 </div>
+
 @endsection

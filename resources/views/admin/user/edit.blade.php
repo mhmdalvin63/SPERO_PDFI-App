@@ -26,13 +26,26 @@
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Asal Cabang<span class="text-danger">*</span></label>
-                        <input type="text" value="{{$userEdit->asal_cabang}}" class="form-control" id="exampleInputUsername1" placeholder="Input Branch CLinic Origin..." name="asal_cabang">
-                        @error('asal_cabang')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        <label for="exampleInputUsername1" class="fw-bold">Gender<span class="text-danger">*</span></label>
+                        <select class="form-control" name="jenis_kelamin">
+                           <option selected disabled>Select Genders</option>
+                           <option value="L" @if($userEdit->jenis_kelamin == 'L')@selected(true)@endif>Male</option>
+                           <option value="P" @if($userEdit->jenis_kelamin == 'P')@selected(true)@endif>Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Birth Of Date<span class="text-danger">*</span></label>
+                        <input type="date" value="{{ $userEdit->tanggal_lahir }}" class="form-control" id="exampleInputUsername1" placeholder="Input Start Date Event..." name="tanggal_lahir">
+                    </div>
+                    <div class="form-group">
+                    <label for="exampleInputUsername1" class="fw-bold">Asal Cabang<span class="text-danger">*</span></label>
+                        <select name="asal_cabang" class="form-control" placeholder="Asal Cabang" id="kota">
+                            <option value="">Asal Cabang</option>
+                            @foreach($kota as $item)
+                            <option value="{{$item->id}}"@if($userEdit->asal_cabang == $item->id)@selected(true)@endif>{{$item->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek<span class="text-danger">*</span></label>
@@ -84,4 +97,12 @@
 </div>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js" integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+
+<script>
+$('#kota').selectize({
+    sortField: 'text',
+});
+</script>
 @endsection
