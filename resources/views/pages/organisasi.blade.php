@@ -181,7 +181,7 @@
                         <div class="card-body">
                             <p class="fw-bold fs-5 text-blue">{{$city->name}}</p>
                             <p class="card-text mb-3">Total Dokter Forensik: {{ $users->where('asal_cabang', $city->id)->count() }}</p>
-                            <button type="button" class="btn px-0" data-bs-toggle="modal" data-bs-target="#exampleModal{{$city->id}}">
+                            <button type="button" class="btn px-0 fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal{{$city->id}}">
                                 Detail Cabang
                             </button>
                         </div>
