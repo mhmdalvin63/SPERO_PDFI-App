@@ -10,11 +10,7 @@
 <div class="berandaPage" style="transform: translateY(5.75rem)">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-12">
-                {{-- <div class="header">
-                    <img class="headerImage" src="{{asset('img/'.$detailagenda->foto)}}" alt="">
-                    <img class="headerImage" src="{{asset('image/shopeeImg.png')}}" alt="">
-                </div> --}}
+            <div class="col-sm-8 col-12">
                 <div id="page">
                     <div class="row">
                         <div class="column small-11 small-centered">
@@ -28,53 +24,46 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-12 ">
                 <div class="container my-5">
-                    <div class="row justify-content-between">
-                        <div class="">
-                            <div class="daTitle mb-5">
-                                <h3 class="fw-bold">{{$detailupdate->judul_update}}</h3>
-                                <p class="fw-semibold">Upload On {{date('d F Y', strtotime($detailupdate->created_at))}}</p>
-                            </div>
-                            <div class="daDesc my-3">
-                                <p class="fw-semibold text-justify">{{$detailupdate->isi_berita}}
-                                </p>
-                            </div>
-                            <div class="interactiveIcon d-flex gap-2 my-3">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" style="color: #666262; padding: 5px 10px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-share-nodes fa-xl"></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                   <li class="dropdown-item">{!! $shareComponent !!}</li>
-                                </ul>
-                            </div>
-                            @if(Auth::check() && Auth::user()->level == 'user')
-                                <button class="trigLike-button btn {{ ($like && $like->id_user == Auth::user()->id) ? 'text-primary' : ''}} " data-update-slug="{{ $detailupdate->slug }}" data-trig="like"><i class="fa-solid fa-thumbs-up fa-xl"></i><span class="fw-bold text-primary ms-2 my-auto" id="like-count-{{$detailupdate->slug}}">{{$countlike}}</span></button>
-                            @else
-                                <a class="pt-1" href="/login"><i class="fa-solid fa-thumbs-up fa-xl"></i><span class="fw-bold text-primary ms-2 my-auto" id="like-count-{{$detailupdate->slug}}">{{$countlike}}</span></a>
-                            @endif
-                            </div>
-                            <div class="hastag d-flex flex-wrap gap-2">
-                                @foreach($detailupdate->tag as $item)
-                                <a href="{{url('/update/tag/'.$item->slug)}}"><p class="xl">#{{$item->tag_name}}</p></a>
-                                @endforeach
-                            </div>
+                    <div class="row justify-content-between text-justify">
+                        <div class="daTitle mb-5">
+                            <h3 class="fw-bold">{{$detailupdate->judul_update}}</h3>
+                            <p class="fw-semibold">Upload On {{date('d F Y', strtotime($detailupdate->created_at))}}</p>
                         </div>
-                        
+                        <div class="daDesc my-3">
+                            <p class="fw-bold text-justify isi_berita">{!! $detailupdate->isi_berita !!}
+                            </p>
+                        </div>
+                        <div class="interactiveIcon d-flex gap-2 my-3">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" style="color: #666262; padding: 5px 10px;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-share-nodes fa-xl"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-item">{!! $shareComponent !!}</li>
+                            </ul>
+                        </div>
+                        @if(Auth::check() && Auth::user()->level == 'user')
+                            <button class="trigLike-button btn {{ ($like && $like->id_user == Auth::user()->id) ? 'text-primary' : ''}} " data-update-slug="{{ $detailupdate->slug }}" data-trig="like"><i class="fa-solid fa-thumbs-up fa-xl"></i><span class="fw-bold text-primary ms-2 my-auto" id="like-count-{{$detailupdate->slug}}">{{$countlike}}</span></button>
+                        @else
+                            <a class="pt-1" href="/login"><i class="fa-solid fa-thumbs-up fa-xl"></i><span class="fw-bold text-primary ms-2 my-auto" id="like-count-{{$detailupdate->slug}}">{{$countlike}}</span></a>
+                        @endif
+                        </div>
+                        <div class="hastag d-flex flex-wrap gap-2">
+                            @foreach($detailupdate->tag as $item)
+                            <a href="{{url('/update/tag/'.$item->slug)}}"><p class="xl">#{{$item->tag_name}}</p></a>
+                            @endforeach
+                        </div>
                     </div>
-            
-                    
                 </div>
             </div>
-           <div class="col-12">
-                <div class="listUpdate mt-5">
+            <div class="col-sm-4 col-12 ">
+                <div class="listUpdate mt-3">
                     <div class="container">
                         <h3 class="text-gray fw-bolder mb-2">Update Lainnya</h3>
-                        <div class="row  justify-content-sm-start justify-content-center">
-                            @foreach($similarUpdates as $item)
-                                <div class="col-12 col-sm-6 col-md-4  my-3">
+                        <div class="justify-content-sm-start">
+                            @foreach($similarUpdates->take(5) as $item)
+                                <div class="">
                                     <a href="{{ url('/detailupdate', $item->slug) }}" style="text-decoration: none; color: black;">
                                         <div class="luContent">
                                             <div class="lcImage">
@@ -89,7 +78,6 @@
                                                 </div>
                                                     <p class="lg fw-semibold">{{date('d F, Y', strtotime($item->created_at))}}</p>
                                             </div>
-                                            
                                         </div>
                                     </a>
                                 </div>
@@ -97,6 +85,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+           <div class="col-12">
+                
             </div>
         </div>
     </div>

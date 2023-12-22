@@ -59,6 +59,13 @@
                         <div class="foto"></div>
                         <div class="result text-danger fw-bold"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Image Source<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{ old('sumber_foto') }}" id="exampleInputUsername1" placeholder="Input Image Source..." name="sumber_foto">
+                        @error('sumber_foto')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/update" class="btn btn-outline-warning btn-icon-text">
                             Cancel

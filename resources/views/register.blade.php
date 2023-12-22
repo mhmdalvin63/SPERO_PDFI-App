@@ -28,6 +28,7 @@
         border: none;
         padding: 0!important;
     }
+    
 </style>
 <body>
     <div id="auth">
@@ -66,11 +67,42 @@
                     @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
+                    <select class="form-control form-control-xl" name="jenis_kelamin" id="">
+                        <option value="" selected disabled>Select Gender</option>
+                        <option value="L">Laki Laki</option>
+                        <option value="P">Perempuan</option>
+                    </select>
+                    <div class="form-control-icon">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    @error('jenis_kelamin')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
                     <input type="text" class="form-control form-control-xl" name="alamat" placeholder="Alamat">
                     <div class="form-control-icon">
                     <i class="bi bi-geo-alt"></i>
                     </div>
                     @error('alamat')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="number" class="form-control form-control-xl" name="no_telp" placeholder="Nomor Telepon">
+                    <div class="form-control-icon">
+                    <i class="bi bi-telephone-plus"></i>
+                    </div>
+                    @error('no_telp')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="form-control form-control-xl" name="tanggal_lahir" placeholder="Tanggal Lahir">
+                    <div class="form-control-icon">
+                    <i class="bi bi-calendar-event"></i>
+                    </div>
+                    @error('tanggal_lahir')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
                 </div>
@@ -93,6 +125,15 @@
                     @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="number" class="form-control form-control-xl" name="tahun_tamat" placeholder="Tahun Tamat Sp.MF">
+                    <div class="form-control-icon">
+                    <i class="bi bi-calendar-event"></i>
+                    </div>
+                    @error('tahun_tamat')
+                    <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
                     <select name="asal_cabang" class="form-control form-control-xl" placeholder="Asal Cabang" id="kota">
                         <option value="">Asal Cabang</option>
                         @foreach($kota as $item)
@@ -107,13 +148,25 @@
                     @enderror
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="text" class="form-control form-control-xl" name="tempat_praktek" placeholder="Tempat Praktek">
+                    <input type="text" class="form-control form-control-xl" name="tempat_praktek" placeholder="Tempat Praktek 1">
                     <div class="form-control-icon">
                     <i class="bi bi-hospital"></i>
                     </div>
                     @error('tempat_praktek')
                     <p class="text-danger">{{ $message }}</p>
                     @enderror
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="text" class="form-control form-control-xl" name="lokasi_praktek_1" placeholder="Tempat Praktek 2(opsional)">
+                    <div class="form-control-icon">
+                    <i class="bi bi-hospital"></i>
+                    </div>
+                </div>
+                <div class="form-group position-relative has-icon-left mb-4">
+                    <input type="text" class="form-control form-control-xl" name="lokasi_praktek_2" placeholder="Tempat Praktek 3(opsional)">
+                    <div class="form-control-icon">
+                    <i class="bi bi-hospital"></i>
+                    </div>
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
                     <input type="file" class="form-control form-control-xl" id="selectImage" name="bukti_keanggotaan">

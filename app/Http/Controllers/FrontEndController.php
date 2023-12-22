@@ -135,10 +135,10 @@ class FrontEndController extends Controller
         // dd($data);
         // dd($users);
         $ageGroups = [
-            '<40' => 0,
-            '41-50' => 0,
-            '51-60' => 0,
-            '61>' => 0,
+            'Usia <=40' => 0,
+            'Usia 41-50' => 0,
+            'Usia 51-60' => 0,
+            'Usia 61>' => 0,
         ];
     
         $currentDate = Carbon::now();
@@ -148,21 +148,27 @@ class FrontEndController extends Controller
             $age = $currentDate->diffInYears($birthDate);
             // dd($age);
             if ($age <= 40) {
-                $ageGroups['<40']++;
+                $ageGroups['Usia <=40']++;
             } elseif ($age >= 41 && $age <= 50) {
-                $ageGroups['41-50']++;
+                $ageGroups['Usia 41-50']++;
             } elseif ($age >= 51 && $age <= 60) {
-                $ageGroups['51-60']++;
+                $ageGroups['Usia 51-60']++;
             } else {
-                $ageGroups['61>']++;
+                $ageGroups['Usia 61>']++;
             }
         }
         // dd(Carbon::parse($users->tanggal_lahir));
 
         // dd($ageGroups);
+        $userCount = User::where('level', 'user')->count();
         $maleCount = User::where('jenis_kelamin', 'L')->where('level', 'user')->count();
         $femaleCount = User::where('jenis_kelamin', 'P')->where('level', 'user')->count();
-        return view("pages.beranda", compact('listupdate', 'ageGroups', 'maleCount', 'femaleCount', 'listagenda', 'banner', 'listupdateumum', 'users', 'data', 'countUser', 'countCabang'));
+
+        $data = [
+            'labels' => ['Label 1', 'Label 2', 'Label 3', 'Label 4'],
+            'data' => [20, 30, 25, 40],
+        ];
+        return view("pages.beranda", compact('listupdate', 'data', 'userCount', 'ageGroups', 'maleCount', 'femaleCount', 'listagenda', 'banner', 'listupdateumum', 'users', 'data', 'countUser', 'countCabang'));
     }
 
     public function detailupdate($slug){

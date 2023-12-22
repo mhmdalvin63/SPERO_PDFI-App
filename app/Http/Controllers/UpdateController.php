@@ -39,20 +39,22 @@ class UpdateController extends Controller
             'judul_update' => 'required',
             'isi_berita' => 'required',
             'jenis_berita' => 'required',
+            'sumber_foto' => 'required',
         ],[
             'foto.mimes' => 'Image Must Be jpeg, jpg, png, webp',
             'judul_update' => 'Insert Title Update',
             'isi_berita' => 'Insert Topic Update',
             'jenis_berita' => 'Select Update Type',
+            'sumber_foto' => 'Input Source Image',
         ]);
 
         try {
             $newUpdate = new Update();
-            $cleanedText = strip_tags($request->isi_berita);
             $newUpdate->judul_update = $request->judul_update;
-            $newUpdate->isi_berita = $cleanedText;
+            $newUpdate->isi_berita = $request->isi_berita;
             $newUpdate->jenis_berita = $request->jenis_berita;
-           $newUpdate->save();
+            $editUpdate->sumber_foto =  $request->sumber_foto;
+            $newUpdate->save();
 
            $newUpdate->tag()->attach($request->id_tag);
 
@@ -110,10 +112,10 @@ class UpdateController extends Controller
         // try {
 
             $editUpdate = Update::find($id);
-            $cleanedText = strip_tags($request->isi_berita);
             $editUpdate->judul_update =  $request->judul_update;
-            $editUpdate->isi_berita =  $cleanedText;
+            $editUpdate->isi_berita =  $request->isi_berita;
             $editUpdate->jenis_berita =  $request->jenis_berita;
+            $editUpdate->sumber_foto =  $request->sumber_foto;
             $editUpdate->save();
 
 
