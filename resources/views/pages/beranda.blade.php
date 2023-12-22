@@ -143,10 +143,12 @@
         <div class="container">
             <h3 class="text-blue fw-bolder mb-2 mb-lg-5">Statistik</h3>
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 mb-3">
+                    <p class="text-center fw-bold">Total Anggota PDFI</p>
                     <canvas id="myChart" width="400" height="200"></canvas>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 mb-3">
+                    <p class="text-center fw-bold">Anggota Berdasarkan Usia</p>
                     <canvas id="ageChart" width="400" height="200"></canvas>
                 </div>
             </div>
@@ -157,16 +159,17 @@
 
 
 <script>
+     var userCount = <?php echo $userCount; ?>;
      var maleCount = <?php echo $maleCount; ?>;
     var femaleCount = <?php echo $femaleCount; ?>;
     // Fetch data from the controller method
 
     var data = {
-        labels: ['Male', 'Female'],
+        labels: ['Total', 'Pria', ' Wanita'],
         datasets: [{
-            label: 'Total User',
-            data: [maleCount, femaleCount],
-            backgroundColor :['#87C4FF', '#662549'],
+            label: 'Total Anggota',
+            data: [userCount, maleCount, femaleCount],
+            backgroundColor :['#062D92', '#87C4FF', '#662549'],
             borderWidth : 0,
         }],
     };
@@ -174,7 +177,26 @@
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: data,
+        plugins: [ChartDataLabels],
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    color: 'black',
+                    align: 'top',
+                    anchor: 'end',
+                    font: {
+                            size: 10,
+                        },
+                    formatter: function(value, context) {
+                        var label = data.labels[context.dataIndex];
+                        return value + ' Orang';
+                    }
+                }
+                    
+            },
             scales: {
                 y: {
                     beginAtZero: true,
@@ -194,9 +216,9 @@
     var ageChartData = {
         labels: Object.keys(ageGroups),
         datasets: [{
-            label: 'Total User Sesuai Umur',
+            label: 'Total Anggota',
             data: Object.values(ageGroups),
-            backgroundColor: ['rgba(0, 123, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+            backgroundColor: ['#B4B4B3', '#9EB8D9', '#7C93C3', '#A25772'],
             borderWidth: 1,
         }],
     };
@@ -206,14 +228,32 @@
     var ageChart = new Chart(ctx, {
         type: 'bar',
         data: ageChartData,
+        plugins: [ChartDataLabels],
         options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    color: 'black',
+                    align: 'top',
+                    anchor: 'end',
+                    font: {
+                            size: 10,
+                        },
+                    formatter: function(value, context) {
+                        var label = ageChartData.labels[context.dataIndex];
+                        return value + ' Orang';
+                    }
+                }
+                    
+            },
             scales: {
                 y: {
                     beginAtZero: true,
                     suggestedMax: 10,
                 }
             },
-            maintainAspectRatio: false, // Make the chart responsive
             responsive: true,
         }
     });

@@ -15,16 +15,10 @@
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Name<span class="text-danger">*</span></label>
                         <input type="text" value="{{$userEdit->name}}" class="form-control" id="exampleInputUsername1" placeholder="Input Name User..." name="name">
-                        @error('name')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Email<span class="text-danger">*</span></label>
                         <input type="Email" value="{{$userEdit->email}}" class="form-control" id="exampleInputUsername1" placeholder="Input Email User..." name="email">
-                        @error('email')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Gender<span class="text-danger">*</span></label>
@@ -37,6 +31,13 @@
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Birth Of Date<span class="text-danger">*</span></label>
                         <input type="date" value="{{ $userEdit->tanggal_lahir }}" class="form-control" id="exampleInputUsername1" placeholder="Input Start Date Event..." name="tanggal_lahir">
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">No. Telepon<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" value="{{ $userEdit->no_telp }}" id="exampleInputUsername1" placeholder="Input Number IDI Organization..." name="no_telp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Alamat<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{$userEdit->alamat}}" id="exampleInputUsername1" placeholder="Input Address..." name="alamat">
                     </div>
                     <div class="form-group">
                     <label for="exampleInputUsername1" class="fw-bold">Asal Cabang<span class="text-danger">*</span></label>
@@ -48,39 +49,32 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" value="{{$userEdit->tempat_praktek}}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="tempat_praktek">
-                        @error('tempat_praktek')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Alamat<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" value="{{$userEdit->alamat}}" id="exampleInputUsername1" placeholder="Input Address..." name="alamat">
-                        @error('alamat')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">No. Anggota IDI<span class="text-danger">*</span></label>
                         <input type="number" value="{{$userEdit->no_anggota_idi}}" class="form-control" id="exampleInputUsername1" placeholder="Input Number IDI Organization..." name="no_anggota_idi">
-                        @error('no_anggota_idi')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">No. Anggota PDFI<span class="text-danger">*</span></label>
                         <input type="number" class="form-control" value="{{$userEdit->no_anggota_pdfi}}" id="exampleInputUsername1" placeholder="Input Number PDFI Organization..." name="no_anggota_pdfi">
-                        @error('no_anggota_pdfi')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tahun Tamat Sp.MF<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" value="{{ $userEdit->tahun_tamat }}" id="exampleInputUsername1" placeholder="Input Graduation Year..." name="tahun_tamat">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{$userEdit->tempat_praktek}}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="tempat_praktek">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek 2(opsional)</label>
+                        <input type="text" class="form-control" value="{{ $userEdit->lokasi_praktek_1 }}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="lokasi_praktek_1">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek 3(opsional)</label>
+                        <input type="text" class="form-control" value="{{ $userEdit->lokasi_praktek_2 }}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="lokasi_praktek_2">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Bukti Keanggotaan<span class="text-danger">*</span></label>
                         <input type="file" class="form-control"  id="exampleInputUsername1" placeholder="Input Number PDFI Organization..." name="bukti_keanggotaan">
-                        @error('bukti_keanggotaan')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
                     </div>
                     <div class="modal-footer gap-1 mt-5">
                         <a href="/admin/user-management" class="btn btn-outline-warning btn-icon-text">

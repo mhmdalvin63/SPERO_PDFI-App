@@ -20,27 +20,17 @@
 
     <div class="tentangKami my-sm-5 my-3 py-sm-5 py-3">
         <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-xl-6 col-lg-5 col-md-6 col-sm-12">
-                    <h3 class="text-blue fw-bold">Tentang Kami</h3>
-                    <p class="md text-justify fw-bold mt-3">Persatuan Dokter Forensik Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia merupakan salah satu Badan Kelengkapan Ikatan Dokter Indonesia (IDI), bersifat bebas, tidak mencari keuntungan, dijiwai oleh Sumpah Dokter Indonesia, mematuhi Kode Etik Kedokteran Indonesia serta peraturan perundang-undangan yang berlaku. Perhimpunan ini didirikan di Yogyakarta pada tanggal 5 Oktober 1993.</p>
-                </div>
-                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-12">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-12 col-12">
-                            <div class="cardVm text-center p-2 my-2">
-                                <h3 class="text-blue fw-bold">Visi</h3>
-                                <p class="md fw-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem saepe, ad quam iste eius exercitationem eaque.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-12 col-12">
-                            <div class="cardVm text-center p-2 my-2">
-                                <h3 class="text-blue fw-bold">Visi</h3>
-                                <p class="md fw-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem saepe, ad quam iste eius exercitationem eaque.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="">
+                <h3 class="text-blue fw-bold">Tentang Kami</h3>
+                <p class="md text-justify fw-bold mt-3">Perhimpunan Dokter Forensik Indonesia (The Indonesian Association of Forensic Medicine), disingkat PDFI adalah satu-satunya organisasi profesi bagi para Dokter Spesialis Forensik di Indonesia merupakan salah satu Badan Kelengkapan Ikatan Dokter Indonesia (IDI), bersifat bebas, tidak mencari keuntungan, dijiwai oleh Sumpah Dokter Indonesia, mematuhi Kode Etik Kedokteran Indonesia serta peraturan perundang-undangan yang berlaku. Perhimpunan ini didirikan di Yogyakarta pada tanggal 5 Oktober 1993. <br>
+
+                Perhimpunan Dokter Forensik Indonesia bertujuan untuk : <br>
+
+                Meningkatkan penerapan ilmu kedokteran forensik dan medikolegal dalam upaya menunjang penegakan hukum di Indonesia, sebagai pengabdian profesi baik dalam segi kualitas maupun segi kuantitas.
+                Mengembangkan ilmu pengetahuan dan teknologi kedokteran forensik dan medikolegal sebagai bagian dari ilmu kedokteran dan sekaligus bagian dari ilmu-ilmu forensik. <br>
+                Membina dan mengembangkan kemampuan profesi anggota. <br>
+                Meningkatkan kesejahteraan anggota. <br>
+                Kedokteran Forensik adalah cabang spesialistik ilmu kedokteran yang mempelajari penerapan secara luas ilmu kedokteran dalam upaya penegakan hukum. Dalam upaya tersebut, ilmu kedokteran forensik menggunakan berbagai jalan untuk mencapai tujuan dengan meneliti tubuh manusia hidup atau mati, sebagian atau seluruhnya, dan mempelajari ciri-ciri serta susunan bahan yang berasal dari atau yang diperoleh dari tubuh, dengan cara makroskopik, mikroskopik, toksikologik, serologik, bioteknologik, mikrobiologik, antropologik, odontologik dan cara-cara ilmiah lainnya. Disamping itu ilmu kedokteran forensik juga mempelajari prosedur medikolegal dan aspek hukum profesi kesehatan dan kedokteran dalam upaya menerapkan ilmu kedokteran di bidang hukum.</p>
             </div>
         </div>
     </div>
@@ -86,11 +76,45 @@
     <div class="sejarah">
         <div class="container">
             <ul class="nav nav-tabs fw-bold justify-content-center" id="myTabs">
+                @foreach ($dewan as $item)
+                    <li class="nav-item">
+                        <a class="nav-link fs-5 @if ($loop->first) active @endif" id="{{ $item->id }}-tab" data-bs-toggle="tab" href="#dewan_{{ $item->id }}">{{ $item->nama }}</a>
+                    </li>
+                @endforeach
+            </ul>
+            <div class="tab-content fw-bold">
+                @foreach ($dewan as $item)
+                    <div class="tab-pane fade @if($loop->first) show active @endif" id="dewan_{{ $item->id }}">
+                        <p class="fw-bold text-blue fs-4">{{ $item->nama }}</p>
+
+                        @foreach($item->organisasi as $pengurus)
+                            @if($pengurus->posisi->tingkatan == 4)
+                                <p class="fw-bold text-dark fs-5 ms-2">Ketua: {{ $pengurus->nama }}</p>
+                            @elseif($pengurus->posisi->tingkatan == 5)
+                                <p class="fw-bold text-dark fs-5 ms-2">Wakil Ketua: {{ $pengurus->nama }}</p>
+                            @elseif($pengurus->posisi->tingkatan == 6)
+                                <p class="fw-bold text-dark fs-5 ms-2">Sekretaris: {{ $pengurus->nama }}</p>
+                            @endif
+                        @endforeach
+
+                        <ul class="fw-bold text-dark fs-5">
+                            @foreach($item->organisasi as $pengurus)
+                                @if($pengurus->posisi->tingkatan == 7)
+                                    <li>{{ $pengurus->nama }}</li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    
+    <div class="sejarah">
+        <div class="container">
+            <ul class="nav nav-tabs fw-bold justify-content-center" id="myTabs">
                 <li class="nav-item">
                     <a class="nav-link fs-5 active" id="bidangTab" data-bs-toggle="tab" href="#bidang">Bidang</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link fs-5" id="dewanTab" data-bs-toggle="tab" href="#dewan">Dewan</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link fs-5" id="koorTab" data-bs-toggle="tab" href="#koor">Koordinator</a>
@@ -121,29 +145,7 @@
                             </ul>
                     @endforeach
                 </div>
-                <div class="tab-pane fade" id="dewan">
-                @foreach($dewan as $item)
-                    <p class="fw-bold text-blue fs-4">{{$item->nama}}</p>
-                        @foreach($item->organisasi as $ketu)
-                            @if($ketu->posisi->tingkatan == 4)
-                            <p class="fw-bold text-dark fs-5 ms-2">Ketua: {{$ketu->nama}}</p>
-                            @endif
-                            @if($ketu->posisi->tingkatan == 5)
-                            <p class="fw-bold text-dark fs-5 ms-2">Wakil Ketua: {{$ketu->nama}}</p>
-                            @endif
-                            @if($ketu->posisi->tingkatan == 6)
-                            <p class="fw-bold text-dark fs-5 ms-2">Sekretaris: {{$ketu->nama}}</p>
-                            @endif
-                        @endforeach
-                            <ul class="fw-bold text-dark fs-5">
-                        @foreach($item->organisasi as $pengurus)
-                            @if($pengurus->posisi->tingkatan == 7)
-                                <li>{{$pengurus->nama}}</li>
-                                @endif
-                                @endforeach
-                            </ul>
-                    @endforeach
-                </div>
+                
                 <div class="tab-pane fade" id="koor">
                 @foreach($koor as $item)
                     <p class="fw-bold text-blue fs-4">{{$item->nama}}</p>
@@ -170,6 +172,7 @@
             </div>
         </div>
     </div>
+    
 
     <div class="sejarah my-sm-5 my-3 py-sm-5 py-3">
         <div class="container">
@@ -233,6 +236,9 @@
             </div>
         </div>
     </div>
+
+    
+    
 
     <div class="sejarah my-sm-5 my-3 py-sm-5 py-3">
         <div class="container">

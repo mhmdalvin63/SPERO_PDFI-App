@@ -65,6 +65,7 @@ class LoginController extends Controller
             'name' => 'required',
             'alamat' => 'required',
             'no_anggota_idi' => 'required',
+            'no_telp' => 'required',
             'no_anggota_pdfi' => 'required',
             'asal_cabang' => 'required',
             'tempat_praktek' => 'required',
@@ -72,6 +73,7 @@ class LoginController extends Controller
             'tanggal_lahir' => 'required',
             'password' => 'required|min:8',
             'bukti_keanggotaan' => 'required|file|mimes:jpeg,jpg,png',
+            'tahun_tamat' => 'required',
         ],[
             'email' => 'Input Your Email',
             'name' => 'Input Your Username',
@@ -86,6 +88,8 @@ class LoginController extends Controller
             'bukti_keanggotaan.mimes' => 'Proof Of Membership must be jpg, jpeg, or png',
             'password' => 'Input Your Password',
             'password.min' => 'Password Must Be 8 Character',
+            'tahun_tamat' => 'Input Graduation Year',
+            'no_telp' => 'Input Your Number Phone',
         ]
     );   
     try{
@@ -95,10 +99,14 @@ class LoginController extends Controller
         $user->alamat = $request->alamat;
         $user->no_anggota_idi = $request->no_anggota_idi;
         $user->no_anggota_pdfi = $request->no_anggota_pdfi;
+        $user->no_telp = $request->no_telp;
         $user->asal_cabang = $request->asal_cabang;
         $user->tempat_praktek = $request->tempat_praktek;
         $user->jenis_kelamin = $request->jenis_kelamin;
         $user->tanggal_lahir = $request->tanggal_lahir;
+        $user->tahun_tamat = $request->tahun_tamat;
+        $user->lokasi_praktek_1 = $request->lokasi_praktek_1;
+        $user->lokasi_praktek_2 = $request->lokasi_praktek_2;
         $user->password = bcrypt($request->password);
         $user->level = 'user';
         $user->verification = 'not verified';
@@ -117,7 +125,8 @@ class LoginController extends Controller
         return redirect()->back();
         
         }catch(Throwable $e){
-            return redirect()->back()->with('error', $e->getMessage());
+            Alert::error('Error',  $e->getMessage());
+            return redirect()->back();
         }
     }
 

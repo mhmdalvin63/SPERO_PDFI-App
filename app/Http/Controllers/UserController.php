@@ -40,6 +40,8 @@ class UserController extends Controller
             'no_anggota_pdfi' => 'required',
             'asal_cabang' => 'required',
             'jenis_kelamin' => 'required',
+            'tahun_tamat' => 'required',
+            'no_telp' => 'required',
             'tanggal_lahir' => 'required',
             'tempat_praktek' => 'required',
             'password' => 'required|min:8',
@@ -55,6 +57,8 @@ class UserController extends Controller
             'tanggal_lahir' => 'Input Your Date of Birth',
             'password' => 'Input Your Password',
             'password.min' => 'Password Must Be 8 Character',
+            'tahun_tamat' => 'Input Graduation Year',
+            'no_telp' => 'Input Your Number Phone',
         ]);   
         try{
             $user = new User();
@@ -63,8 +67,12 @@ class UserController extends Controller
             $user->alamat = $request->alamat;
             $user->no_anggota_idi = $request->no_anggota_idi;
             $user->no_anggota_pdfi = $request->no_anggota_pdfi;
+            $user->no_telp = $request->no_telp;
             $user->asal_cabang = $request->asal_cabang;
             $user->tempat_praktek = $request->tempat_praktek;
+            $user->tahun_tamat = $request->tahun_tamat;
+            $user->lokasi_praktek_1 = $request->lokasi_praktek_1;
+            $user->lokasi_praktek_2 = $request->lokasi_praktek_2;
             $user->jenis_kelamin = $request->jenis_kelamin;
             $user->tanggal_lahir = $request->tanggal_lahir;
             $user->password = bcrypt($request->password);
@@ -137,9 +145,13 @@ class UserController extends Controller
             $user->no_anggota_idi = $request->no_anggota_idi;
             $user->no_anggota_pdfi = $request->no_anggota_pdfi;
             $user->asal_cabang = $request->asal_cabang;
+            $user->no_telp = $request->no_telp;
             $user->tempat_praktek = $request->tempat_praktek;
             $user->jenis_kelamin = $request->jenis_kelamin;
             $user->tanggal_lahir = $request->tanggal_lahir;
+            $user->tahun_tamat = $request->tahun_tamat;
+            $user->lokasi_praktek_1 = $request->lokasi_praktek_1;
+            $user->lokasi_praktek_2 = $request->lokasi_praktek_2;
             if($request->hasFile('bukti_keanggotaan'))
             {
                 $buktiAnggota = 'Anggota'.rand(1,99999).'.'.$request->bukti_keanggotaan->getClientOriginalExtension();

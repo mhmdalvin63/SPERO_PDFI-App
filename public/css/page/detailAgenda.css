@@ -30,6 +30,12 @@
 text-align: -webkit-center;
 }
 
+.daDesc p{
+    text-align: justify;
+    font-weight: bold;
+	font-size: 1.25rem!important;
+}
+
 .slider-single .carouselDA {
     width: 80%;
     height: auto;
@@ -98,6 +104,11 @@ text-align: -webkit-center;
             width: 100vw;
             height: 15rem;
             background-size: 100% auto !important;
+    }
+    .daDesc p{
+        text-align: justify;
+        font-weight: bold;
+        font-size: 1rem!important;
     }
     
 }

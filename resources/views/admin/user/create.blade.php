@@ -52,6 +52,20 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">No. Telepon<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" value="{{ old('no_telp') }}" id="exampleInputUsername1" placeholder="Input Number IDI Organization..." name="no_telp">
+                        @error('no_telp')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Alamat<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{ old('alamat') }}" id="exampleInputUsername1" placeholder="Input Address..." name="alamat">
+                        @error('alamat')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                     <label for="exampleInputUsername1" class="fw-bold">Asal Cabang<span class="text-danger">*</span></label>
                         <select name="asal_cabang" class="form-control" placeholder="Asal Cabang" id="kota">
                             <option value="">Asal Cabang</option>
@@ -61,20 +75,6 @@
                         </select>
                         @error('asal_cabang')
                         <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" value="{{ old('tempat_praktek') }}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="tempat_praktek">
-                        @error('tempat_praktek')
-                                <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputUsername1" class="fw-bold">Alamat<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" value="{{ old('alamat') }}" id="exampleInputUsername1" placeholder="Input Address..." name="alamat">
-                        @error('alamat')
-                                <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
                     <div class="form-group">
@@ -90,6 +90,28 @@
                         @error('no_anggota_pdfi')
                                 <p class="text-danger">{{ $message }}</p>
                         @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tahun Tamat Sp.MF<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" value="{{ old('tahun_tamat') }}" id="exampleInputUsername1" placeholder="Input Graduation Year..." name="tahun_tamat">
+                        @error('tahun_tamat')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="{{ old('tempat_praktek') }}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="tempat_praktek">
+                        @error('tempat_praktek')
+                                <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek 2(opsional)</label>
+                        <input type="text" class="form-control" value="{{ old('lokasi_praktek_1') }}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="lokasi_praktek_1">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername1" class="fw-bold">Tempat Praktek 3(opsional)</label>
+                        <input type="text" class="form-control" value="{{ old('lokasi_praktek_2') }}" id="exampleInputUsername1" placeholder="Input CLinic Origin..." name="lokasi_praktek_2">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputUsername1" class="fw-bold">Bukti Keanggotaan<span class="text-danger">*</span></label>
