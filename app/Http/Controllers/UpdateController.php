@@ -53,7 +53,7 @@ class UpdateController extends Controller
             $newUpdate->judul_update = $request->judul_update;
             $newUpdate->isi_berita = $request->isi_berita;
             $newUpdate->jenis_berita = $request->jenis_berita;
-            $editUpdate->sumber_foto =  $request->sumber_foto;
+            $newUpdate->sumber_foto =  $request->sumber_foto;
             $newUpdate->save();
 
            $newUpdate->tag()->attach($request->id_tag);
